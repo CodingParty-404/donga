@@ -124,7 +124,7 @@
         var pictureList = [[${ picturelist }]]
 
         pictureList.forEach(picture=>{
-            console.log(picture.wt);
+            console.log(picture.weather);
         })
 
     </script>
@@ -249,7 +249,7 @@
                     var slides = [];
 
                     pictureList.forEach(picture => {
-                        slides.push("<img src= /pictures/"+dongaId+"/s_"+picture.fileName+">");
+                        slides.push("<img src= /pictures/"+dongaId+"/s_"+picture.filename+">");
                     })
 
                     return slides;
@@ -265,7 +265,7 @@
             var latlng = new kakao.maps.LatLng(picture.lat, picture.lng);
             var marker = new kakao.maps.Marker({
                 position: latlng,          //마커가 표시되는 좌표 설정
-                title: picture.fileName      //사진파일 이름 저장
+                title: picture.filename      //사진파일 이름 저장
             });
 
             marker.setMap(map);//지도에 마커추가

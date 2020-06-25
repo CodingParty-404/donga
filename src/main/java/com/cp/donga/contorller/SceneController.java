@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -26,7 +27,7 @@ public class SceneController {
     private SceneRepository sceneRepository;
 
     @PostMapping("/gallery2")
-    public String add(Long dongaId, String[] jList, Model model) {
+    public String add(Long dongaId, String[] jList, Model model, RedirectAttributes rttr) {
 
         log.info(dongaId);
         log.info(Arrays.toString(jList));
@@ -57,17 +58,18 @@ public class SceneController {
             log.info(e.getMessage());
         }
 
-        model.addAttribute("dongaId", dongaId);
+        // model.addAttribute("dongaId", dongaId);
+        rttr.addAttribute("dongaId",dongaId);
         // // [앨범 제작 페이지]로 리다이렉트
         return "redirect:/scene/makeDraw";
 
     }
 
     @GetMapping("/makeDraw")
-    public void makeDrawGet(Model model){
+    public void makeDrawGet(Long dongaId, Model model){
         log.info("makeDraw called...........................");
         
-        List<Scene> list = sceneRepository.findAll();
+        List<Scene> list = sceneRepository.findByDonga(Donga.builder().dongaid(dongaId).build());
 
         model.addAttribute("list", list);
     }
