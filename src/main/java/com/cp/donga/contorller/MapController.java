@@ -55,6 +55,8 @@ public class MapController {
     @Autowired
     private DongaRepository DongaRepository;
 
+    private final String ROOT_PATH = "C:\\cp\\donga\\src\\main\\resources\\static\\pictures\\";
+
     // Title, Date of travel, IMG SELECT AND UPLOAD
     @GetMapping("/set")
     public void set(){
@@ -67,7 +69,7 @@ public class MapController {
         log.info(dongaDTO);
         log.info(upload.length);
 
-        String uploadPath = "C:\\donga\\src\\main\\resources\\static\\pictures\\" ;
+        String uploadPath = ROOT_PATH ;
 
         //DTO를 엔티티로 변환해 save하고 insert_id를 가져온다.
         //
@@ -151,7 +153,7 @@ public class MapController {
         // 3.파일의 이름과, 위치 및 시간정보를 저장하고, dto List를 만든다.
         // 4.리스트를 시간순서대로 정렬한다.
         // 5.모델에 저장해서 보낸다.
-        String uploadPath = "C:\\donga\\src\\main\\resources\\static\\pictures\\" + dongaId;
+        String uploadPath = ROOT_PATH + dongaId;
         List<PictureDTO> list = new ArrayList<>();
         File dongaDirectory = new File(uploadPath);
         File[] pictureFiles = dongaDirectory.listFiles();
@@ -211,7 +213,7 @@ public class MapController {
 
 
         // String projectName = "project1";
-        String uploadPath = "C:\\donga\\src\\main\\resources\\static\\pictures\\" + dongaId;
+        String uploadPath = ROOT_PATH + dongaId;
 
         List<Picture> list = new ArrayList<>();
         File dongaDirectory = new File(uploadPath);
