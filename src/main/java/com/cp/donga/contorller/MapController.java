@@ -13,12 +13,10 @@ import java.util.List;
 import java.util.UUID;
 
 import com.cp.donga.domain.Donga;
-import com.cp.donga.domain.DongaMember;
 import com.cp.donga.domain.Picture;
 import com.cp.donga.dto.DongaDTO;
 import com.cp.donga.dto.PictureDTO;
-import com.cp.donga.repository.DongaRepository;
-import com.cp.donga.repository.PictureRepository;
+import com.cp.donga.service.MapService;
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.lang.GeoLocation;
 import com.drew.metadata.Metadata;
@@ -49,11 +47,9 @@ import net.coobird.thumbnailator.geometry.Positions;
 @Log4j2
 public class MapController {
 
-    @Autowired
-    private PictureRepository pictureRepository;
 
     @Autowired
-    private DongaRepository DongaRepository;
+    private MapService mapService;
 
     private final String ROOT_PATH = "C:\\cp\\donga\\src\\main\\resources\\static\\pictures\\";
 
@@ -71,19 +67,19 @@ public class MapController {
 
         String uploadPath = ROOT_PATH ;
 
-        //DTO를 엔티티로 변환해 save하고 insert_id를 가져온다.
+        // DTO를 엔티티로 변환해 save하고 insert_id를 가져온다.
         //
-        Donga donga = Donga.builder()
-                            .eddate(dongaDTO.getEnddate())
-                            .stdate(dongaDTO.getStartdate())
-                            .regdate(LocalDate.now())
-                            .title(dongaDTO.getTitle())
-                            // .member(Member.builder().mid(1L).build())
-                            .dongamember(DongaMember.builder().mid(1L).build())
-                            .build();
+        // Donga donga = Donga.builder()
+        //                     .eddate(dongaDTO.getEnddate())
+        //                     .stdate(dongaDTO.getStartdate())
+        //                     .regdate(LocalDate.now())
+        //                     .title(dongaDTO.getTitle())
+        //                     .member(Member.builder().mid(1L).build())
+        //                     .dongamember(DongaMember.builder().mid(1L).build())
+        //                     .build();
 
-        log.info(DongaRepository.save(donga));
-        // log.info("inserted donga id:"+donga.getDongaId());
+
+        Donga donga = mapService.registerDonga(dongaDTO);
         Long dongaId = donga.getDongaid();
         log.info(uploadPath+dongaId);
 
@@ -110,39 +106,6 @@ public class MapController {
         return "redirect:/map/gallery";
     }
 
-
-    @GetMapping("/swiper")
-    public void swiper(Long dongaId, Model model) { // 파라미터로 dongaId를 받는다.
-        log.info("swiper called....");
-        log.info(dongaId);
-        // 1.전달받은 donga 정보를 가지고 donga객체를 생성한다.
-        // 2.일치하는 picture를 가져온다.
-        // 3.모델에 entity list를 전달한다.s
-        
-        //Donga의 id는 파라미터로 수집 되야함
-        Donga donga = Donga.builder().dongaid(dongaId).build();
-        List<Picture> list = pictureRepository.getPicturesAndWeather(donga);
-        
-
-        model.addAttribute("dongaId", dongaId);
-        model.addAttribute("picturelist", list);
-    }
-
-    // 오늘자 폴더구조 문자열 반환
-    private String getFolder() {
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
-        Date date = new Date(); // 오늘자 날짜데이터 생성
-
-        String result = dateFormat.format(date);
-        return result;
-    }
-
-    @GetMapping("/progress")
-    public void progress() {
-
-        log.info("get progress call...............");
-    }
 
     @GetMapping("/gallery")
     public void gallery(Long dongaId, Model model) {
@@ -287,33 +250,41 @@ public class MapController {
                     .build());
         } // end of for loop
 
-        pictureRepository.saveAll(list);
+        mapService.registerPictures(list);
         rttr.addAttribute("dongaId",dongaId);
-
+        
         return new RedirectView("/map/swiper");
     }
 
-    @GetMapping("/gallery2")
-    public void gallery2get(Model model, Long dongaId){
-        log.info("gallery2 get called.....................");
-        log.info("DongaId : " +dongaId);
+    @GetMapping("/swiper")
+    public void swiper(Long dongaId, Model model) { // 파라미터로 dongaId를 받는다.
+        log.info("swiper called....");
+        log.info(dongaId);
+        // 1.전달받은 donga 정보를 가지고 donga객체를 생성한다.
+        // 2.일치하는 picture를 가져온다.
+        // 3.모델에 entity list를 전달한다.s
+        
+        //Donga의 id는 파라미터로 수집 되야함
+        List<Picture> list = mapService.getPictures(dongaId);
 
-        List<Picture> pictures = pictureRepository.getPicturesAndWeather(Donga.builder().dongaid(dongaId).build());
-        List<PictureDTO> pictureDTOs = new ArrayList<>();
-
-        //가져온 pictures 길이만큼 dto를 생성해서 모델에 전달한다.
-        pictures.stream().forEach(picture->{
-
-            pictureDTOs.add(PictureDTO.builder()
-                                      .filename(picture.getFilename())
-                                      .capDate(picture.getCapdate())
-                                      .weatherstatus(picture.getWeather() == null ? "없음" : picture.getWeather().getStatus())
-                                      .build());
-        });
-
-        log.info(pictureDTOs.size());
-        model.addAttribute("pictureList", pictureDTOs);
         model.addAttribute("dongaId", dongaId);
+        model.addAttribute("picturelist", list);
+    }
+
+    // 오늘자 폴더구조 문자열 반환
+    private String getFolder() {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
+        Date date = new Date(); // 오늘자 날짜데이터 생성
+
+        String result = dateFormat.format(date);
+        return result;
+    }
+
+    @GetMapping("/progress")
+    public void progress() {
+
+        log.info("get progress call...............");
     }
 
     @GetMapping("/dragdrop")

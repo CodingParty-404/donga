@@ -5,7 +5,7 @@ import java.util.List;
 import com.cp.donga.domain.Donga;
 import com.cp.donga.domain.Scene;
 import com.cp.donga.repository.SceneRepository;
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+import com.cp.donga.service.SceneService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,10 +20,11 @@ import lombok.extern.log4j.Log4j2;
 @Controller
 @Log4j2
 @RequestMapping("/share")
-public class ShardController {
-    
+public class ShareController {
+
     @Autowired
-    private SceneRepository sceneRepository;
+    private SceneService sceneService;
+    
 
     @GetMapping("/read")
     public void readGet(@RequestParam Long dongaId, Model model){
@@ -31,7 +32,7 @@ public class ShardController {
 
         log.info(dongaId);
 
-        List<Scene> list  =  sceneRepository.findByDonga(Donga.builder().dongaid(dongaId).build());
+        List<Scene> list  =  sceneService.getSceneList(dongaId);
 
         list.forEach(vo -> log.info(vo));
         model.addAttribute("list", list);
