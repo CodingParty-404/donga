@@ -63,6 +63,11 @@ public class MapController {
         //redirect 
     }
 
+    @GetMapping("/setTest")
+    public void setTest(){
+        
+    }
+
     @PostMapping("/set")
     public String setPost(DongaDTO dongaDTO, MultipartFile[] upload, RedirectAttributes rttr){
 
@@ -320,6 +325,7 @@ public class MapController {
     public void dragDrop() {
         log.info("get dragdrop call..............");
     }
+
 
     @PostMapping(value = "/upload", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
