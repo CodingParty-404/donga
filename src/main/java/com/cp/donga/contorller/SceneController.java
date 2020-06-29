@@ -14,7 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -61,17 +63,38 @@ public class SceneController {
         // model.addAttribute("dongaId", dongaId);
         rttr.addAttribute("dongaId",dongaId);
         // // [앨범 제작 페이지]로 리다이렉트
-        return "redirect:/scene/makeDraw";
+        return "redirect:/scene/makedraw";
 
     }
 
-    @GetMapping("/makeDraw")
+    @GetMapping("/makedraw")
     public void makeDrawGet(Long dongaId, Model model){
         log.info("makeDraw called...........................");
         
         List<Scene> list = sceneRepository.findByDonga(Donga.builder().dongaid(dongaId).build());
 
         model.addAttribute("list", list);
+        model.addAttribute("dongaId", dongaId);
     }
+    @PostMapping("/makedraw")
+    public RedirectView makeDrawPost(@RequestParam String[] jList, @RequestParam Long dongaId, RedirectAttributes rttr)
+    {
+        log.info("makedarw Post called .....................................");
+        log.info(dongaId);
+
+
+        Long i = 1L;
+        for (String json : jList) {
+
+            log.info(i);
+            sceneRepository.updateScene(json, Donga.builder().dongaid(dongaId).build(), i++);
+        }
+
+        rttr.addAttribute("dongaId", dongaId);
+
+        return new RedirectView("/share/read");
+    }
+
+    
 
 }

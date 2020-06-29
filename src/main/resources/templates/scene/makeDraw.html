@@ -156,10 +156,11 @@
                     preJson[curCanvas].innerText = JSON.stringify(canvas2.toJSON());
 
                     var sendForm = document.createElement('form');
-                    let inputs="";
+                    let inputs="<input type='text' name='dongaid' value="+[[${dongaId}]]+">";
                     [...preJson].forEach(element => {
-                        inputs += '<input type="text" name="jList" value="'+element.innerText+'">'
+                        inputs += "<input type='text' name='jList' value= '"+element.innerText+"' >"
                     });
+                    
                     document.body.appendChild(sendForm);
                     sendForm.innerHTML = inputs;
                     console.log(sendForm.innerHTML);

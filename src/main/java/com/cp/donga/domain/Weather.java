@@ -1,6 +1,5 @@
 package com.cp.donga.domain;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
@@ -12,7 +11,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @Entity
