@@ -10,4 +10,14 @@ public class IndexController {
     public void index(){
         
     }
+
+    @GetMapping("/includesTest")
+    public void include(){
+        
+    }
+
+    @GetMapping("/includesTest2")
+    public void include2(){
+        
+    }
 }
