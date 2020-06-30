@@ -1,0 +1,26 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "gradle",
+			"id": "c:\\cp\\dongabuilddonga",
+			"script": "build",
+			"description": "Assembles and tests this project.",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"project": "donga",
+			"buildFile": "C:\\cp\\donga\\build.gradle",
+			"rootProject": "donga",
+			"projectFolder": "c:\\cp\\donga",
+			"workspaceFolder": "c:\\cp\\donga",
+			"args": "",
+			"javaDebug": false,
+			"problemMatcher": [
+				"$gradle"
+			],
+			"label": "gradle: build"
+		}
+	]
+}

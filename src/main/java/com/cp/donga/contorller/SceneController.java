@@ -1,12 +1,16 @@
 package com.cp.donga.contorller;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import com.cp.donga.domain.Donga;
+import com.cp.donga.domain.Picture;
 import com.cp.donga.domain.Scene;
-import com.cp.donga.repository.SceneRepository;
+import com.cp.donga.dto.PictureDTO;
+import com.cp.donga.service.MapService;
+import com.cp.donga.service.SceneService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +18,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -24,7 +30,33 @@ import lombok.extern.log4j.Log4j2;
 public class SceneController {
 
     @Autowired
-    private SceneRepository sceneRepository;
+    private MapService mapService;
+    @Autowired
+    private SceneService sceneService;
+
+    @GetMapping("/gallery2")
+    public void gallery2get(Model model, Long dongaId){
+        log.info("gallery2 get called.....................");
+        log.info("DongaId : " +dongaId);
+
+        // List<Picture> pictures = pictureRepository.getPicturesAndWeather(Donga.builder().dongaid(dongaId).build());
+        List<Picture> pictures =  mapService.getPictures(dongaId);
+        List<PictureDTO> pictureDTOs = new ArrayList<>();
+
+        //가져온 pictures 길이만큼 dto를 생성해서 모델에 전달한다.
+        pictures.stream().forEach(picture->{
+
+            pictureDTOs.add(PictureDTO.builder()
+                                      .filename(picture.getFilename())
+                                      .capDate(picture.getCapdate())
+                                      .weatherstatus(picture.getWeather() == null ? "없음" : picture.getWeather().getStatus())
+                                      .build());
+        });
+
+        log.info(pictureDTOs.size());
+        model.addAttribute("pictureList", pictureDTOs);
+        model.addAttribute("dongaId", dongaId);
+    }
 
     @PostMapping("/gallery2")
     public String add(Long dongaId, String[] jList, Model model, RedirectAttributes rttr) {
@@ -49,7 +81,7 @@ public class SceneController {
                                                                    .pagenum(i+1L)
                                                                    .scenepath(newJson)
                                                                    .build();
-                sceneRepository.save(scene);
+                sceneService.registerScene(scene);
             }
 
             // dongaId 전달
@@ -61,17 +93,35 @@ public class SceneController {
         // model.addAttribute("dongaId", dongaId);
         rttr.addAttribute("dongaId",dongaId);
         // // [앨범 제작 페이지]로 리다이렉트
-        return "redirect:/scene/makeDraw";
-
+        return "redirect:/scene/makedraw";
     }
 
-    @GetMapping("/makeDraw")
+    @GetMapping("/makedraw")
     public void makeDrawGet(Long dongaId, Model model){
         log.info("makeDraw called...........................");
         
-        List<Scene> list = sceneRepository.findByDonga(Donga.builder().dongaid(dongaId).build());
+        List<Scene> list = sceneService.getSceneList(dongaId);
 
         model.addAttribute("list", list);
+        model.addAttribute("dongaId", dongaId);
     }
+    @PostMapping("/makedraw")
+    public RedirectView makeDrawPost(@RequestParam String[] jList, @RequestParam Long dongaId, RedirectAttributes rttr)
+    {
+        log.info("makedarw Post called .....................................");
+        log.info(dongaId);
+
+
+        Long index = 1L;
+        for (String json : jList) {
+            sceneService.getOneScene(json, dongaId, index);
+        }
+
+        rttr.addAttribute("dongaId", dongaId);
+
+        return new RedirectView("/share/read");
+    }
+
+    
 
 }

@@ -7,9 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
-import org.hibernate.annotations.Type;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,6 +26,7 @@ public class Scene {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sid;
 
+    // @Column(columnDefinition = "json")
     private String scenepath;  
 
     private Long pagenum;
