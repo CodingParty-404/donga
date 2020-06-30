@@ -15,10 +15,7 @@ public class ShareServiceimpl implements ShareService {
 
     @Override
     public List<Scene> getSceneWhereDongaID(Long dongaId) {
-
-
         return sceneRepository.findByDonga(Donga.builder().dongaid(dongaId).build());
-
     }
         
 }

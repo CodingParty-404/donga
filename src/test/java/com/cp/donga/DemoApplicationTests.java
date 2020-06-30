@@ -1,14 +1,8 @@
 package com.cp.donga;
 
-import java.util.Optional;
-
-import javax.transaction.Transactional;
-
 import com.cp.donga.domain.Donga;
-import com.cp.donga.domain.Scene;
 import com.cp.donga.repository.DongaRepository;
 import com.cp.donga.repository.SceneRepository;
-import com.mysql.cj.log.Log;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

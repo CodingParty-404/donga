@@ -2,9 +2,7 @@ package com.cp.donga.contorller;
 
 import java.util.List;
 
-import com.cp.donga.domain.Donga;
 import com.cp.donga.domain.Scene;
-import com.cp.donga.repository.SceneRepository;
 import com.cp.donga.service.SceneService;
 
 import org.springframework.beans.factory.annotation.Autowired;
