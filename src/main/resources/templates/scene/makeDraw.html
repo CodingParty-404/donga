@@ -154,6 +154,7 @@
                 comBTN.addEventListener("click",function(e){
                     var curCanvas = canvas2.getElement().getAttribute("data-curCanvas");
                     preJson[curCanvas].innerText = JSON.stringify(canvas2.toJSON());
+                    console.log(preJson[curCanvas].innerHTML);
 
                     var sendForm = document.createElement('form');
                     let inputs="<input type='text' name='dongaid' value="+[[${dongaId}]]+">";
@@ -165,7 +166,7 @@
                     sendForm.innerHTML = inputs;
                     console.log(sendForm.innerHTML);
                     sendForm.method="post";
-                    sendForm.submit();
+                        sendForm.submit();
                 })
                 
             };
@@ -197,10 +198,13 @@
                     preFCan[i].setWidth(1024);
                     preFCan[i].setHeight(720);
                     preFCan[i].loadFromJSON(preJson[i].innerText,function(){
+                        //toBlob메서드 자체가 블럭됨 - 사유 오염된 캔버스
                         preFCan[i].getElement().toBlob(function(blob){
                             var url = URL.createObjectURL(blob);
-                            var img = canvasSlide[i];
-                            img.crossOrigin="anonymous";
+                            var img = new Image();
+                            // img.crossOrigin ="'*'";
+                            img.crossOrigin="Anonymous";
+                            img = canvasSlide[i];
                             img.src=url;
                             img.onload = function() {
                                 URL.revokeObjectURL(this.src);

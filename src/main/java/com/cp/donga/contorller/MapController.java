@@ -51,8 +51,8 @@ public class MapController {
     @Autowired
     private MapService mapService;
 
-    private final String ROOT_PATH = "C:\\cp\\donga\\src\\main\\resources\\static\\pictures\\";
-
+    private final String ROOT_PATH = "\\\\192.168.0.70\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
+    
     // Title, Date of travel, IMG SELECT AND UPLOAD
     @GetMapping("/set")
     public void set(){
@@ -87,7 +87,7 @@ public class MapController {
         // upDirectory.setWritable(true);
         // upDirectory.setExecutable(true)
 
-        upDirectory.mkdir();
+        upDirectory.mkdirs();
 
         for (MultipartFile upfile : upload) {
             File pictureFile = new File(upDirectory, upfile.getOriginalFilename());
@@ -120,8 +120,10 @@ public class MapController {
         List<PictureDTO> list = new ArrayList<>();
         File dongaDirectory = new File(uploadPath);
         File[] pictureFiles = dongaDirectory.listFiles();
-
-
+        log.info("++++++++++++++++++++++++++++++++++++++++");
+        log.info(uploadPath);
+        log.info(pictureFiles);
+        log.info("++++++++++++++++++++++++++++++++++++++++");
 
         for (File picturefile : pictureFiles) {
             // 파일 이름.

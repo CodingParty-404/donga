@@ -114,7 +114,7 @@ public class SceneController {
 
         Long index = 1L;
         for (String json : jList) {
-            sceneService.getOneScene(json, dongaId, index);
+            sceneService.setOneScene(json, dongaId, index++);
         }
 
         rttr.addAttribute("dongaId", dongaId);

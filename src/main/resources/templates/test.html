@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas">
+
+    </canvas>
+    <button id="testbtn">
+        add img
+    </button>
+    <button id="printImg">
+        print
+    </button>
+    <img id="imga"  crossorigin="Anonymous" src="http://192.168.0.70:8080/cpst/img/test.jpg">
+
+    <script>
+        document.getElementById("testbtn").onclick = draw;
+        document.getElementById("printImg").onclick = print;
+        function draw (){
+            var ctx = document.getElementById("canvas").getContext('2d');
+            var img = document.getElementById("imga");
+            // img.crossorigin="*";
+            ctx.drawImage(img,0,0,200,200);
+        }
+        function print(){
+            var dataURL = document.getElementById("canvas").toDataURL();
+            console.log(dataURL);
+        }
+    </script>
+</body>
+</html>

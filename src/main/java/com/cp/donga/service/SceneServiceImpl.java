@@ -9,7 +9,10 @@ import com.cp.donga.repository.SceneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lombok.extern.log4j.Log4j2;
+
 @Service
+@Log4j2
 public class SceneServiceImpl implements SceneService {
 
     @Autowired
@@ -28,7 +31,7 @@ public class SceneServiceImpl implements SceneService {
     }
 
     @Override
-    public int getOneScene(String json, Long dongaId, Long index) {
+    public int setOneScene(String json, Long dongaId, Long index) {
         return sceneRepository.updateScene(json, Donga.builder()
                                             .dongaid(dongaId)
                                             .build(), index);
