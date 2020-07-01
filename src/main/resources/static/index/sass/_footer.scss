@@ -1,13 +1,13 @@
 /**********************footer part css*******************/
 .footer_part {
-	padding: 180px 0px 25px;
+	padding: 10px 0px 25px;
 	position: relative;
 	@media #{$tab} {
-		padding: 70px 0px 25px;
+		padding: 10px 0px 25px;
 	}
 
 	@media #{$medium_device} {
-		padding: 80px 0px 25px;
+		padding: 10px 0px 25px;
 	}
 	.footer_overlay{
 		position: absolute;
