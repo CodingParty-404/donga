@@ -1,0 +1,343 @@
+<div th:replace="includes/header"></div>
+<body>
+
+    <style>
+        /* body {
+            background: #eee;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color: #000;
+            margin: 0;
+            padding: 0;
+        } */
+
+        .swiper-container {
+            width: 100%;
+            height: 20%;
+            margin: 20px auto;
+            background: #fff;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #111111;
+
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .append-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .append-buttons a {
+            display: inline-block;
+            border: 1px solid #007aff;
+            color: #007aff;
+            text-decoration: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin: 0 10px;
+            font-size: 13px;
+        }
+        .srcImgShow{
+            background-color: black;
+            /* height: 500px; */
+        }
+
+        video{
+            position: absolute;
+            left: 0px;
+            min-width: 100%;
+        }
+        .img_view{
+            position: relative;
+            overflow: hidden;
+        }
+
+        .srcImg{
+            position: relative;
+            /* top: -60vh; */
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 60%;
+            height: 100%;
+        }
+
+        .d-none.d-sm-block.mb-5.pb-2{
+            box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.3);
+            padding : 5px;
+        }
+
+        .padding_top{
+            padding-top: 100px;
+        }
+
+    </style>
+    
+
+     <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+     <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+
+
+    <!--페이지 시작-->
+    <button type='button' id="nextpage" class='btn btn-primary'>다음페이지로</button></div>
+    <!-- 템플릿 컨테이너 -->
+    <section class="contact-section padding_top">
+        <div class="container box_1170">
+        <h2>ㅁㅁㅁ의 여행 경로입니다.</h2>
+        <hr>
+          <div class="d-none d-sm-block mb-5 pb-2">
+          <!--카카오 지도 뷰-->
+          <div id="map" style="width:100%;height:600px;"></div>   
+          </div>
+        </div>
+        <div id="indexBallon" data-depth="0.7">
+            <img src="/index/img/banner_img.png" id="balloon" >
+        </div>
+    </section>
+      <!-- Swiper container -->
+    <div class="swiper-container">
+        <div class="swiper-wrapper"></div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- Add Arrows -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+    <!-- <div>
+        <input id="uploadInput" type="file" multiple>파일
+    </div>
+
+    <div class="progress" style="visibility: hidden;">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
+            aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+    </div> -->
+    <div class="container img_view">
+        <video autoplay loop muted preload="auto" > 
+            <source src="/leaf_raindrop2.mp4" type="video/mp4">
+        </video>
+        <div>
+            <div class = 'srcImgShow'>
+                <img class = 'srcImg' src="" hidden>    
+                <!-- <img class = 'srcImg' src="/pictures/project1/IMG_0096.jpg"> -->
+            </div>        
+        </div>
+    </div>
+    
+    <div class="container">
+       
+    </div>
+    <form id='form' hidden>
+
+    </form>
+
+    <!-- 카카오api -->
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=047e6d8e7369c540c7a7d7a0b68cca31&libraries=clusterer"></script>
+
+    <!--타임리프 모델 데이터 로드-->
+    <script th:inline="javascript">
+        var pictureList = [[${ picturelist }]]
+
+        pictureList.forEach(picture=>{
+            console.log(picture.weather);
+        })
+
+    </script>
+    <script>
+
+        // for(var i = 0 ; i < pictureList.length ; i++){
+        //    console.log(pictureList[i].fileName);
+        //    console.log("lat : "+pictureList[i].lat);
+        //    console.log("lng : " +pictureList[i].lng);
+        // //    console.log(pictureList[i].wt===null) //picture의 날씨정보는 null일 수 있음
+        // }
+
+
+        var dongaId = [[${dongaId}]];
+        //1.정규식 설정으로 업로드 파일 저항
+        var regex = new RegExp("(.*?)\.(jpg|JPG)$");
+        //2.제한 데이터 크기 값 선언- 5M
+        var maxSize = 5242880;
+
+        //kakao map ini...................
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+            mapOption = {
+                center: new kakao.maps.LatLng(37.525352, 126.986312), // 지도의 중심좌표
+                level: 12 // 지도의 확대 레벨
+            };
+
+        // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+
+        //클러스터러
+        var clusterer = new kakao.maps.MarkerClusterer({
+            map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
+            averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
+            minLevel: 3, // 클러스터 할 최소 지도 레벨 
+            gridSize: 50, //한 마커가 근처에 80
+            minClusterSize: 1, // 클러스트할 최소 마커갯수
+            disableClickZoom: true //클릭 시 줌 이벤트 비활성화
+            //false면 줌될때 마다 클러스터는 새로운 값으로 갱신된다.
+        });
+
+        //스와이퍼
+        var swiper = new Swiper('.swiper-container', {
+
+            slidesPerView: 5,
+            centeredSlides: true,
+            spaceBetween: 50,
+            speed: 500,
+            effect: "coverflow",
+            virtual: {
+                slides: (function () {
+                    var slides = [];
+
+                    pictureList.forEach(picture => {
+                        slides.push("<img src= /pictures/"+dongaId+"/s_"+picture.filename+">");
+                    })
+                    console.log(slides);
+
+                    return slides;
+                }()),
+            },
+            coverflowEffect: {
+                rotate: 30,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: true,
+            },
+            on :{
+              click : function(e){
+                
+                //1.슬라이더가 클릭됐을때 이미지 태그인지 검사한다.
+                //2.이미지태그라면, 해당 타겟의 src를 참조해 s_를 짤라 경로를 뽑아낸다.
+                //3.원본이미지 디브를 생성해 맵 밑에 추가한다.
+                var clickedObj = e.target
+                
+                if(clickedObj.tagName === "IMG"){
+                
+                console.log(clickedObj.tagName);
+                console.log(clickedObj.getAttribute("src"));
+                swiper.slideTo(swiper.clickedIndex);
+
+                var thumbSrc = clickedObj.getAttribute("src");
+                var cutNum = thumbSrc.indexOf("s_")
+                // console.log(src.slice(cutNum-src.length));
+                var src = thumbSrc.substring(cutNum+2,thumbSrc.length);
+                // var img = "<img class = 'srcImg' src='/pictures/"+dongaId+"/"+src+"'>"
+                var srcImg = $(".srcImg")
+                console.log(srcImg);
+                srcImg.attr("hidden",false);
+                $(".srcImg").attr("src","/pictures/"+dongaId+"/"+src);
+                }
+
+              }  
+            },
+            autoplay: {
+                delay: 1500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                type: 'fraction',
+            },
+            navigation: { //네비게이터가 될 버튼 객체 태그이름
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            
+        }
+        );
+
+        var linedMarkers = [];
+        pictureList.forEach(picture => {
+            console.log(picture);
+
+            var latlng = new kakao.maps.LatLng(picture.lat, picture.lng);
+            var marker = new kakao.maps.Marker({
+                position: latlng,          //마커가 표시되는 좌표 설정
+                title: picture.filename      //사진파일 이름 저장
+            });
+
+            marker.setMap(map);//지도에 마커추가
+
+            clusterer.addMarker(marker);//클러스터 처리할 마커 추가
+
+            // 선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
+            linedMarkers.push(latlng);
+        }) 
+
+        //클러스터 클릭 이벤트
+        kakao.maps.event.addListener(clusterer, 'clusterclick', function (cluster) {
+
+            // 현재 지도 레벨에서 1레벨 확대한 레벨
+            var level = map.getLevel() - 1;
+
+            //슬라이드로 추가할 img html text 배열
+            var slides = [];
+
+            //클러스터에 속해있는 마커 갯수만큼 이미지태그 생성
+            cluster.getMarkers().forEach(item => {
+                slides.push("<img src ='/pictures/"+dongaId+"/" + "s_"+ item.getTitle() + "'>");
+            });
+
+            //swiper의 슬라이드 제거후 virtual slide 생성
+            swiper.virtual.removeAllSlides();
+            swiper.virtual.appendSlide(slides);
+            swiper.virtual.update();
+            swiper.slideTo(0);
+            swiper.autoplay.start();
+
+            // 지도를 클릭된 클러스터의 마커의 위치를 기준으로 확대합니다
+            map.setLevel(level, { anchor: cluster.getCenter() });
+        });
+
+        // 지도에 표시할 선을 생성합니다
+        var polyline = new kakao.maps.Polyline({
+            path: linedMarkers, // 선을 구성하는 좌표배열 입니다
+            strokeWeight: 6, // 선의 두께 입니다
+            strokeColor: '#FFAE00', // 선의 색깔입니다
+            strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+            strokeStyle: 'solid' // 선의 스타일입니다
+        });
+
+        // 지도에 선을 표시합니다 
+        polyline.setMap(map);
+
+
+        //다음페이지 버튼 클릭시
+        $("#nextpage").click(function(){
+            //각 사진파일의 정보를 form에 저장해 전달한다.
+            
+            var formObj = $("#form");
+            formObj.attr("action","/scene/gallery2");
+            formObj.attr("method","get");
+          
+            formObj.append("<input name = 'dongaId' value ='" +dongaId+ "'></input>");
+            formObj.submit();
+        })
+           
+    </script>
+    <div th:replace="includes/footer"></div>

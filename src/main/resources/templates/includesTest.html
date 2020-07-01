@@ -1,0 +1,101 @@
+<div th:replace = "includes/header"></div>
+<style>
+	.footer_part{
+		padding-top: 100px;
+	}
+</style>
+<section class="banner_part" id="main_banner" data-depth="0.2">
+	<div class="bg-contact100" style="background-image:  url('/korea.jpg');">
+		<div class="container-contact100">
+			<div class="wrap-contact100">
+				<div class="contact100-pic js-tilt" data-tilt>
+					<!-- <img src="/familytravel.jpg" alt="IMG"> -->
+					<img src="/familytravel2.jpg" alt="IMG">
+				</div>
+
+				<form class="contact100-form validate-form">
+					<span class="contact100-form-title">
+						우리 가족 동가 만들기
+					</span>
+
+                    <div class="wrap-input100 validate-input" data-validate = "제목을 입력해주세요">
+						<input class="input100" type="text" name="title" placeholder="동가 제목">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-user" aria-hidden="true"></i>
+						</span>
+                    </div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Name is required">
+						<input class="input100" type="date" name="startdate" placeholder="">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-user" aria-hidden="true"></i>
+						</span>
+                    </div>
+                    
+                    <div class="wrap-input100 validate-input" data-validate = "Name is required">
+						<input class="input100" type="date" name="startdate" placeholder="">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-user" aria-hidden="true"></i>
+						</span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "여행 완료일을 입력해주세요">
+                        <input class="input100 fileInput" data-multiple-caption="{count} files selected" id="file" type="file" name="upload" placeholder="">
+                        <!-- <input type="file" name="file" id="file" class="inputfile" /> -->
+                        <label class = "input100" for="file">Choose a file</label>
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
+					</div>
+
+					<!-- <div class="wrap-input100 validate-input" data-validate = "Message is required">
+						<textarea class="input100" name="message" placeholder="Message"></textarea>
+						<span class="focus-input100"></span>
+					</div> -->
+
+					<div class="container-contact100-form-btn">
+						<button class="contact100-form-btn">
+							완료
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+</section>
+
+
+
+<!--===============================================================================================-->
+<script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/vendor/bootstrap/js/popper.js"></script>
+	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/vendor/tilt/tilt.jquery.min.js"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="/js/main.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+<div th:replace = "includes/footer"></div>

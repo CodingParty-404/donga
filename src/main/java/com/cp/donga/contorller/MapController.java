@@ -59,6 +59,11 @@ public class MapController {
         //redirect 
     }
 
+    @GetMapping("/setTest")
+    public void setTest(){
+        
+    }
+
     @PostMapping("/set")
     public String setPost(DongaDTO dongaDTO, MultipartFile[] upload, RedirectAttributes rttr){
 
@@ -192,7 +197,7 @@ public class MapController {
 
         File[] pictureFiles = dongaDirectory.listFiles(); // 삭제하고 남은 사진객체를 가져온다.
 
-        //남은 파일만큼 반복해서 썸네일을 생성하고, 메타데이터를 추추한다.
+        //남은 파일만큼 반복해서 썸네일을 생성하고, 메타데이터를 추출한다.
         for (File picturefile : pictureFiles) {
             // 파일 이름.
             String fileName = picturefile.getName();
@@ -293,6 +298,7 @@ public class MapController {
     public void dragDrop() {
         log.info("get dragdrop call..............");
     }
+
 
     @PostMapping(value = "/upload", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
