@@ -49,7 +49,6 @@
     <div class="container">
         <div class="mainArea">
             <div class="canvas-wrapper">
-                <!----------------------------------------------------------->
                 <canvas id="c1"> </canvas>
                 <canvas id="c2"> </canvas>
             </div>
@@ -104,14 +103,8 @@
 
     <!-- Swiper -->
     <div class="swiper-container">
-        <div class="swiper-wrapper swiperDIV">
-        </div>
-
-        <!-- Add Pagination -->
+        <div class="swiper-wrapper swiperDIV"></div>
         <div class="swiper-pagination"></div>
-        <!-- Add Arrows -->
-        <!-- <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div> -->
     </div>
 
     <!-- JSON 넣는 곳-->
@@ -747,27 +740,10 @@
                     fontFamily: 'Nanum Gothic',
                     fill: 'black',
                 });
-
-
-
-                // create text
-                /*
-                var text = new fabric.Text('엄마 아빠와 함께\n 수목원에 다녀왔다.\n 산책은 즐거워~\n 또 가자고 해야지\n ♥♥♥♥♥♥♥♥', {
-                    left: 70,
-                    top: 75,
-                    fontSize: 18,
-                    fontFamily: 'Nanum Gothic',
-                    fill: 'black',
-                });
-                */
-
-                // add image and text to a group
                 var group = new fabric.Group([img, text], {
                     left: 50,
                     top: 50,
                 });
-
-                // add the group to canvas
                 canvas2.add(group);
             });
 

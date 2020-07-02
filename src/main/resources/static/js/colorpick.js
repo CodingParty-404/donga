@@ -8,7 +8,7 @@
 *
 */
 (function( $ ) {
-
+    console.log("colorpick Init")
     $.fn.colorPick = function(config) {
 
         return this.each(function() {

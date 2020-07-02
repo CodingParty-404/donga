@@ -3,33 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #div1 {
+          width: 350px;
+          height: 70px;
+          padding: 10px;
+          border: 1px solid #aaaaaa;
+        }
+        </style>
+    <script>
+        function allowDrop(ev) {
+          ev.preventDefault();
+        }
+        
+        function drag(ev) {
+          ev.dataTransfer.setData("text", ev.target.id);
+        }
+        
+        function drop(ev) {
+          ev.preventDefault();
+          console.log(ev.dataTransfer.getData("text"));
+          console.log(ev.target);
+          var data = ev.dataTransfer.getData("text");
+          ev.target.appendChild(createImg(data));
+        }
+
+        var createImg = function(data){
+            var element = document.getElementById(data);
+            console.log(element)
+            var img = new Image();
+            img.src=element.src;
+
+            return img
+        }
+
+        </script>
     <title>Document</title>
 </head>
 <body>
-    <canvas id="canvas">
+    <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <img id="drag1" src="/emoji/t1.png" draggable="true" ondragstart="drag(event)" width="336" height="69">
 
-    </canvas>
-    <button id="testbtn">
-        add img
-    </button>
-    <button id="printImg">
-        print
-    </button>
-    <img id="imga"  crossorigin="Anonymous" src="http://192.168.0.70:8080/cpst/img/test.jpg">
-
-    <script>
-        document.getElementById("testbtn").onclick = draw;
-        document.getElementById("printImg").onclick = print;
-        function draw (){
-            var ctx = document.getElementById("canvas").getContext('2d');
-            var img = document.getElementById("imga");
-            // img.crossorigin="*";
-            ctx.drawImage(img,0,0,200,200);
-        }
-        function print(){
-            var dataURL = document.getElementById("canvas").toDataURL();
-            console.log(dataURL);
-        }
-    </script>
 </body>
 </html>
