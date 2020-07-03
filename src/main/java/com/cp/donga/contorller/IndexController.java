@@ -50,6 +50,12 @@ public class IndexController {
         
     }
 
+    @GetMapping("storage")
+    public void storage(Long dongaId, Model model){
+        log.info(dongaId);
+        
+    }
+
     @GetMapping("/includestest")
     public void include(){
         
