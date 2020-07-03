@@ -21,6 +21,11 @@ public class IndexController {
 
     @GetMapping("/index")
     public void index(){
+       
+    }
+
+    @GetMapping("/about")
+    public void about(){
         
     }
 

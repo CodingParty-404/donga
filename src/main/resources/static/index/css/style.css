@@ -2470,8 +2470,18 @@ ul {
   max-width: 50%;
 }
 #indexBallon{
-  margin-top: 200px;
-  margin-left: 250px;
+  margin-top: 20vh;
+  margin-left: 50vw;
+}
+
+#indexBallon2{
+  margin-top: 65vh;
+  margin-left: 2vw;
+}
+
+#indexBallon3{
+  margin-top: 105vh;
+  margin-left: 30vw;
 }
 
 @media (max-width: 991px) {
