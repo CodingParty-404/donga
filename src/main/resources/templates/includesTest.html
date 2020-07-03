@@ -1,5 +1,10 @@
 <div th:replace = "includes/header"></div>
 <style>
+
+	/* .container-contact100{
+		font-family: 'Poor Story', cursive;
+		font-family: 'NanumSquareRound';
+	} */
 	.footer_part{
 		padding-top: 100px;
 	}
@@ -43,9 +48,9 @@
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate = "여행 완료일을 입력해주세요">
-                        <input class="input100 fileInput" data-multiple-caption="{count} files selected" id="file" type="file" name="upload" placeholder="">
+                        <input class="input100 fileInput" data-multiple-caption="{count} files selected" multiple id="file" type="file" name="upload" placeholder="">
                         <!-- <input type="file" name="file" id="file" class="inputfile" /> -->
-                        <label class = "input100" for="file">Choose a file</label>
+                        <label class = "input100 fileLabel" for="file">Choose a file</label>
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
@@ -72,11 +77,7 @@
 
 
 
-<!--===============================================================================================-->
-<script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script src="/vendor/bootstrap/js/popper.js"></script>
-	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<div th:replace = "includes/script"></div>
 <!--===============================================================================================-->
 	<script src="/vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
@@ -88,6 +89,31 @@
 	</script>
 <!--===============================================================================================-->
 	<script src="/js/main.js"></script>
+
+<!--인풋 변경시 label 변경-->
+<script>
+	//1.인풋에 파일 입력시 라벨의 파일의 갯수를 체크한다.
+	//2.파일의 갯수가 2이상이면, 갯수를 string 변수에 담고, 아니면 파일이름을 담는다.
+	//3.string 변수의 값의 조건이 true면 label의 innerhtml을 string 값으로 변경한다.
+	var input = $(".fileInput");
+
+	input.change(function(e){
+		fileLength = input.get(0).files.length;
+		var message = "";
+		if(fileLength > 1){
+			message = input.data("multiple-caption").replace("{count}",fileLength);
+		}
+		else{
+			message = input.get(0).files[0].name;
+		}
+
+		if(message){
+			var label = $(".fileLabel");
+			label.html(message);
+		}
+		
+	});
+</script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
