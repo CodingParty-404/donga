@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donga about page</title>
+    <link href="/css/3D-rotations.css" rel="stylesheet" />
+</head>
+<body class="impress-not-supported">
+    
+    <div id="impress" data-transition-duration="2000">
+    
+        <div id="step-1" class="step" data-x="0" data-y="0" data-z="0"
+             data-goto-prev="step-8">
+            <p>동가 서비스에 오신 것을 환영합니다.<br>지금부터 동가에 대해 알아볼까요?</p>
+        </div>
+    
+        <div id="step-2" class="step" data-x="1200" data-y="0" data-z="0" >
+            <p>동가는 동화가 되는 가족여행 의 줄임말로<br> 여행 사진들로 여행동화책을 <br>만들어주는 서비스 입니다</p>
+        </div>
+    
+        <div id="step-3" class="step" data-x="1000" data-y="1200" data-z="0">
+            <p>동가 서비스의 특징3가지를 소개합니다<br>• 사진 데이터 자동 분석<br>• 가족 참여형 포토 앨범 제작<br>• 온라인 오프라인 옴니 익스포트</p>
+        </div>
+    
+        <div id="step-4" class="step" data-x="0" data-y="1200" data-z="0">
+            <p>이제 동가를 만들러 가볼까요?</p>
+        </div>
+    
+        <div id="step-5" class="step" data-x="0" data-y="1200" data-z="-1300">
+            <p>회원가입<form><input type="text"></input></form><button>submit</button></p>
+        </div>
+    
+        <div id="step-6" class="step" data-x="0" data-y="1200" data-z="-1300" data-rotate-x="90" data-rotate-order="zyx">
+            <p>내 동가 만들기</p>
+        </div>
+    
+        <div id="step-7" class="step" data-x="0" data-y="1200" data-z="-1300" data-rotate-x="90" data-rotate-z="90" data-rotate-order="zyx">
+            <p>내 동가 출력하기</p>
+        </div>
+    
+        <div id="step-8" class="step" data-x="1300" data-y="1200" data-z="-1300" data-rotate-x="90" data-rotate-z="90" data-rotate-order="zyx"
+             data-goto-next="step-1">
+            <p>이제 동가를 시작해 보세요!</p>
+        </div>
+    </div>
+    
+    <div id="impress-toolbar"></div>
+    
+    <script type="text/javascript" src="https://impress.js.org/js/impress.js"></script>
+    <script>impress().init();</script>
+    
+    </body>
+</html>
