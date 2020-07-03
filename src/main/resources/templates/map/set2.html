@@ -14,7 +14,7 @@
 					<img src="/familytravel2.jpg" alt="IMG">
 				</div>
 
-				<form class="contact100-form validate-form" enctype="multipart/form-data">
+				<form class="contact100-form validate-form" action="/map/set2" method="post" enctype="multipart/form-data">
 					<span class="contact100-form-title">
 						가족 동가 만들기
 					</span>
@@ -28,7 +28,8 @@
                     </div>
 
 					<div class="wrap-input100 validate-input" data-validate = "여행 시작일을 입력해주세요">
-						<input class="input100" type="date" name="startdate" placeholder="">
+						<!-- <input class="input100" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="startdate" placeholder="여행 시작일"> -->
+						<input class="input100" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="startdate" placeholder="여행 시작일">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="far fa-calendar-alt" aria-hidden="true"></i>
@@ -36,14 +37,14 @@
                     </div>
                     
                     <div class="wrap-input100 validate-input" data-validate = "여행 종료일을 입력해주세요">
-						<input class="input100" type="date" name="enddate" placeholder="">
+						<input class="input100" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="enddate" placeholder="여행 종료일">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="far fa-calendar-alt" aria-hidden="true"></i>
 						</span>
 					</div>
 
-					<div class="wrap-input100 validate-input" data-validate = "여행사진을 등록해주세요">
+					<div class="wrap-input100">
                         <input class="input100 fileInput" data-multiple-caption="{count} files selected" multiple id="file" type="file" name="upload" placeholder="">
                         <!-- <input type="file" name="file" id="file" class="inputfile" /> -->
                         <label class = "input100 fileLabel" for="file">Choose a file</label>

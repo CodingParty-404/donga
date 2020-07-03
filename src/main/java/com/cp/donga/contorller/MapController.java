@@ -51,10 +51,12 @@ public class MapController {
     @Autowired
     private MapService mapService;
 
-    private final String ROOT_PATH = "\\\\192.168.0.73\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
+    //!!!!!!!!!!!!!!루트패스의 ip는 스토리지 서버 상태에 따라 변경될수 있음!!!!!!!!!!!!!!!!!!
+    // private final String ROOT_PATH = "\\\\192.168.0.70\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
+    private final String ROOT_PATH = "C:\\cp\\donga\\src\\main\\resources\\static\\pictures\\";
     
     // Title, Date of travel, IMG SELECT AND UPLOAD
-    @GetMapping("/set")
+    @GetMapping("/set2")
     public void set(){
         //redirect 
     }
@@ -64,7 +66,7 @@ public class MapController {
         
     }
 
-    @PostMapping("/set")
+    @PostMapping("/set2")
     public String setPost(DongaDTO dongaDTO, MultipartFile[] upload, RedirectAttributes rttr){
 
         log.info(dongaDTO);
@@ -110,11 +112,11 @@ public class MapController {
         }
         
         rttr.addAttribute("dongaId", dongaId);
-        return "redirect:/map/gallery";
+        return "redirect:/map/gallery2";
     }
 
 
-    @GetMapping("/gallery")
+    @GetMapping("/gallery2")
     public void gallery(Long dongaId, Model model) {
         log.info("get gallery call...............");
         log.info("dongaID : "+dongaId);
@@ -178,7 +180,7 @@ public class MapController {
         model.addAttribute("dongaId", dongaId);
     }
 
-    @PostMapping("/gallery")
+    @PostMapping("/gallery2")
     public RedirectView postGallery(String[] filenames, Long dongaId, RedirectAttributes rttr) {
         log.info("post gallery called..................");
         log.info(dongaId);
@@ -265,7 +267,7 @@ public class MapController {
         return new RedirectView("/map/swiper");
     }
 
-    @GetMapping("/swiper")
+    @GetMapping("/swiper2")
     public void swiper(Long dongaId, Model model) { // 파라미터로 dongaId를 받는다.
         log.info("swiper called....");
         log.info(dongaId);
