@@ -51,9 +51,13 @@ public class MapController {
     @Autowired
     private MapService mapService;
 
+<<<<<<< HEAD
     //!!!!!!!!!!!!!!루트패스의 ip는 스토리지 서버 상태에 따라 변경될수 있음!!!!!!!!!!!!!!!!!!
     // private final String ROOT_PATH = "\\\\192.168.0.70\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
     private final String ROOT_PATH = "C:\\cp\\donga\\src\\main\\resources\\static\\pictures\\";
+=======
+    private final String ROOT_PATH = "\\\\192.168.0.70\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
+>>>>>>> 21118738c43f5890b83b27692351ccec6eb0715d
     
     // Title, Date of travel, IMG SELECT AND UPLOAD
     @GetMapping("/set2")

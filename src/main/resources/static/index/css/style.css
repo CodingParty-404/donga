@@ -2216,6 +2216,30 @@ ul {
   background-color: #ffcc00;
 }
 
+<<<<<<< HEAD
+=======
+/* ballron */
+#balloon{
+  position: relative;
+  float: right;
+  max-width: 50%;
+}
+#indexBallon{
+  margin-top: 20vh;
+  margin-left: 50vw;
+}
+
+#indexBallon2{
+  margin-top: 65vh;
+  margin-left: 2vw;
+}
+
+#indexBallon3{
+  margin-top: 105vh;
+  margin-left: 30vw;
+}
+
+>>>>>>> 21118738c43f5890b83b27692351ccec6eb0715d
 @media (max-width: 991px) {
   .banner_part {
     height: 700px;

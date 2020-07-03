@@ -42,6 +42,17 @@ public class IndexController {
 
     @GetMapping("/index")
     public void index(){
+       
+    }
+
+    @GetMapping("/about")
+    public void about(){
+        
+    }
+
+    @GetMapping("storage")
+    public void storage(Long dongaId, Model model){
+        log.info(dongaId);
         
     }
 

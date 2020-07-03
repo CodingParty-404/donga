@@ -21,6 +21,21 @@
 				"$gradle"
 			],
 			"label": "gradle: build"
+		},
+		{
+			"type": "gradle",
+			"script": "build",
+			"description": "Assembles and tests this project.",
+			"group": "build",
+			"project": "donga",
+			"buildFile": "/Users/allow/git/donga/donga/build.gradle",
+			"rootProject": "donga",
+			"projectFolder": "/Users/allow/git/donga/donga",
+			"workspaceFolder": "/Users/allow/git/donga/donga",
+			"args": "",
+			"problemMatcher": [
+				"$gradle"
+			]
 		}
 	]
 }
