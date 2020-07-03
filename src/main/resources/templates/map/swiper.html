@@ -227,7 +227,7 @@
                 var srcImg = $(".srcImg")
                 console.log(srcImg);
                 srcImg.attr("hidden",false);
-                $(".srcImg").attr("src","http://192.168.0.73:8080/pictures/"+dongaId+"/"+src);
+                $(".srcImg").attr("src","http://192.168.0.70:8080/pictures/"+dongaId+"/"+src);
                 }
 
               }  
@@ -249,7 +249,7 @@
                     var slides = [];
 
                     pictureList.forEach(picture => {
-                        slides.push("<img src= http://192.168.0.73:8080/pictures/"+dongaId+"/s_"+picture.filename+">");
+                        slides.push("<img src= http://192.168.0.70:8080/pictures/"+dongaId+"/s_"+picture.filename+">");
                     })
 
                     return slides;
@@ -287,7 +287,7 @@
 
             //클러스터에 속해있는 마커 갯수만큼 이미지태그 생성
             cluster.getMarkers().forEach(item => {
-                slides.push("<img src ='http://192.168.0.73:8080/pictures/"+dongaId+"/" + "s_"+ item.getTitle() + "'>");
+                slides.push("<img src ='http://192.168.0.70:8080/pictures/"+dongaId+"/" + "s_"+ item.getTitle() + "'>");
             });
 
             //swiper의 슬라이드 제거후 virtual slide 생성
@@ -382,7 +382,7 @@
 
                         //클러스터에 속해있는 마커 갯수만큼 이미지태그 생성
                         cluster.getMarkers().forEach(item => {
-                            slides.push("<img src ='http://192.168.0.73:8080/pictures/"+ dongaId +"/s_" + item.getTitle() + "'>");
+                            slides.push("<img src ='http://192.168.0.70:8080/pictures/"+ dongaId +"/s_" + item.getTitle() + "'>");
                         });
 
                         //swiper의 슬라이드 제거후 virtual slide 생성

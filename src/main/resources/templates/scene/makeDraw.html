@@ -1,217 +1,305 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace = "includes/header"></div>
+<link rel="stylesheet" href="/css/cusSwiper.css" />
+<link rel="stylesheet" href="/css/colorpick.css" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://unpkg.com/swiper/js/swiper.js"></script>
+<script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+<script src="/js/fabric.js"></script>
 
-    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+<!-- card slide animation -->
+<style>
+    .card {
+        animation-duration: 0.7s;
+        animation-name: slidein-card;
+        visibility: hidden;
+        animation-fill-mode: forwards;
+        }
+        .textSticker{
+            animation-delay: 0s;
+        }
+        .drawSticker{
+            animation-delay: 0.5s;
+        }
+        .postSticker{
+            animation-delay: 0.7s;
+        }
+        .deleteSticker{
+            animation-delay: 0.9s;
+        }
+        .saveButton{
+            animation-delay: 1.1s;
+        }
+        @keyframes slidein-card {
+            from {
+                visibility: visible;
+                margin-left: 100%;
+                width: 100%
+            }
 
-
-    <script src="https://unpkg.com/swiper/js/swiper.js"></script>
-    <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-    <link rel="stylesheet" href="/js/colorpick.css" />
-    <link rel="stylesheet" href="/css/makeStyle.css" />
-    <link rel="stylesheet" href="/css/cusSwiper.css" />
-    <script src="/js/fabric.js"></script>
-    <title>Document</title>
-</head>
-
-<body>
-    <nav>
-        <div class="logo">
-            <h4>동화가 되는 가족 여행, 동가</h4>
-        </div>
-        <ul class="nav-links">
-            <li class="first">
-                <a href="#">Home</a>
-            </li>
-            <li class="second">
-                <a href="#">About</a>
-            </li>
-            <li class="third">
-                <a href="#">Work</a>
-            </li>
-            <li class="fourth">
-                <a href="#">FAQ</a>
-            </li>
-        </ul>
-        <div class="burger">
-            <div class="line1"></div>
-            <div class="line2"></div>
-            <div class="line3"></div>
-        </div>
-    </nav>
-
-    <div class="container">
-        <div class="mainArea">
-            <div class="canvas-wrapper">
-                <canvas id="c1"> </canvas>
-                <canvas id="c2"> </canvas>
+            to {
+                visibility: visible;
+                margin-left: 0%;
+                width: 100%;
+            }
+        }
+    .canvas-wrapper{
+        margin-top: 100px;
+    }
+    .canvas-wrapper > div{
+        display: inline-block;
+        /* outline: 1px solid black; */
+    }
+    .custom-functions{
+        position: relative;
+        width: 16vw;
+        height: 720px;
+    }
+    .custom-functions > div{
+        width: 16vw;
+        display: table;
+    }
+    .card > * not button{
+        display: block;
+    }
+    .emojis{
+        width: 16vw; 
+        height: 720px;
+        overflow: auto;
+    }
+</style>
+<!-- canvas anima -->
+<div class="canvas-wrapper">
+    <div class="emojis" >
+        <table>
+            <tbody>
+                <tr>
+                    <td><img draggable="true" ondragstart="drag(event)" src="/emoji/t1.png"></td>
+                    <td><img draggable="true" ondragstart="drag(event)" src="/emoji/t2.png"></td>
+                </tr>
+                <tr>
+                    <td><img draggable="true" ondragstart="drag(event)" src="/emoji/t3.png"></td>
+                    <td><img draggable="true" ondragstart="drag(event)" src="/emoji/t4.png"></td>
+                </tr>
+                <tr>
+                    <td><img draggable="true" ondragstart="drag(event)" src="/emoji/t5.png"></td>
+                    <td><img draggable="true" ondragstart="drag(event)" src="/emoji/t6.png"></td>
+                </tr>
+                <tr>
+                    <td><img draggable="true" ondragstart="drag(event)" src="/emoji/t7.png"></td>
+                    <td><img draggable="true" ondragstart="drag(event)" src="/emoji/t8.png"></td>
+                </tr>
+                <tr>
+                    <td><img draggable="true" ondragstart="drag(event)" src="/emoji/t9.png"></td>
+                    <td><img draggable="true" ondragstart="drag(event)" src="/emoji/t10.png"></td>
+                </tr>
+                <tr>
+                    <td><img draggable="true" ondragstart="drag(event)" src="/emoji/t11.png"></td>
+                    <td><img draggable="true" ondragstart="drag(event)" src="/emoji/t12.png"></td>
+                </tr>
+                <tr>
+                    <td><img draggable="true" ondragstart="drag(event)" src="/emoji/t13.png"></td>
+                    <td><img draggable="true" ondragstart="drag(event)" src="/emoji/t14.png"></td>
+                </tr>
+                <tr>
+                    <td><img draggable="true" ondragstart="drag(event)" src="/emoji/t15.png"></td>
+                    <td><img draggable="true" ondragstart="drag(event)" src="/emoji/t16.png"></td>
+                </tr>
+                <tr>
+                    <td><img draggable="true" ondragstart="drag(event)" src="/emoji/t17.png"></td>
+                    <td><img draggable="true" ondragstart="drag(event)" src="/emoji/t18.png"></td>
+                </tr>
+                <tr>
+                    <td><img draggable="true" ondragstart="drag(event)" src="/emoji/t19.png"></td>
+                    <td><img draggable="true" ondragstart="drag(event)" src="/emoji/t20.png"></td>
+                </tr>
+                <tr>
+                    <td><img draggable="true" ondragstart="drag(event)" src="/emoji/t21.png"></td>
+                    <td><img draggable="true" ondragstart="drag(event)" src="/emoji/t22.png"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- <canvas id="c1"> </canvas> -->
+    <canvas id="c2"> </canvas>
+    <div class="custom-functions">
+        <div class="card textSticker" >
+            <div class="card-header">
+                <h5>글자 스티커</h5>
             </div>
-            <!-- start of custom-wrapper -->
-            <div class="custom-wrapper">
-                <!-- start of custom sticker -->
-                <div class="text">
-                    <div class="input">
-                        <form class="inputText"></form>
-                        <input type="text" id="inputText" placeholder="문구를 입력하세요" name="title">
-                        <!-- color picker -->
-                        <div class="pickercontainer">
-                            <div class="picker"></div>
-                        </div>
-                        <button type="submit" class="btn btn-info" name="sticker">스티커 만들기</button>
-                        </form>
-                    </div>
-                    <div class="database">
-                        Scene 제작을 완료한 후 <button id='SaveDataToDB'>Scene 저장</button> 버튼을 클릭하면<br> 다음 Scene 제작으로 이동합니다 :)
-                    </div>
-                    <div class="delete">
-                        삭제하고 싶은 스티커를 클릭한 후&nbsp; <button id="delete">스티커 삭제</button> &nbsp;버튼을<br> 클릭하면 사라집니다 :)
-                    </div>
-                    <div class="draw">
-                        그림을 그려보세요 :) <br>
-                        원하는 컬러를 고르고&nbsp;
-                        <div class="crayonpickercontainer">
-                            <div class="crayonpicker"></div>
-                        </div>
-                        Erase: <input id="erase" type="checkbox">
-                        <button type="submit" class="btn btn-info" name="crayon">그리기 시작</button>
-                        <button type="submit" class="btn btn-info" name="drawEnd">그리기 종료</button>
-                    </div>
-                    <div class="diary">
-                        일기를 적어보세요 :)
-                        <textarea id="diaryText" placeholder="일기를 쓰자" name="diary" maxlength="30" cols="20"
-                            rows="5"></textarea>
-                        <button type="submit" class="btn btn-info" name="diary">내 일기 넣기</button>
-                    </div>
-                    <div>
-                        <button id="complete-Button">앨범 제작 완료</button>
-                    </div>
+            <div class="card-body">
+                <input type="text" class="single-input" placeholder="글을 입력하세요!">
+                <div class="pickercontainer">
+                    <!-- <div class="colorPickSelector"></div> -->
+                    <input type="color">
                 </div>
-                <!-- end of custom sticker -->
-                <div class="weather">
-
-                </div>
+                <button type="button" class="genric-btn info circle">글자 스티커 생성</button>
             </div>
-            <!-- end of custom-wrapper -->
+        </div>
+        <div class="card drawSticker">
+            <div class="card-header">
+                <h5>스티커 생성</h5>
+            </div>
+            <div class="card-body" style="display: flex; justify-content: center;">
+                <div class="crayonpickercontainer">
+                    <!-- <div class="crayonpicker"></div> -->
+                    <input type="color">
+                </div>
+                <button type="submit" class="genric-btn info circle" name="crayon">그리기 시작</button>
+                <button type="submit" class="genric-btn danger circle" name="drawEnd">그리기 종료</button>
+            </div>
+        </div>
+        <div class="card postSticker">
+            <div class="card-header">
+                <h5>일기 쓰기</h5>
+            </div>
+            <div class="card-body">
+                <textarea id="diaryText" class="single-textarea" placeholder="일기를 쓰자" name="diary" maxlength="30" cols="20" rows="5"></textarea>
+                <button type="submit" class="genric-btn primary circle " name="diary">내 일기 넣기</button>
+            </div>
+        </div>
+        <div class="card deleteSticker">
+            <div class="card-body" style="display: flex; justify-content: center;">
+                <button type="button" class="genric-btn danger circle">스티커 삭제</button>
+            </div>
+        </div>
+        <div class="card saveButton">
+            <div class="card-body" style="display: flex; justify-content: center;">
+                <button type="button" id="complete-button" class="genric-btn success circle">앨범 저장</button>
+            </div>
         </div>
     </div>
+</div>
+<!-- Swiper -->
+<div class="swiper-container">
+    <div class="swiper-wrapper swiperDIV"></div>
+    <div class="swiper-pagination"></div>
+</div>
 
-    <!-- Swiper -->
-    <div class="swiper-container">
-        <div class="swiper-wrapper swiperDIV"></div>
-        <div class="swiper-pagination"></div>
-    </div>
+<!-- Json span -->
+<div th:each=" vo : ${list}" style="display: none;" >
+    <span class="preparedJson" th:text="${vo.getScenepath()}"> </span>
+</div>
+<!-- prepared canvas -->
+<div id="preCanDIV" style="display: none;"></div> 
 
-    <!-- JSON 넣는 곳-->
-    <form id="form" method="post">
-        <input type="hidden" id="json" name="json">
-    </form>
-
-    <div th:each=" vo : ${list}" style="display: none;" >
-        <span class="preparedJson" th:text="${vo.getScenepath()}"> </span>
-    </div>
-
-
-    <div id="preCanDIV" style="display: none;" >
-    </div>   
-    <!--jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-        
 
-    <script type="text/javascript">
-        var preCan;
-        var preFCan=[];
-        var preJson;
-        var canvasSlide;
-        var swiper;
-        var comBTN;
-        //1. 30장의 사진 data 목록 받아옴 
-        //2. 받은 JSON data input에 저장
-        //3. 해당 input의 value를 (preparedJson) fabric캔버스에 로딩(loadFromJSON())
-        //4. toDataURL || toBlob를 이용 -> canvasSlide에 src로 등록
+<!-- init elements -->
+<script type="text/javascript">
+    var preCan;
+    var preFCan=[];
+    var preJson;
+    var canvasSlide;
+    var swiper;
+    var comBTN;
 
-        window.onload =
-            function (e) {
-                createElements();
-                initElements();
-                canvasLoadJson(preCan,preFCan,preJson,canvasSlide);
-                let initIndex = 0;
-                initCanvas(canvas2,preJson[0],initIndex);
-                comBTN = document.getElementById("complete-Button");
-                comBTN.addEventListener("click",function(e){
-                    var curCanvas = canvas2.getElement().getAttribute("data-curCanvas");
-                    preJson[curCanvas].innerText = JSON.stringify(canvas2.toJSON());
-                    console.log(preJson[curCanvas].innerHTML);
+    window.onload =
+        function (e) {
+            createElements();
+            initElements();
+            canvasLoadJson(preCan,preFCan,preJson,canvasSlide);
+            let initIndex = 0;
+            initCanvas(canvas2,preJson[0],initIndex);
+            comBTN = document.getElementById("complete-button");
+            comBTN.addEventListener("click",function(e){
+                var curCanvas = canvas2.getElement().getAttribute("data-curCanvas");
+                preJson[curCanvas].innerText = JSON.stringify(canvas2.toJSON());
+                console.log(preJson[curCanvas].innerHTML);
 
-                    var sendForm = document.createElement('form');
-                    let inputs="<input type='text' name='dongaid' value="+[[${dongaId}]]+">";
-                    [...preJson].forEach(element => {
-                        inputs += "<input type='text' name='jList' value= '"+element.innerText+"' >"
-                    });
-                    
-                    document.body.appendChild(sendForm);
-                    sendForm.innerHTML = inputs;
-                    console.log(sendForm.innerHTML);
-                    sendForm.method="post";
-                        sendForm.submit();
-                })
+                var sendForm = document.createElement('form');
+                let inputs="<input type='text' name='dongaid' value="+[[${dongaId}]]+">";
+                [...preJson].forEach(element => {
+                    inputs += "<input type='text' name='jList' value= '"+element.innerText+"' >"
+                });
                 
-            };
-        function initCanvas(mainCanvas,firstImg,initIndex){
-            console.log("initCan")
-            mainCanvas.getElement().setAttribute("data-curCanvas",initIndex)
-            mainCanvas.loadFromJSON(firstImg.innerText)
-        }
+                document.body.appendChild(sendForm);
+                sendForm.innerHTML = inputs;
+                console.log(sendForm.innerHTML);
+                sendForm.method="post";
+                    // sendForm.submit();
+            })
+            
+        };
+    function initCanvas(mainCanvas,firstImg,initIndex){
+        console.log("initCan")
+        mainCanvas.getElement().setAttribute("data-curCanvas",initIndex)
+        mainCanvas.loadFromJSON(firstImg.innerText)
+    }
 
-        function createElements(){
-            swiper = swiperInit();
-            var preCanTXT="";
-            var swiperSlide ='<div class="swiper-slide"> <img class="canvasSlide" width="230px" height="80px" src=""> </div>';
+    function createElements(){
+        swiper = swiperInit();
+        var preCanTXT="";
+        var swiperSlide ='<div class="swiper-slide"> <img class="canvasSlide" width="230px" height="80px" src=""> </div>';
+        for (let i = 0; i < [[${list.size()}]]; i++) {
+                preCanTXT += '<canvas id="can'+i+'" class="preCan"></canvas>';
+                swiper.appendSlide(swiperSlide);
+            }   
+        document.getElementById("preCanDIV").innerHTML=preCanTXT;
+    }
+    function initElements(){
+        preCan = document.getElementsByClassName("preCan");
+        preFCan = [];
+        preJson = document.getElementsByClassName("preparedJson");
+        canvasSlide = document.getElementsByClassName("canvasSlide");
+    }      
+    function canvasLoadJson(preCan, preFCan, preJson,canvasSlide) {
             for (let i = 0; i < [[${list.size()}]]; i++) {
-                    preCanTXT += '<canvas id="can'+i+'" class="preCan"></canvas>';
-                    swiper.appendSlide(swiperSlide);
-                }   
-            document.getElementById("preCanDIV").innerHTML=preCanTXT;
-        }
-        function initElements(){
-            preCan = document.getElementsByClassName("preCan");
-            preFCan = [];
-            preJson = document.getElementsByClassName("preparedJson");
-            canvasSlide = document.getElementsByClassName("canvasSlide");
-        }      
-        function canvasLoadJson(preCan, preFCan, preJson,canvasSlide) {
-                for (let i = 0; i < [[${list.size()}]]; i++) {
-                    preFCan.push(new fabric.Canvas("can" + i))
-                    preFCan[i].setWidth(1024);
-                    preFCan[i].setHeight(720);
-                    preFCan[i].loadFromJSON(preJson[i].innerText,function(){
-                        //toBlob메서드 자체가 블럭됨 - 사유 오염된 캔버스
-                        preFCan[i].getElement().toBlob(function(blob){
-                            var url = URL.createObjectURL(blob);
-                            var img = new Image();
-                            // img.crossOrigin ="'*'";
-                            img.crossOrigin="Anonymous";
-                            img = canvasSlide[i];
-                            img.src=url;
-                            img.onload = function() {
-                                URL.revokeObjectURL(this.src);
-                            }
-                        })
-                    });
-                }
-        }
+                preFCan.push(new fabric.Canvas("can" + i))
+                preFCan[i].setWidth(1024);
+                preFCan[i].setHeight(720);
+                preFCan[i].loadFromJSON(preJson[i].innerText,function(){
+                    //toBlob메서드 자체가 블럭됨 - 사유 오염된 캔버스
+                    preFCan[i].getElement().toBlob(function(blob){
+                        var url = URL.createObjectURL(blob);
+                        var img = new Image();
+                        // img.crossOrigin ="'*'";
+                        img.crossOrigin="Anonymous";
+                        img = canvasSlide[i];
+                        img.src=url;
+                        img.onload = function() {
+                            URL.revokeObjectURL(this.src);
+                        }
+                    })
+                });
+            }
+    }
+</script>
 
+<!-- <script type="text/javascript" src="/js/colorpick.js">
+    var pickcolor = '#000000';
+    var $picker = $(".colorPickSelector");
+        $picker.colorPick({
+            'initialColor': '#000000',
+            'onColorSelected': function () {
+                this.element.css({
+                    'backgroundColor': this.color,
+                    'color': this.color
+                });
+                pickcolor = this.color;
+            }
+        });
+    console.log($picker);
+</script> -->
 
+<!-- init Scripts -->
+<script>
+    // var canvasSticker = document.getElementById("c1");
+    //     canvasSticker.width = 250;
+    //     canvasSticker.height = 720;
 
-    </script>
-    
-    <script type="text/javascript">
+    var canvasScene = document.getElementById("c2");
+        canvasScene.width = 1280;
+        canvasScene.height = 720;
+
+    // var canvas1 = new fabric.Canvas('c1');
+    //     canvas1.setBackgroundColor('rgba(19, 19, 19, 0.25)');
+    //     canvas1.renderAll();
+
+    var canvas2 = new fabric.Canvas('c2');
+        canvas2.setBackgroundColor('rgba(92, 18, 18, 0.25)');
+        canvas2.renderAll();
+
 
         function swiperInit() {
             return swiper =
@@ -267,455 +355,35 @@
                 console.log(index);
             }
         }
-    </script>
-
-    <script>
-        //create two canvases
-        var canvasSticker = document.getElementById("c1");
-        canvasSticker.width = 600;
-        canvasSticker.height = 650;
-
-        var canvasScene = document.getElementById("c2");
-        canvasScene.width = 600;
-        canvasScene.height = 650;
-
-        var canvas1 = new fabric.Canvas('c1');
-        canvas1.setBackgroundColor('rgba(19, 19, 19, 0.25)');
-        canvas1.renderAll();
-
-        var canvas2 = new fabric.Canvas('c2');
-        canvas2.setBackgroundColor('rgba(92, 18, 18, 0.25)');
-        canvas2.renderAll();
-
-        // add loaded image on canvas1
-        var onImageLoaded = function (oImg) {
-            oImg.originX = "center";
-            oImg.originY = "center";
-
-            oImg.left = this.x;
-            oImg.top = this.y;
-
-            canvas1.add(oImg);
-            oImg.canvas = canvas1;
-            imgArrow = oImg;
-        };
-
-        var config = { crossOrigin: 'anonymous' };
-
-
-        var url0 = "/img/mickey2.png";
-        var url1 = "/img/mini2.png";
-        var url2 = "/img/duck32.png";
-        var url3 = "/img/daisy2.png";
-
-        // load some images
-        // canvas1에 스티커당 5개씩 로딩해둘까
-        // 그럼 canvas2로 옮겨도 canvas1에 스티커 여분이 남아있다
-        for (var i = 0; i < 5; i++) {
-            fabric.Image.fromURL(url0, onImageLoaded.bind({ x: 156, y: 196 }), config);
-            fabric.Image.fromURL(url1, onImageLoaded.bind({ x: 506, y: 4 * 96 }), config);
-            fabric.Image.fromURL(url2, onImageLoaded.bind({ x: 206, y: 5 * 96 }), config);
-            fabric.Image.fromURL(url3, onImageLoaded.bind({ x: 306, y: 5 * 96 }), config);
-        }
-
-
-        //
-        var onObjectMoving = function (p) {
-            var viewport = p.target.canvas.calcViewportBoundaries();
-
-            if (p.target.canvas === canvas1) {
-                if (p.target.left > viewport.br.x) {
-                    console.log("Migrate: left -> center");
-                    migrateItem(canvas1, canvas2, p.target);
-                    return;
-                }
-            }
-            if (p.target.canvas === canvas2) {
-                if (p.target.left < viewport.tl.x) {
-                    console.log("Migrate: center -> left");
-                    migrateItem(canvas2, canvas1, p.target);
-                    return;
-                }
-            }
-        };
-
-        canvas1.on("object:moving", onObjectMoving);
-        canvas2.on("object:moving", onObjectMoving);
-
-        // isTouchDevice 정의
-        var isTouchDevice = 'ontouchstart' in window || navigator.msMaxTouchPoints;
-
-        // start of var migrateItem
-        var migrateItem = function (fromCanvas, toCanvas, pendingImage) {
-            // Just drop image from old canvas
-            // 지우지 않고 옮기기만 하면 old canvas와 new canvas 경계선에 걸려있음
-            fromCanvas.remove(pendingImage);
-
-            // We're going to trick fabric.js,
-            // so we keep internal transforms of the source canvas, 
-            // in order to inject it into destination canvas.
-            var pendingTransform = fromCanvas._currentTransform;
-            fromCanvas._currentTransform = null;
-
-            // Make shortcuts for fabric.util.removeListener and fabric.util.addListener
-            var removeListener = fabric.util.removeListener;
-            var addListener = fabric.util.addListener;
-
-            // Re-arrange subscriptions for source canvas
-            {
-                removeListener(fabric.document, 'mouseup', fromCanvas._onMouseUp);
-                removeListener(fabric.document, 'touchend', fromCanvas._onMouseUp);
-
-                removeListener(fabric.document, 'mousemove', fromCanvas._onMouseMove);
-                removeListener(fabric.document, 'touchmove', fromCanvas._onMouseMove);
-
-                addListener(fromCanvas.upperCanvasEl, 'mousemove', fromCanvas._onMouseMove);
-                addListener(fromCanvas.upperCanvasEl, 'touchmove', fromCanvas._onMouseMove, {
-                    passive: false
-                });
-
-                if (isTouchDevice) {
-                    // Wait 500ms before rebinding mousedown to prevent double triggers
-                    // from touch devices
-                    var _this = fromCanvas;
-                    setTimeout(function () {
-                        addListener(_this.upperCanvasEl, 'mousedown', _this._onMouseDown);
-                    }, 500);
-                }
-            }
-
-            // Re-arrange subscriptions for destination canvas
-            {
-                addListener(fabric.document, 'touchend', toCanvas._onMouseUp, {
-                    passive: false
-                });
-                addListener(fabric.document, 'touchmove', toCanvas._onMouseMove, {
-                    passive: false
-                });
-
-                removeListener(toCanvas.upperCanvasEl, 'mousemove', toCanvas._onMouseMove);
-                removeListener(toCanvas.upperCanvasEl, 'touchmove', toCanvas._onMouseMove);
-
-
-
-                if (isTouchDevice) {
-                    // Unbind mousedown to prevent double triggers from touch devices
-                    removeListener(toCanvas.upperCanvasEl, 'mousedown', toCanvas._onMouseDown);
-                } else {
-                    addListener(fabric.document, 'mouseup', toCanvas._onMouseUp);
-                    addListener(fabric.document, 'mousemove', toCanvas._onMouseMove);
-                }
-            }
-
-            // We need this timer, because we want Fabric.js to complete pending render
-            // before we inject, because it causes some unpleasant image jumping.
-            setTimeout(function () {
-                // Add image to destination canvas,
-                // 아래 주석처리한 코드가 mirror 효과
-                // pendingImage.scaleX *= -1;
-                pendingImage.canvas = toCanvas;
-                pendingImage.migrated = true;
-                toCanvas.add(pendingImage);
-
-                // and inject transforms from source canvas
-                toCanvas._currentTransform = pendingTransform;
-
-                // as we have mirrored the image, we mirror transforms too
-                toCanvas._currentTransform.scaleX *= -1;
-                toCanvas._currentTransform.original.scaleX *= -1;
-
-                // finally don't forget to make pasted object selected
-                toCanvas.setActiveObject(pendingImage);
-            }, 10);
-        }; // end of var migrateItem
-
-
-
-
-
-        // DB에 저장되는 버튼
-        $("#SaveDataToDB").click(function () {
-
-            var $form = $("#form");
-            // JSON 처리
-            var obJSON = canvas2.toJSON();
-            console.log(JSON.stringify(obJSON));
-
-            // json은 직렬화해서 form으로 보냄
-            $("#json").val(JSON.stringify(obJSON));
-
-            // 그럼 controller에 있는 post 맵핑이 받고
-            // DB에 insert함
-            $form.submit();
-
-        });
-
-        // canvas2에서 선택된 스티커 삭제하기
-        $('#delete').click(function () {
-            canvas2.remove(canvas2.getActiveObject());
-        });
-
-
-
-
-
-
-        // color picker
-        // 컬러픽 실행코드
-        // colorPick에서 지정된 this.color로
-        // 도형스티커를 만든다리~
-        (function ($) {
-            $.fn.colorPick = function (config) {
-                return this.each(function () {
-                    new $.colorPick(this, config || {});
-                });
-
-            };
-
-            $.colorPick = function (element, options) {
-                options = options || {};
-                this.options = $.extend({}, $.fn.colorPick.defaults, options);
-                if (options.str) {
-                    this.options.str = $.extend({}, $.fn.colorPick.defaults.str, options.str);
-                }
-                $.fn.colorPick.defaults = this.options;
-                this.color = this.options.initialColor.toUpperCase();
-                this.element = $(element);
-
-                var dataInitialColor = this.element.data('initialcolor');
-                if (dataInitialColor) {
-                    this.color = dataInitialColor;
-                    this.appendToStorage(this.color);
-                }
-
-                var uniquePalette = [];
-                $.each($.fn.colorPick.defaults.palette.map(function (x) { return x.toUpperCase() }), function (i, el) {
-                    if ($.inArray(el, uniquePalette) === -1) uniquePalette.push(el);
-                });
-
-                this.palette = uniquePalette;
-
-                return this.element.hasClass(this.options.pickrclass) ? this : this.init();
-            };
-
-            $.fn.colorPick.defaults = {
-                'initialColor': '#3498db',
-                'paletteLabel': 'Default palette:',
-                'allowRecent': true,
-                'recentMax': 5,
-                'allowCustomColor': false,
-                'palette': ["#1abc9c", "#16a085", "#2ecc71", "#27ae60", "#3498db", "#2980b9", "#9b59b6", "#8e44ad", "#34495e", "#2c3e50", "#f1c40f", "#f39c12", "#e67e22", "#d35400", "#e74c3c", "#c0392b", "#ecf0f1", "#bdc3c7", "#95a5a6", "#7f8c8d"],
-                'onColorSelected': function () {
-                    this.element.css({ 'backgroundColor': this.color, 'color': this.color });
-                }
-            };
-
-            $.colorPick.prototype = {
-
-                init: function () {
-
-                    var self = this;
-                    var o = this.options;
-
-                    $.proxy($.fn.colorPick.defaults.onColorSelected, this)();
-
-                    this.element.click(function (event) {
-                        event.preventDefault();
-                        self.show(event.pageX, event.pageY);
-
-                        $('.customColorHash').val(self.color);
-
-                        $('.colorPickButton').click(function (event) {
-                            self.color = $(event.target).attr('hexValue');
-                            self.appendToStorage($(event.target).attr('hexValue'));
-                            self.hide();
-                            $.proxy(self.options.onColorSelected, self)();
-                            return false;
-                        });
-                        $('.customColorHash').click(function (event) {
-                            return false;
-                        }).keyup(function (event) {
-                            var hash = $(this).val();
-                            if (hash.indexOf('#') !== 0) {
-                                hash = "#" + hash;
-                            }
-                            if (/(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(hash)) {
-                                self.color = hash;
-                                self.appendToStorage(hash);
-                                $.proxy(self.options.onColorSelected, self)();
-                                $(this).removeClass('error');
-                            } else {
-                                $(this).addClass('error');
-                            }
-                        });
-
-                        return false;
-                    }).blur(function () {
-                        self.element.val(self.color);
-                        $.proxy(self.options.onColorSelected, self)();
-                        self.hide();
-                        return false;
-                    });
-
-                    $(document).on('click', function (event) {
-                        self.hide();
-                        return true;
-                    });
-
-                    return this;
-                },
-
-                appendToStorage: function (color) {
-                    if ($.fn.colorPick.defaults.allowRecent === true) {
-                        var storedColors = JSON.parse(localStorage.getItem("colorPickRecentItems"));
-                        if (storedColors == null) {
-                            storedColors = [];
-                        }
-                        if ($.inArray(color, storedColors) == -1) {
-                            storedColors.unshift(color);
-                            storedColors = storedColors.slice(0, $.fn.colorPick.defaults.recentMax)
-                            localStorage.setItem("colorPickRecentItems", JSON.stringify(storedColors));
-                        }
-                    }
-                },
-
-                show: function (left, top) {
-
-                    $("#colorPick").remove();
-
-                    $("body").append('<div id="colorPick" style="display:none;top:' + top + 'px;left:' + left + 'px"><span>' + $.fn.colorPick.defaults.paletteLabel + '</span></div>');
-                    jQuery.each(this.palette, function (index, item) {
-                        $("#colorPick").append('<div class="colorPickButton" hexValue="' + item + '" style="background:' + item + '"></div>');
-                    });
-                    if ($.fn.colorPick.defaults.allowCustomColor === true) {
-                        $("#colorPick").append('<input type="text" style="margin-top:5px" class="customColorHash" />');
-                    }
-                    if ($.fn.colorPick.defaults.allowRecent === true) {
-                        $("#colorPick").append('<span style="margin-top:5px">Recent:</span>');
-                        if (JSON.parse(localStorage.getItem("colorPickRecentItems")) == null || JSON.parse(localStorage.getItem("colorPickRecentItems")) == []) {
-                            $("#colorPick").append('<div class="colorPickButton colorPickDummy"></div>');
-                        } else {
-                            jQuery.each(JSON.parse(localStorage.getItem("colorPickRecentItems")), function (index, item) {
-                                $("#colorPick").append('<div class="colorPickButton" hexValue="' + item + '" style="background:' + item + '"></div>');
-                                if (index == $.fn.colorPick.defaults.recentMax - 1) {
-                                    return false;
-                                }
-                            });
-                        }
-                    }
-                    $("#colorPick").fadeIn(200);
-                },
-
-                hide: function () {
-                    $("#colorPick").fadeOut(200, function () {
-                        $("#colorPick").remove();
-                        return this;
-                    });
-                },
-
-            };
-
-        }(jQuery));
-
-
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // 커스텀 스티커 컬러픽
-        var pickcolor = '#000000';
-        $(".picker").colorPick({
-            'initialColor': '#000000',
-            'onColorSelected': function () {
-                this.element.css({
-                    'backgroundColor': this.color,
-                    'color': this.color
-                });
-                pickcolor = this.color;
-            }
-        });
-        // end of 커스텀 스티커 컬러픽
-        // customSticker 만드는 코드
-        // text submit 버튼이 클릭되면 캔버스2에 스티커 추가됨
-        $("button[name='sticker']").on("click", function (e) { // 매개변수로 모양, 텍스트를 받는다
-            e.preventDefault();
-
-            // 원형 스티커 안에 텍스트 넣고 그룹핑해서 캔버스에 추가            
-            var text = new fabric.Text($("#inputText").val(), {
-                fontSize: 30,
-                originX: 'center',
-                originY: 'center'
-            });
-            var circle = new fabric.Circle({
-                radius: 100,
-                fill: pickcolor,
-                scaleY: 0.5,
-                originX: 'center',
-                originY: 'center'
-            });
-            var group = new fabric.Group([circle, text], {
-                left: 150,
-                top: 100,
-                angle: -10
-            });
-            canvas2.add(group);
-        });
-
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // 크레용 컬러픽
-        var crayoncolor = '#000000';
-        $(".crayonpicker").colorPick({
-            'initialColor': '#000000',
-            'onColorSelected': function () {
-                this.element.css({
-                    'backgroundColor': this.color,
-                    'color': this.color
-                });
-                crayoncolor = this.color;
-            }
-        });
-        // end of 크레용 컬러픽
-        // 바꾼 컬러를 적용하는 버튼을 누르면
-        // 그리기 모드가 활성화 된다
-        $("button[name='crayon']").on("click", function (e) {
-            e.preventDefault();
-            canvas2.freeDrawingBrush.color = crayoncolor;
-
-            canvas2.isDrawingMode = true;
-            canvas2.freeDrawingBrush.color = crayoncolor;
-            canvas2.freeDrawingBrush.width = 10;
-            canvas2.renderAll();
-
-            // eraser
-            document.getElementById("erase").onchange = function () {
-                drawingMode = this.checked ? "delete" : "add";
-                console.warn(drawingMode);
-
-                if (drawingMode === "add") {
-                    canvas2.freeDrawingBrush.color = crayoncolor;
-                } else if (drawingMode === "delete") {
-                    canvas2.freeDrawingBrush.color = '#D6C4C4';
-                }
-            };
-        });
-
-
-
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // freedraw
-
-
-        // 그리기 모드 종료
-        $("button[name='drawEnd']").on("click", function (e) {
-            canvas2.isDrawingMode = false;
-        });
-
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // 이미지와 텍스트 결합하기
-        // 일기 내용 적기
-
-        $("button[name='diary']").on("click", function (e) {
-
-            // load image
+</script>
+
+<!-- drag and drop Img add -->
+<script>
+    function drag(ev){
+        ev.dataTransfer.setData("text", ev.target.src);
+    }
+    var cw = document.getElementsByClassName("canvas-wrapper");
+    cw[0].ondrop = (ev)=>{
+        console.log(ev.dataTransfer.getData("text"));
+        let src = ev.dataTransfer.getData("text");
+        console.log(ev)
+        let img = new Image();
+        img.src = src;
+        fabric.Image.fromURL(src,function(oImg){
+            oImg.set({left:ev.offsetX-(oImg.width/2),top:ev.offsetY-(oImg.height/2)});
+            canvas2.add(oImg);
+        })   
+    }
+    // canvas2.on("object:added", ()=>{console.log("added")})
+</script>
+
+<!-- post add -->
+<script>
+    var diaryBtn = document.querySelector(".postSticker > .card-body > button");
+    var diaryText = document.querySelector("#diaryText");
+    console.log(diaryBtn);
+        console.log(diaryText);
+        diaryBtn.addEventListener("click", function () {
             fabric.Image.fromURL('/img/note4.png', function (img) {
                 img.scaleToWidth(420);
                 img.scaleToHeight(300);
@@ -725,7 +393,7 @@
                 var number = 10;
                 // function strMaker                
                 function strMaker(str) {
-                    str = $("#diaryText").val();
+                    str = diaryText.value;
                     for (let i = 0; i < str.length / number; i++) {
                         str2 += str.slice(i * number, number * (i + 1)) + "\n";
                     }
@@ -746,67 +414,66 @@
                 });
                 canvas2.add(group);
             });
+        })
+</script>
 
+<!-- text Sticker -->
+<script>
+    var st_TextElement = document.querySelector(".textSticker > .card-body > input");
+    var st_ColorElement = document.querySelector(".textSticker > .card-body > .pickercontainer > input");
+    var st_ButtonElement = document.querySelector(".textSticker > .card-body > button");
+
+    st_ButtonElement.addEventListener("click",()=>{
+        let text = new fabric.Text(st_TextElement.value,{
+            fontSize: 30,
+            originX: 'center',
+            originY: 'center'
+        })
+        var circle = new fabric.Circle({
+                radius: 100,
+                fill: st_ColorElement.value,
+                scaleY: 0.5,
+                originX: 'center',
+                originY: 'center'
         });
-
-        const navSlide = () => {
-            const burger = document.querySelector('.burger');
-            const nav = document.querySelector('.nav-links');
-            const navLinks = document.querySelectorAll('.nav-links li');
-            const first = document.querySelector('.first');
-            const second = document.querySelector('.second');
-            const third = document.querySelector('.third');
-            const fourth = document.querySelector('.fourth');
-
-            burger.addEventListener('click', () => {
-                // toggle nav
-                nav.classList.toggle('nav-active');
-
-                // animate links
-                // 인덱스로 한방에 처리하는 코드인데 안돼서 주석처리
-                /*
-                navLinks.forEach((link, index) => {
-    
-                    console.log(index); // 콘솔에 인덱스 0 1 2 3 잘 찍힘
-    
-                    if(link.style.animation){
-                        console.log("1");
-                        link.style.animation = '';
-                    } else {
-                        console.log("2"); // 2가 나옴. 브라우저가 link.style.animation을 인식한다는 소리
-                        // thymeleaf 문법 때문에 출력이 안되는거 같다
-                        // 혹은 연산이 불가한건가?
-                        // link.style.animation = 'navLinkFade 0.5s ease forwards'; // 된다
-                        link.style.animation = 'navLinkFade 0.5s ease forwards ${index / 7}s'; // 안된다
-                        // link.style.animation = 'navLinkFade 0.5s ease forwards 0.3s'; // 된다
-                    }
-                });
-                */
-
-                if (first.style.animation) {
-                    first.style.animation = '';
-                    second.style.animation = '';
-                    third.style.animation = '';
-                    fourth.style.animation = '';
-                }
-                else {
-                    first.style.animation = 'navLinkFade 0.5s ease forwards 0.4s';
-                    second.style.animation = 'navLinkFade 0.5s ease forwards 0.65s';
-                    third.style.animation = 'navLinkFade 0.5s ease forwards 0.9s';
-                    fourth.style.animation = 'navLinkFade 0.5s ease forwards 1.15s';
-                }
+        var group = new fabric.Group([circle, text], {
+                left: 150,
+                top: 100,
+                angle: -10
+        });
+        canvas2.add(group);
+    })
 
 
+</script>
 
-                // burger animation
-                burger.classList.toggle('toggle');
-
-            });
+<!-- delete Btn-->
+<script>
+    var deleteBtn = document.querySelector(".deleteSticker> .card-body >button");
+    deleteBtn.addEventListener("click", () => {
+        if (!(typeof (canvas2.getActiveObject().src) === "string")) {
+            canvas2.remove(canvas2.getActiveObject());
         }
-        // 함수 실행
-        navSlide();
+    });
+</script>
 
-    </script>
-</body>
+<script>
+    var dr_StartbuttonElement = document.querySelector(".drawSticker>.card-body>button[name=crayon]");
+    var dr_EndbuttonElement = document.querySelector(".drawSticker>.card-body>button[name=drawEnd]");
+    var dr_ColorElement = document.querySelector(".drawSticker>.card-body>.crayonpickercontainer>input");
 
-</html>
+    dr_StartbuttonElement.addEventListener("click",()=>{
+        canvas2.freeDrawingBrush.color = dr_ColorElement.value;
+        canvas2.isDrawingMode = true;
+        canvas2.freeDrawingBrush.color = dr_ColorElement.value;
+        canvas2.freeDrawingBrush.width = 10;
+        canvas2.renderAll();
+    })
+    dr_EndbuttonElement.addEventListener("click",()=>{
+        canvas2.isDrawingMode = false;
+    })
+
+</script>
+
+<div th:replace = "includes/footer"></div>
+

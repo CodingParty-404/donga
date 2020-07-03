@@ -38,13 +38,20 @@
 
 body, html {
 	height: 100%;
-	font-family: Montserrat-Regular, sans-serif;
+  /* font-family: Montserrat-Regular, sans-serif; */
+  /* 'Gamja Flower', cursive; */
+  /* font-family: 'Sunflower', sans-serif; */
+  /* font-family: 'Poor Story', cursive; */
+  font-family: 'Hi Melody', cursive;
+  /* font-family: 'JSDongkang-Regular'; */
+  /* font-family: 'KCC-eunyoung'; */
+  /* font-family: 'NanumSquareRound'; */
 }
 
 /*---------------------------------------------*/
 a {
-	font-family: Montserrat-Regular;
-	font-size: 14px;
+	/* font-family: Montserrat-Regular; */
+	font-size: 16px;
 	line-height: 1.7;
 	color: #666666;
 	margin: 0px;
@@ -69,8 +76,8 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 p {
-	font-family: Montserrat-Regular;
-	font-size: 14px;
+	/* font-family: Montserrat-Regular; */
+  font-size: 16px;
 	line-height: 1.7;
 	color: #666666;
 	margin: 0px;
@@ -195,8 +202,8 @@ iframe {
 
 .contact100-form-title {
   display: block;
-  font-family: Montserrat-ExtraBold;
-  font-size: 24px;
+  /* font-family: Montserrat-ExtraBold; */
+  font-size: 26px;
   color: #333333;
   line-height: 1.2;
   text-align: left;
@@ -231,8 +238,8 @@ textarea.input100 {
   display: block;
   width: 100%;
   background: #e6e6e6;
-  font-family: Montserrat-Bold;
-  font-size: 15px;
+  /* font-family: Montserrat-Bold; */
+  font-size: 17px;
   line-height: 1.5;
   color: #666666;
 }
@@ -288,7 +295,7 @@ textarea.input100 {
   padding-left: 30px;
   pointer-events: none;
   color: #aaaaaa;
-  font-size: 15px;
+  font-size: 17px;
 
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
@@ -320,8 +327,8 @@ textarea.input100 {
   height: 50px;
   border-radius: 25px;
   background: #ffdd57;
-  font-family: Montserrat-Bold;
-  font-size: 15px;
+  /* font-family: Montserrat-Bold; */
+  font-size: 17px;
   line-height: 1.5;
   color: #666666;
   display: -webkit-box;
@@ -415,9 +422,9 @@ textarea.input100 {
   right: 8px;
   pointer-events: none;
 
-  font-family: Montserrat-Medium;
+  /* font-family: Montserrat-Medium; */
   color: #c80000;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.4;
   text-align: left;
 
@@ -432,11 +439,11 @@ textarea.input100 {
 
 .alert-validate::after {
   content: "\f06a";
-  font-family: FontAwesome;
+  /* font-family: FontAwesome; */
   display: block;
   position: absolute;
   color: #c80000;
-  font-size: 15px;
+  font-size: 17px;
   top: 50%;
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);

@@ -25,7 +25,7 @@ public class TestController {
     @GetMapping("test2")
     public void test2( Long dongaId , Model model) {
         log.info("test2 get.......................................");
-        model.addAttribute("list", sceneService.getSceneList(29L));
+        model.addAttribute("list", sceneService.getSceneList(32L));
         model.addAttribute("dongaId",dongaId);
         
     }

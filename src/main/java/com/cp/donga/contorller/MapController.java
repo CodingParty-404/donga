@@ -51,7 +51,7 @@ public class MapController {
     @Autowired
     private MapService mapService;
 
-    private final String ROOT_PATH = "\\\\192.168.0.73\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
+    private final String ROOT_PATH = "\\\\192.168.0.70\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
     
     // Title, Date of travel, IMG SELECT AND UPLOAD
     @GetMapping("/set")
