@@ -8,6 +8,6 @@ public interface SceneService {
     
     public Scene registerScene(Scene scene);
     public List<Scene> getSceneList(Long dongaId);
-    public int getOneScene(String json , Long dongaId, Long index);
+    public int setOneScene(String json , Long dongaId, Long index);
 
 }

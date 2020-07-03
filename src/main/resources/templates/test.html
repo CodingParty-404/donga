@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #div1 {
+          width: 350px;
+          height: 70px;
+          padding: 10px;
+          border: 1px solid #aaaaaa;
+        }
+        </style>
+    <script>
+        function allowDrop(ev) {
+          ev.preventDefault();
+        }
+        
+        function drag(ev) {
+          ev.dataTransfer.setData("text", ev.target.id);
+        }
+        
+        function drop(ev) {
+          ev.preventDefault();
+          console.log(ev.dataTransfer.getData("text"));
+          console.log(ev.target);
+          var data = ev.dataTransfer.getData("text");
+          ev.target.appendChild(createImg(data));
+        }
+
+        var createImg = function(data){
+            var element = document.getElementById(data);
+            console.log(element)
+            var img = new Image();
+            img.src=element.src;
+
+            return img
+        }
+
+        </script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <img id="drag1" src="/emoji/t1.png" draggable="true" ondragstart="drag(event)" width="336" height="69">
+
+</body>
+</html>

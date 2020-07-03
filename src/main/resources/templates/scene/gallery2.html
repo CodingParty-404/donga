@@ -100,7 +100,6 @@
         <canvas id="can29" class="preCan"></canvas>
     </div>
    
-
     <!-- jquery cdn -->
     <script src="https://code.jquery.com/jquery-3.5.0.min.js"
         integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
@@ -111,7 +110,6 @@
 
     <!-- fabric js-->
     <script></script>
-
     <!-- 자바스크립트에서 타임리프 인라인해서 쓰기 -->
     <script th:inline="javascript">//!!중요 1
         $("document").ready(function () {
@@ -151,15 +149,14 @@
             // "";
 
             document.body.innerHTML += container;
-
             //
             pictureList.forEach(dto => {
                 console.log(dto.filename);
                 img = "<div class='col-lg-3 col-md-4 col-6'>" +
                     "<div class='d-block mb-4 h-100'>" +                   //이미지 블록
-                    "<img class='img-fluid img-thumbnail' data-name ='" + dto.filename + "'" +
+                    "<img crossorigin='Anonymous' class='img-fluid img-thumbnail' data-name ='" + dto.filename + "'" +
                     "data-status='" + dto.weatherstatus +
-                    "'src='/pictures/" + dongaId + "/" + dto.filename + "'>" + //dto로 전달된 사진 태그
+                    "'src='http://192.168.0.73:8080/pictures/" + dongaId + "/" + dto.filename + "'>" + //dto로 전달된 사진 태그
                     "<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
                     "</div>" +
                     "</div>";
@@ -233,7 +230,7 @@
                                         left: 290,
                                         top: 140
                                     }));
-                                })
+                                },{ crossOrigin: 'anonymous'})
                             }
                             else if (img.width <= 1000) {
                                 // alert("1");
@@ -248,7 +245,7 @@
                                         left: 250,
                                         top: 170
                                     }));
-                                })
+                                },{ crossOrigin: 'anonymous'})
                             }
                             else if (img.height >= 3800) {
                                 // alert("2");
@@ -261,7 +258,7 @@
                                         left: 310,
                                         top: 150
                                     }));
-                                })
+                                },{ crossOrigin: 'anonymous'})
                             }
                             else {
                                 // alert("3");
@@ -274,7 +271,7 @@
                                         left: 250,
                                         top: 180
                                     }));
-                                })
+                                },{ crossOrigin: 'anonymous'})
                             }
                         } // end of img.onload
                         // 리스트에 캔버스 저장하기
