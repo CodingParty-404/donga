@@ -1,0 +1,232 @@
+<div th:replace="includes/header"></div>
+<link rel="stylesheet" type="text/css" href="/css/bookblock.css" />
+<link rel="stylesheet" type="text/css" href="/css/default.css" />
+<style>
+    /* .swiper-button-prev{
+        right: 0px;
+    }
+
+    .swiper-button-prev{
+        left: 0px;
+    } */
+    .body{
+        background-color: white;
+    }
+
+    .filpbook{
+        position: relative;
+        margin-top: 150px;
+    }
+
+    .btnNav{
+        display: flex;
+        justify-content: center;
+    }
+
+    .btnNav a{
+        margin-left: 5%;
+    }
+</style>
+
+<body>
+    <div class="container filpbook">
+
+        <div id="bb-nav-prev" class="swiper-button-prev"></div>
+        <div class="main clearfix">  
+            <div class="bb-custom-wrapper">
+                <div id="bb-bookblock" class="bb-bookblock"></div>
+            </div>
+        </div>
+        <div id="bb-nav-next" class="swiper-button-next"></div>
+
+        <div class = "btnNav">
+            <a href="#" id = "bb-nav-first" class="genric-btn  info-border radius">첫째 페이지</a>
+            <a href="#" id ="export" class="genric-btn primary-border radius">다운로드</a>
+            <a href="#" id = "bb-nav-last" class="genric-btn info-border radius">마지막 페이지</a>
+            
+    
+        </div>
+    </div>
+
+    </div>
+
+    <div th:each=" vo : ${list}" style="display: none;">
+        <span class="canvasData" th:text="${vo.getScenepath()}"> </span>
+    </div>
+
+    <!-- <div id="btnDIV">
+        <button id="export">Export</button>
+    </div> -->
+
+    <div style="display: none;">
+        <canvas th:each=" vo : ${list}" class="prepared"></canvas>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="/js/jquerypp.custom.js"></script>
+    <script src="/js/jquery.bookblock.js"></script>
+
+    <script type="text/javascript">
+
+        var canvas = new fabric.StaticCanvas('canvas');
+        var preFCanvas = [];
+        var canvasArr = document.getElementsByClassName("canvasData");
+        var preCanvas = document.getElementsByClassName("prepared");
+        var flipDiv = document.getElementById("bb-bookblock");
+        var initbb = document.getElementById("initbb");
+        var index = 1;
+
+        window.onload = () => {
+
+
+            var imgTag = "";
+            var j = 0;
+            for (let i = 0; i < preCanvas.length; i++) {
+                var str = 'preCan' + (i + 1);
+                preFCanvas.push(new fabric.StaticCanvas(str, { width: 1024, height: 720 }))
+                preFCanvas[i].loadFromJSON(canvasArr[i].innerText, function () {
+
+                    let imgSrc = preFCanvas[i].getElement().toDataURL();
+                    console.log("==================================" + i)
+                    imgTag = '<div data-index=' + i + ' class="bb-item"><img width="1024" height="720" src="' + imgSrc + '" alt="image01"/></div>';
+                    flipDiv.innerHTML += imgTag;
+
+                    j++;
+                    if (j > [[${ list.size() }]] - 1) {
+                        let flips = document.getElementsByClassName("bb-item");
+                        let flipsSort =
+                            [...flips].sort((a, b) => {
+                                let intA = parseInt(a.getAttribute("data-index"));
+                                let intB = parseInt(b.getAttribute("data-index"));
+                                // console.log(a.getAttribute("data-index") + "  "  + b.getAttribute("data-index"));
+                                console.log(intA + "    " + intB)
+                                return (intA < intB) ? -1 : (intA > intB) ? 1 : 0;
+                            });
+                        console.log(flipsSort);
+                        flipsSort.forEach((flip) => {
+                            flipDiv.appendChild(flip);
+                        })
+
+
+                        Page.init();
+                    }
+                });
+            }
+        }
+
+        // initbb.addEventListener("click", function () {
+        //     Page.init();
+        // })
+
+        document.getElementById('export').addEventListener("click", async function (e) {
+            window.alert("export");
+            var zip = new JSZip();
+            let i = 0;
+            let pfLeng = preFCanvas.length;
+            preFCanvas.forEach(element => {
+                element.getElement().toBlob(function (blob) {
+                    zip.file("fileName" + i + ".png", new File([blob], "fileName" + i + ".png", { type: "image/png", }));
+                    i++;
+                    if (pfLeng === i) {
+                        zip.generateAsync({ type: "blob" }).then(function (content) {
+                            saveAs(content, 'Filename.zip'); //FileSaver.js
+                        })
+                    }
+                })
+            });
+        })
+    </script>
+
+    <script>
+        var Page = (function () {
+
+            var config = {
+                $bookBlock: $('#bb-bookblock'),
+                $navNext: $('#bb-nav-next'),
+                $navPrev: $('#bb-nav-prev'),
+                $navFirst: $('#bb-nav-first'),
+                $navLast: $('#bb-nav-last')
+            },
+                init = function () {
+                    config.$bookBlock.bookblock({
+                        speed: 800,
+                        shadowSides: 0.8,
+                        shadowFlip: 0.7
+                    });
+                    initEvents();
+                },
+                initEvents = function () {
+
+                    var $slides = config.$bookBlock.children();
+
+                    // add navigation events
+                    config.$navNext.on('click touchstart', function () {
+                        config.$bookBlock.bookblock('next');
+                        return false;
+                    });
+
+                    config.$navPrev.on('click touchstart', function () {
+                        config.$bookBlock.bookblock('prev');
+                        return false;
+                    });
+
+                    config.$navFirst.on('click touchstart', function () {
+                        config.$bookBlock.bookblock('first');
+                        return false;
+                    });
+
+                    config.$navLast.on('click touchstart', function () {
+                        config.$bookBlock.bookblock('last');
+                        return false;
+                    });
+
+                    // add swipe events
+                    $slides.on({
+                        'swipeleft': function (event) {
+                            config.$bookBlock.bookblock('next');
+                            return false;
+                        },
+                        'swiperight': function (event) {
+                            config.$bookBlock.bookblock('prev');
+                            return false;
+                        }
+                    });
+
+                    // add keyboard events
+                    $(document).keydown(function (e) {
+                        var keyCode = e.keyCode || e.which,
+                            arrow = {
+                                left: 37,
+                                up: 38,
+                                right: 39,
+                                down: 40
+                            };
+
+                        switch (keyCode) {
+                            case arrow.left:
+                                config.$bookBlock.bookblock('prev');
+                                break;
+                            case arrow.right:
+                                config.$bookBlock.bookblock('next');
+                                break;
+                        }
+                    });
+                };
+            return { init: init };
+        })();
+        // page.init();
+    </script>
+
+    <script>
+        var canvas = new fabric.Canvas('canvas');
+
+
+        $('#readJSON').click(function () {
+            var $json = $('#asd')
+            var json = JSON.parse($json.val());
+            // canvas.loadFromJSON($json.val());
+        })
+    </script>
+
+<div th:replace="includes/footer"></div>

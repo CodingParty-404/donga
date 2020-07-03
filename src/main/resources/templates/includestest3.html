@@ -1,4 +1,5 @@
 <div th:replace="includes/header"></div>
+
 <body>
 
     <style>
@@ -13,15 +14,17 @@
 
         .swiper-container {
             width: 100%;
-            height: 20%;
+            height: 25%;
             margin: 20px auto;
-            background: #fff;
+            background: #fff; 
         }
 
         .swiper-slide {
+            height: 90%;
             text-align: center;
             font-size: 18px;
             background: #111111;
+            box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.4);
 
             /* Center slide text vertically */
             display: -webkit-box;
@@ -58,22 +61,26 @@
             margin: 0 10px;
             font-size: 13px;
         }
-        .srcImgShow{
+
+        .srcImgShow {
             background-color: black;
             /* height: 500px; */
         }
 
-        video{
+        video {
             position: absolute;
             left: 0px;
             min-width: 100%;
         }
-        .img_view{
+
+        .img_view {
             position: relative;
             overflow: hidden;
+            background-color: white;
+            box-shadow: 0 10px 10px rgb(0,0,0,0.8);
         }
 
-        .srcImg{
+        .srcImg {
             position: relative;
             /* top: -60vh; */
             display: block;
@@ -83,39 +90,78 @@
             height: 100%;
         }
 
-        .d-none.d-sm-block.mb-5.pb-2{
+        .d-none.d-sm-block.mb-5.pb-2 {
             box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.3);
-            padding : 5px;
+            background-color: white;
+            padding: 5px;
         }
 
-        .padding_top{
+        .padding_top {
             padding-top: 100px;
         }
 
-    </style>
-    
+        .parralxScreen{
+            position: absolute;
+            top: 20vh;
+            left: 10vh;
+            z-index: -1;
+        }
 
-     <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
-     <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+        .left_emoji{
+            margin-left: 10vw;
+        }
+
+        .right_emoji{
+            margin-left: 78vw;
+        }
+        
+
+        @keyframes example {
+            from {transform: rotate(-20deg);}
+            to {transform: rotate(20deg);}
+        }
+
+        #compass2{
+            margin-top: 10vw;
+            left:-5vw;
+        }
+
+        #compass3{
+            margin-top: 20vw;
+        }
+
+    </style>
+
+
+    <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+    <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
 
 
     <!--페이지 시작-->
     <button type='button' id="nextpage" class='btn btn-primary'>다음페이지로</button></div>
     <!-- 템플릿 컨테이너 -->
-    <section class="contact-section padding_top">
+    <section class="contact-section padding_top map_container ">
         <div class="container box_1170">
-        <h2>ㅁㅁㅁ의 여행 경로입니다.</h2>
-        <hr>
-          <div class="d-none d-sm-block mb-5 pb-2">
-          <!--카카오 지도 뷰-->
-          <div id="map" style="width:100%;height:600px;"></div>   
-          </div>
+            <h2>ㅁㅁㅁ의 여행 경로입니다.</h2>
+            <hr>
+            <div class="d-none d-sm-block mb-5 pb-2">
+                <!--카카오 지도 뷰-->
+                <div id="map" style="width:100%;height:600px;"></div>
+            </div>
         </div>
-        <div id="indexBallon" data-depth="0.7">
-            <img src="/index/img/banner_img.png" id="balloon" >
+        <!-- <div id="parralxScreen">
+           
+        </div> -->
+        <div class="parralxScreen">
+            <img src="/emoji/t3.png" id="compass1" class ="left_emoji" data-depth="0.4">
+            <img src="/emoji/t6.png" id="compass2" class ="left_emoji" data-depth="0.3">
+            <img src="/emoji/t8.png" id="compass3" class ="left_emoji" data-depth="0.6">
+            <img src="/emoji/t12.png" id="compass1" class ="right_emoji" data-depth="0.4">
+            <img src="/emoji/t18.png" id="compass2" class ="right_emoji" data-depth="0.3">
+            <img src="/emoji/t17.png" id="compass3" class ="right_emoji" data-depth="0.6">
         </div>
     </section>
-      <!-- Swiper container -->
+    <!-- Swiper container -->
     <div class="swiper-container">
         <div class="swiper-wrapper"></div>
         <!-- Add Pagination -->
@@ -124,28 +170,21 @@
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
     </div>
-    <!-- <div>
-        <input id="uploadInput" type="file" multiple>파일
-    </div>
-
-    <div class="progress" style="visibility: hidden;">
-        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
-            aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
-    </div> -->
+    
     <div class="container img_view">
-        <video autoplay loop muted preload="auto" > 
+        <video autoplay loop muted preload="auto">
             <source src="/leaf_raindrop2.mp4" type="video/mp4">
         </video>
         <div>
-            <div class = 'srcImgShow'>
-                <img class = 'srcImg' src="" hidden>    
+            <div class='srcImgShow'>
+                <img class='srcImg' src="" hidden>
                 <!-- <img class = 'srcImg' src="/pictures/project1/IMG_0096.jpg"> -->
-            </div>        
+            </div>
         </div>
     </div>
-    
+
     <div class="container">
-       
+
     </div>
     <form id='form' hidden>
 
@@ -159,11 +198,24 @@
     <script th:inline="javascript">
         var pictureList = [[${ picturelist }]]
 
-        pictureList.forEach(picture=>{
+        pictureList.forEach(picture => {
             console.log(picture.weather);
         })
 
     </script>
+
+    <!-- parralx.js 스크립트-->
+    <script>
+        //1.페럴렉스로 설정할 구역의 dom객체를 가져온다.
+        var screen = $(".parralxScreen").get(0);
+        console.log(screen);
+        //2.페럴렉스 객체를 dom객체와 함께 생성한다.
+        var parallax = new Parallax(screen,{
+            relativeInput: true
+        });
+    </script>
+
+
     <script>
 
         // for(var i = 0 ; i < pictureList.length ; i++){
@@ -173,8 +225,7 @@
         // //    console.log(pictureList[i].wt===null) //picture의 날씨정보는 null일 수 있음
         // }
 
-
-        var dongaId = [[${dongaId}]];
+        var dongaId = [[${ dongaId }]];
         //1.정규식 설정으로 업로드 파일 저항
         var regex = new RegExp("(.*?)\.(jpg|JPG)$");
         //2.제한 데이터 크기 값 선언- 5M
@@ -214,7 +265,7 @@
                     var slides = [];
 
                     pictureList.forEach(picture => {
-                        slides.push("<img src= /pictures/"+dongaId+"/s_"+picture.filename+">");
+                        slides.push("<img src= /pictures/" + dongaId + "/s_" + picture.filename + ">");
                     })
                     console.log(slides);
 
@@ -228,32 +279,32 @@
                 modifier: 1,
                 slideShadows: true,
             },
-            on :{
-              click : function(e){
-                
-                //1.슬라이더가 클릭됐을때 이미지 태그인지 검사한다.
-                //2.이미지태그라면, 해당 타겟의 src를 참조해 s_를 짤라 경로를 뽑아낸다.
-                //3.원본이미지 디브를 생성해 맵 밑에 추가한다.
-                var clickedObj = e.target
-                
-                if(clickedObj.tagName === "IMG"){
-                
-                console.log(clickedObj.tagName);
-                console.log(clickedObj.getAttribute("src"));
-                swiper.slideTo(swiper.clickedIndex);
+            on: {
+                click: function (e) {
 
-                var thumbSrc = clickedObj.getAttribute("src");
-                var cutNum = thumbSrc.indexOf("s_")
-                // console.log(src.slice(cutNum-src.length));
-                var src = thumbSrc.substring(cutNum+2,thumbSrc.length);
-                // var img = "<img class = 'srcImg' src='/pictures/"+dongaId+"/"+src+"'>"
-                var srcImg = $(".srcImg")
-                console.log(srcImg);
-                srcImg.attr("hidden",false);
-                $(".srcImg").attr("src","/pictures/"+dongaId+"/"+src);
+                    //1.슬라이더가 클릭됐을때 이미지 태그인지 검사한다.
+                    //2.이미지태그라면, 해당 타겟의 src를 참조해 s_를 짤라 경로를 뽑아낸다.
+                    //3.원본이미지 디브를 생성해 맵 밑에 추가한다.
+                    var clickedObj = e.target
+
+                    if (clickedObj.tagName === "IMG") {
+
+                        console.log(clickedObj.tagName);
+                        console.log(clickedObj.getAttribute("src"));
+                        swiper.slideTo(swiper.clickedIndex);
+
+                        var thumbSrc = clickedObj.getAttribute("src");
+                        var cutNum = thumbSrc.indexOf("s_")
+                        // console.log(src.slice(cutNum-src.length));
+                        var src = thumbSrc.substring(cutNum + 2, thumbSrc.length);
+                        // var img = "<img class = 'srcImg' src='/pictures/"+dongaId+"/"+src+"'>"
+                        var srcImg = $(".srcImg")
+                        console.log(srcImg);
+                        srcImg.attr("hidden", false);
+                        $(".srcImg").attr("src", "/pictures/" + dongaId + "/" + src);
+                    }
+
                 }
-
-              }  
             },
             autoplay: {
                 delay: 1500,
@@ -267,7 +318,7 @@
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
             },
-            
+
         }
         );
 
@@ -287,7 +338,7 @@
 
             // 선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
             linedMarkers.push(latlng);
-        }) 
+        })
 
         //클러스터 클릭 이벤트
         kakao.maps.event.addListener(clusterer, 'clusterclick', function (cluster) {
@@ -300,7 +351,7 @@
 
             //클러스터에 속해있는 마커 갯수만큼 이미지태그 생성
             cluster.getMarkers().forEach(item => {
-                slides.push("<img src ='/pictures/"+dongaId+"/" + "s_"+ item.getTitle() + "'>");
+                slides.push("<img src ='/pictures/" + dongaId + "/" + "s_" + item.getTitle() + "'>");
             });
 
             //swiper의 슬라이드 제거후 virtual slide 생성
@@ -328,16 +379,16 @@
 
 
         //다음페이지 버튼 클릭시
-        $("#nextpage").click(function(){
+        $("#nextpage").click(function () {
             //각 사진파일의 정보를 form에 저장해 전달한다.
-            
+
             var formObj = $("#form");
-            formObj.attr("action","/scene/gallery2");
-            formObj.attr("method","get");
-          
-            formObj.append("<input name = 'dongaId' value ='" +dongaId+ "'></input>");
+            formObj.attr("action", "/scene/gallery2");
+            formObj.attr("method", "get");
+
+            formObj.append("<input name = 'dongaId' value ='" + dongaId + "'></input>");
             formObj.submit();
         })
-           
+
     </script>
     <div th:replace="includes/footer"></div>

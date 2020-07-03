@@ -8,6 +8,8 @@
     <title>travel</title>
 
     <!-- 웹폰트 링크 -->
+    <!--hi melody-->
+    <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
     <!--감자꽃 -->
     <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
     <!-- 해바라기 -->
@@ -85,7 +87,25 @@
     <link rel="stylesheet" type="text/css" href="/css/util.css">
     <link rel="stylesheet" type="text/css" href="/css/main.css">
     <!--===============================================================================================-->
+
+    <script src="/js/modernizr.custom.js"></script>
+    <script src="/js/jszip.min.js"></script>
+    <script src="/js/FileSaver.js"></script>
+    <script src="/js/fabric.js"></script>
+    <script src="/js/sprite.js"></script>
     <style>
+
+        body{
+            /* font-family: Montserrat-Regular, sans-serif; */
+            font-family: 'Gamja Flower', cursive;
+            /* font-family: 'Sunflower', sans-serif; */
+            /* font-family: 'Poor Story', cursive; */
+            /* font-family: 'Hi Melody', cursive; */
+            /* font-family: 'JSDongkang-Regular'; */
+            /* font-family: 'KCC-eunyoung'; */
+            /* font-family: 'NanumSquareRound'; */
+	    }
+
         .contact100-pic img {
             /* width: 120%; */
             /* height: 100%; */
@@ -99,14 +119,6 @@
             position: absolute;
             z-index: -1;
         }
-
-        /* .fileInput + label {
-                font-size: 1.25em;
-                font-weight: 700;
-                color: white;
-                background-color: black;
-                display: inline-block;
-            } */
 
         .fileInput:focus+label,
         .fileInput+label:hover {
@@ -131,6 +143,20 @@
         .footer_part{
             padding-top: 10px;
         }
+
+        .footer_part img{
+            opacity: 0.75;
+            z-index: -3;
+            width: 100%;
+            position: relative;
+            top:-120px;
+        }
+        .main_menu{
+            background-image: url(/bluepaint.png);
+            background-size: cover;
+            background-color: yellow;
+        }
+
     </style>
 </head>
 
