@@ -32,7 +32,7 @@ public class MapServiceImpl implements MapService {
         Donga donga = Donga.builder().eddate(dongaDTO.getEnddate()).stdate(dongaDTO.getStartdate())
                 .regdate(LocalDate.now()).title(dongaDTO.getTitle())
                 // .member(Member.builder().mid(1L).build())
-                .dongamember(DongaMember.builder().mid(1L).build()).build();
+                .dongamember(DongaMember.builder().id(1L).build()).build();
 
         return dongaRepository.save(donga);
     }

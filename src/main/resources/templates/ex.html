@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+    <title>회원가입 예시</title>
+</head>
+<body>
+
+<style>
+body{
+    display: table-cell;
+    vertical-align: middle;
+    background-color: #e0f2f1 !important;
+}
+
+html {
+    display: table;
+    margin: auto;
+}
+
+html, body {
+    height: 100%;
+}
+
+.medium-small {
+    font-size: 0.9rem;
+    margin: 0;
+    padding: 0;
+}
+
+.login-form {
+    width: 280px;
+}
+
+.login-form-text {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+}
+
+.login-text {
+    margin-top: -6px;
+    margin-left: -6px !important;
+}
+
+.margin {
+    margin: 0 !important;
+}
+
+.pointer-events {
+    pointer-events: auto !important;
+}
+
+.input-field >.material-icons  {
+    padding-top:10px;
+}
+
+.input-field div.error{
+    position: relative;
+    top: -1rem;
+    left: 3rem;
+    font-size: 0.8rem;
+    color:#FF4081;
+    -webkit-transform: translateY(0%);
+    -ms-transform: translateY(0%);
+    -o-transform: translateY(0%);
+    transform: translateY(0%);
+}
+</style>
+
+
+
+
+<div id="login-page" class="row">
+    <div class="col s12 z-depth-4 card-panel">
+      <form class="login-form">
+        <div class="row">
+          <div class="input-field col s12 center">
+            <h4>회원 가입</h4>
+            <p class="center">가입 후 당신의 동가를 만들어 보세요 :)</p>
+          </div>
+        </div>
+        
+        <!-- start of form -->
+        <form th:action="@{/user/signup}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+        <div class="row margin">
+          <div class="input-field col s12">
+            <!-- <i class="mdi-social-person-outline prefix"></i> -->
+            <i class="material-icons prefix">account_circle</i>
+            <!--<input id="username" name="username" type="text"/>
+            <label for="username">Username</label>-->
+            <input type="text" name="yourname" placeholder="이름">
+          </div>
+        </div>
+  
+        <div class="row margin">
+          <div class="input-field col s12">
+            <!-- <i class="mdi-social-person-outline prefix"></i> -->
+            <i class="material-icons prefix">email</i>
+            <!--<input id="email" name="email" type="text" style="cursor: auto;" />-->
+            <!--<label for="email">-->
+              <input type="text" name="username" placeholder="이메일 입력해주세요">
+            <!--</label>-->
+          </div>
+        </div>
+  
+        <div class="row margin">
+          <div class="input-field col s12">
+            <!-- <i class="mdi-action-lock-outline prefix"></i> -->
+            <i class="material-icons prefix">vpn_key</i>
+            <!--<input id="password" name="password" type="password" />
+            <label for="password">Password</label>-->
+            <input type="password" name="password" placeholder="비밀번호">
+          </div>
+        </div>
+  
+        <!--<div class="row margin">
+          <div class="input-field col s12"> -->
+            <!-- <i class="mdi-action-lock-outline prefix"></i> -->
+            <!--<i class="material-icons prefix">vpn_key</i>
+            <input id="password_a" name="cpassword" type="password" />
+            <label for="password_a">Password again</label>
+          </div>
+        </div>-->
+  
+        <div class="row">
+          <div class="input-field col s12">
+            <button type="submit" class="btn waves-effect waves-light col s12">가입하기</button>
+            
+          </div>
+          <div class="input-field col s12">
+            <p class="margin center medium-small sign-up">이미 계정이 있으신가요? <a href="./user/login">로그인하기</a></p>
+          </div>
+        </div>
+  
+
+      </form>
+      <!-- end of form -->
+  
+      </form>
+    </div>
+  </div>
+
+
+
+
+<script>
+    $(".login-form").validate({
+  rules: {
+    username: {
+      required: true,
+      minlength: 4
+    },     
+    email: {
+      required: true,
+      email:true
+    },
+    password: {
+      required: true,
+      minlength: 5
+    },
+    cpassword: {
+      required: true,
+      minlength: 5,
+      equalTo: "#password"
+    }
+  },
+  //For custom messages
+  messages: {
+    username:{
+      required: "Enter a username",
+      minlength: "Enter at least 4 characters"
+    }
+  },
+  errorElement : 'div',
+  errorPlacement: function(error, element) {
+    var placement = $(element).data('error');
+    if (placement) {
+      $(placement).append(error)
+    } else {
+      error.insertAfter(element);
+    }
+  }
+});
+</script>
+
+
+</body>
+</html>

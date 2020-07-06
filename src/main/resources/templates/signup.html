@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script> 
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a311ddbe5e44bc2eb860a0749f6119fa&libraries=services"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>Document</title>
+</head>
+<body>
+<style>
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  text-decoration: none;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+body{
+  background: #3aaf9f;
+}
+
+.wrapper{
+  max-width: 350px;
+  width: 100%;
+  height: auto;
+  background: #fff;
+  padding: 60px 45px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  border-radius: 20px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.wrapper .title{
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #3aaf9f;
+}
+
+.wrapper .social_media{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.wrapper .social_media .item{
+  margin: 0 5px;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  border: 2px solid #eeeeee;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #eeeeee;
+  transition: all 0.5s ease;
+}
+
+.wrapper .social_media .item:hover{
+  border: 2px solid #3aaf9f;
+  color: #3aaf9f;
+}
+
+.wrapper .form .input_field{
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.wrapper .form .input_field .input{
+  width: 100%;
+  padding: 12px;
+  padding-left: 30px;
+  border: none;
+  background: #eeeeee;
+}
+
+.wrapper .form .btn{
+  width: 70%;
+  margin: 20px auto 0;
+  background: #3aaf9f;
+  text-align: center;
+  padding: 12px;
+  border-radius: 25px;
+}
+
+.wrapper .form .btn a{
+  color: #fff;
+}
+
+.wrapper .form .input_field i{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 14px;
+  color: #1d2120;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: gray;
+}
+::-moz-placeholder { /* Firefox 19+ */
+ color: gray;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: gray;
+}
+
+.input_field_search {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.sign-in {
+    font-size: 14px;
+    text-align: center;
+}
+
+button {
+    font-size: 16px;
+    color: white;
+    font-weight: 700;
+    border: none;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.09);
+    position: absolute;
+    top: 83%;
+    left: 15%;
+}
+
+</style>
+
+
+<div class="wrapper">
+    <div class="title">
+      가입 후 우리 가족의 <br> 동가를 만드세요 :)
+    </div>
+    <div class="social_media">
+      <div class="item">
+        <i class="fab fa-facebook-f"></i>
+      </div>
+      <div class="item">
+        <i class="fab fa-twitter"></i>
+      </div>
+      <div class="item">
+        <i class="fab fa-google-plus-g"></i>
+      </div>
+    </div>
+    
+    <div class="form">    
+    <form class="regi-form" id="regi-form" th:action="@{/user/signup}" method="post">  
+
+      <div class="input_field">
+        <input type="text" placeholder="이름을 입력하세요" class="input" name="yourname">
+        <i class="fas fa-user"></i>
+      </div>
+      <div class="input_field">
+        <input type="text" placeholder="아이디로 사용할 Email을 입력하세요" class="input" name="email">
+        <i class="far fa-envelope"></i>
+      </div>
+      <div class="input_field">
+        <input type="password" placeholder="1차 비밀번호를 입력하세요" class="input" name="password">
+        <i class="fas fa-lock"></i>
+      </div>
+      <div class="input_field">
+        <input type="password" placeholder="본인 인증을 위한 2차 비밀번호를 입력하세요" class="input" name="secondpassword">
+        <i class="fas fa-lock"></i>
+      </div>
+      <div class="input_field">
+      <input type="text" id="sample5_address" class="input" name="homeaddress" placeholder="주소지를 입력하세요"><br>
+      <i class="fas fa-home"></i>
+      </div>
+      <div class="input_field_search">
+        <input type="button" class="input" onclick="sample5_execDaumPostcode()" value="주소 검색하기">
+        <div id="map" style="width:200px;height:200px;margin-top:10px;display:none"></div>
+      </div>
+      <div class="input_field">
+        <input type="text" class="input" name="citySelect" placeholder="선호하는 여행지를 입력하세요"><br>
+        <i class="fas fa-car-side"></i>
+        <!-- <i class="fas fa-car"></i> -->
+      </div>  
+      <div class="input_field_search">  
+        <select name="city" id="city" class="input">
+          <option value="제주" selected>여행지 고르기</option> <!-- seleected 속성을 기재하면 default로 된다. -->
+          <option value="서울">서울</option>
+          <option value="인천">인천</option>
+          <option value="부산">부산</option>  
+          <option value="제주">제주</option>
+          <option value="춘천">춘천</option>
+          <option value="동해">동해</option>
+        </select>
+      </div>
+
+
+
+      <div class="btnsubmit">
+        <!--<a href="/user/signup">Register</a>-->
+        <button type="submit" class="btn waves-effect waves-light col s12">가입하기</button>
+      </div>
+      <br>
+      <br>
+
+    <!--
+      <br>
+      <p class="sign-in">이미 회원이신가요? <a href="./login">로그인하기</a></p>
+      --> 
+      
+    
+    </form>
+    </div>
+</div>
+
+<script>
+
+var form = $("#regi-form");
+
+
+$("#city").change(function(e){    
+    var city = $(this).val();
+    console.log(city);
+    form.find("input[name='citySelect']").val(city);
+});
+
+  var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+  mapOption = {
+      center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+      level: 5 // 지도의 확대 레벨
+  };    
+   //지도를 미리 생성
+   var map = new daum.maps.Map(mapContainer, mapOption);
+    //주소-좌표 변환 객체를 생성
+    var geocoder = new daum.maps.services.Geocoder();
+    //마커를 미리 생성
+    var marker = new daum.maps.Marker({ 
+        position: new daum.maps.LatLng(37.537187, 127.005476), 
+        map: map });
+
+
+    function sample5_execDaumPostcode() { 
+        new daum.Postcode({ oncomplete: function(data) {
+        // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+        var fullAddr = data.address; // 최종 주소 변수
+        var extraAddr = ''; // 조합형 주소 변수
+        
+        // 기본 주소가 도로명 타입일때 조합한다.
+        if(data.addressType === 'R'){
+            //법정동명이 있을 경우 추가한다.
+            if(data.bname !== ''){ 
+                extraAddr += data.bname; 
+            }
+            // 건물명이 있을 경우 추가한다.
+            if(data.buildingName !== ''){ 
+                extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName); 
+            }
+            // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+            fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : ''); 
+        }
+
+        // 주소 정보를 해당 필드에 넣는다.
+        document.getElementById("sample5_address").value = fullAddr;
+        // 주소로 상세 정보를 검색
+        geocoder.addressSearch(data.address, function(results, status) {
+                // 정상적으로 검색이 완료됐으면
+                if (status === daum.maps.services.Status.OK) { var result = results[0];
+                //첫번째 결과의 값을 활용
+                // 해당 주소에 대한 좌표를 받아서
+                var coords = new daum.maps.LatLng(result.y, result.x);
+                // 지도를 보여준다.
+                mapContainer.style.display = "block"; map.relayout();
+                // 지도 중심을 변경한다.
+                map.setCenter(coords);
+                // 마커를 결과값으로 받은 위치로 옮긴다.
+                marker.setPosition(coords) } }); 
+        } }).open();    
+    }
+</script>​
+
+    
+</body>
+</html>

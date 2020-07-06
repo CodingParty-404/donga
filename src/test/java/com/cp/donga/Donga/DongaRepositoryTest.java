@@ -15,7 +15,7 @@ public class DongaRepositoryTest {
 
     @Test
     public void insertMemberTest(){
-        DongaMember member = DongaMember.builder().mname("wewe").mpw("1234").build();
+        DongaMember member = DongaMember.builder().yourname("wewe").password("1234").build();
 
         System.out.println(memberRepository.save(member));
 
