@@ -72,4 +72,5 @@ public class DongaMember {
         this.yourname = yourname;
         this.secondpassword = secondpassword;
     }
+
 }

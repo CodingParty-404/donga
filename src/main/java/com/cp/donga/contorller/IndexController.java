@@ -9,11 +9,13 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import com.cp.donga.domain.Donga;
 import com.cp.donga.domain.Picture;
 import com.cp.donga.domain.Scene;
 import com.cp.donga.dto.PictureDTO;
 import com.cp.donga.service.MapService;
 import com.cp.donga.service.SceneService;
+import com.cp.donga.service.StorageService;
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.lang.GeoLocation;
 import com.drew.metadata.Metadata;
@@ -38,6 +40,9 @@ public class IndexController {
     @Autowired
     private SceneService sceneService;
 
+    @Autowired
+    private StorageService storageService;
+    
     private final String ROOT_PATH = "C:\\cp\\donga\\src\\main\\resources\\static\\pictures\\";
 
     @GetMapping("/index")
@@ -50,10 +55,13 @@ public class IndexController {
         
     }
 
-    @GetMapping("storage")
-    public void storage(Long dongaId, Model model){
-        log.info(dongaId);
-        
+    @GetMapping("/storage")
+    public void storage(Long id, Model model){
+        // log.info("!!!!!!!!!!id : " + id);
+        List<Donga> list = storageService.getDongaList(id);
+        // log.info("----------------!!!!!!!!!!!");
+        // log.info(list.toString());
+        model.addAttribute("dongaList",list);
     }
 
     @GetMapping("/includestest")
