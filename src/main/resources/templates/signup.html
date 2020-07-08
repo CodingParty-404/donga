@@ -159,31 +159,31 @@ button {
     <form class="regi-form" id="regi-form" th:action="@{/user/signup}" method="post">  
 
       <div class="input_field">
-        <input type="text" placeholder="이름을 입력하세요" class="input" name="yourname">
+        <input type="text" placeholder="이름" class="input" name="yourname">
         <i class="fas fa-user"></i>
       </div>
       <div class="input_field">
-        <input type="text" placeholder="아이디로 사용할 Email을 입력하세요" class="input" name="email">
+        <input type="text" placeholder="아이디로 사용할 Email 주소" class="input" name="email">
         <i class="far fa-envelope"></i>
       </div>
       <div class="input_field">
-        <input type="password" placeholder="1차 비밀번호를 입력하세요" class="input" name="password">
+        <input type="password" placeholder="로그인용 1차 비밀번호" class="input" name="password">
         <i class="fas fa-lock"></i>
       </div>
       <div class="input_field">
-        <input type="password" placeholder="본인 인증을 위한 2차 비밀번호를 입력하세요" class="input" name="secondpassword">
+        <input type="password" placeholder="본인 인증용 2차 비밀번호" class="input" name="secondpassword">
         <i class="fas fa-lock"></i>
       </div>
       <div class="input_field">
-      <input type="text" id="sample5_address" class="input" name="homeaddress" placeholder="주소지를 입력하세요"><br>
+      <input type="text" id="sample5_address" class="input" name="homeaddress" placeholder="거주지"><br>
       <i class="fas fa-home"></i>
       </div>
       <div class="input_field_search">
-        <input type="button" class="input" onclick="sample5_execDaumPostcode()" value="주소 검색하기">
+        <input type="button" class="input" onclick="sample5_execDaumPostcode()" value="거주지 검색하기">
         <div id="map" style="width:200px;height:200px;margin-top:10px;display:none"></div>
       </div>
       <div class="input_field">
-        <input type="text" class="input" name="citySelect" placeholder="선호하는 여행지를 입력하세요"><br>
+        <input type="text" class="input" name="citySelect" placeholder="선호하는 여행지"><br>
         <i class="fas fa-car-side"></i>
         <!-- <i class="fas fa-car"></i> -->
       </div>  
@@ -208,12 +208,6 @@ button {
       <br>
       <br>
 
-    <!--
-      <br>
-      <p class="sign-in">이미 회원이신가요? <a href="./login">로그인하기</a></p>
-      --> 
-      
-    
     </form>
     </div>
 </div>
