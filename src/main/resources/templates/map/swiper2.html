@@ -13,7 +13,7 @@
         } */
 
         .swiper-container {
-            width: 100%;
+            width: 60%;
             height: 25%;
             margin: 20px auto;
             background: #fff; 
@@ -129,15 +129,21 @@
 
 
     <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
-    <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+    <!-- <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script> -->
 
 
     <!--페이지 시작-->
-    <button type='button' id="nextpage" class='btn btn-primary'>다음페이지로</button></div>
     <!-- 템플릿 컨테이너 -->
     <section class="contact-section padding_top map_container ">
         <div class="container box_1170">
-            <h2>ㅁㅁㅁ의 여행 경로입니다.</h2>
+            <div>
+                <div>
+                    <h2>ㅁㅁㅁ의 여행 경로입니다.</h2>
+                </div>
+                <div>
+                    <button type='button' id="nextpage" class='btn btn-primary'>다음페이지로</button>
+                </div>
+            </div>
             <hr>
             <div class="d-none d-sm-block mb-5 pb-2">
                 <!--카카오 지도 뷰-->
@@ -250,9 +256,9 @@
         //스와이퍼
         var swiper = new Swiper('.swiper-container', {
 
-            slidesPerView: 5,
+            slidesPerView: 4,
             centeredSlides: true,
-            spaceBetween: 50,
+            spaceBetween: 100,
             speed: 500,
             effect: "coverflow",
             virtual: {
@@ -271,7 +277,6 @@
                 rotate: 30,
                 stretch: 0,
                 depth: 100,
-                modifier: 1,
                 slideShadows: true,
             },
             on: {
@@ -283,10 +288,13 @@
 
                     //++ 동영상 배경 추가 코드 필요
                     //
-                    var clickedObj = e.target
-
+                    console.log(e);
+                    var clickedObj = e.target;
+                    console.log(clickedObj);
+                    // console.log(e.clickedIndex);
+                    // swiper.slideTo(e.clickedIndex);
+                    
                     if (clickedObj.tagName === "IMG") {
-
                         console.log(clickedObj.tagName);
                         console.log(clickedObj.getAttribute("src"));
                         swiper.slideTo(swiper.clickedIndex);
@@ -304,10 +312,10 @@
 
                 }
             },
-            autoplay: {
-                delay: 1500,
-                disableOnInteraction: false,
-            },
+            // autoplay: {
+            //     delay: 1500,
+            //     disableOnInteraction: false,
+            // },
             pagination: {
                 el: '.swiper-pagination',
                 type: 'fraction',

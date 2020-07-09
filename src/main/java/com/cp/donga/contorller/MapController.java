@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -52,20 +53,20 @@ public class MapController {
     private MapService mapService;
 
 
-    private final String ROOT_PATH = "\\\\192.168.0.70\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
-    
-    // Title, Date of travel, IMG SELECT AND UPLOAD
-    @GetMapping("/set2")
+    // private final String ROOT_PATH = "\\\\192.168.0.70\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
+    private final String ROOT_PATH = "C:\\cp\\donga\\src\\main\\resources\\static\\pictures\\";
+
+    @GetMapping("/set")
     public void set(){
-        //redirect 
     }
 
-    @GetMapping("/setTest")
-    public void setTest(){
-        
-    }
+    // @PostMapping("/set2")
+    // public String set2Post(){
+    //     return "redirect:/map/gallary2";
+    // }
 
-    @PostMapping("/set2")
+    // @RequestMapping(value = "/set2", method = RequestMethod.POST)
+    @PostMapping("/set")
     public String setPost(DongaDTO dongaDTO, MultipartFile[] upload, RedirectAttributes rttr){
 
         log.info(dongaDTO);
@@ -263,7 +264,7 @@ public class MapController {
         mapService.registerPictures(list);
         rttr.addAttribute("dongaId",dongaId);
         
-        return new RedirectView("/map/swiper");
+        return new RedirectView("/map/swiper2");
     }
 
     @GetMapping("/swiper2")

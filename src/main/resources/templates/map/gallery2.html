@@ -26,6 +26,7 @@
   }
 
 </style>
+<form id='form' action ='/map/gallery2' method="POST" hidden></form>
 <div id="gallerybox" class="container">
 
   <div class="container">
@@ -108,17 +109,16 @@
         document.getElementById(dto.capDate).innerHTML += img;
       });
 
+
+        //다음페이지로 이동 버튼 클릭시
       var confirmBtn = $(".btn-primary");
       confirmBtn.on("click", function () {
 
         window.alert("다음페이지로");
         var nameArr = [];
         var deleteImg = $("#trashbin img");
-        var formObj = $("form");
-        //다음페이지로 이동 버튼 클릭시
-        //1.trashbin에 들어가 있는 img의 src의 파일이름을 form데이터의 같은 name으로 저장한다.
-
-
+        var formObj = $("#form");
+  
 
         deleteImg.each(function (index) {
           if (index != 0) {
@@ -207,8 +207,6 @@
 
         toDiv.append(imgDiv);
       })
-
-      //페이지 이동 버튼
 
 
     })//end of onload
