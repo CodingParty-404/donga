@@ -16,7 +16,7 @@
             width: 60%;
             height: 25%;
             margin: 20px auto;
-            background: #fff; 
+            background: #fff0; 
         }
 
         .swiper-slide {
@@ -74,6 +74,7 @@
         }
 
         .img_view {
+            margin-top : 10vh;
             position: relative;
             overflow: hidden;
             background-color: white;
@@ -91,16 +92,16 @@
         }
 
         .d-none.d-sm-block.mb-5.pb-2 {
-            box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.3);
-            background-color: white;
-            padding: 5px;
+            /* box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.3);
+            background-color: white; */
+            /* padding: 5px; */
         }
 
         .padding_top {
             padding-top: 100px;
         }
 
-        .parralxScreen{
+        /* .parralxScreen{
             position: absolute;
             top: 20vh;
             left: 10vh;
@@ -123,10 +124,24 @@
 
         #compass3{
             margin-top: 20vw;
+        } */
+
+        #map{
+            box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .main_menu{
+            background-color: #00c0ff66;
+        }
+
+        #backgroundVideo{
+            z-index: -1;
         }
 
     </style>
-
+    <video autoplay muted loop id="backgroundVideo">
+        <source src="/jeju.mp4" type="video/mp4">
+    </video>
 
     <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
     <!-- <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script> -->
@@ -136,31 +151,23 @@
     <!-- 템플릿 컨테이너 -->
     <section class="contact-section padding_top map_container ">
         <div class="container box_1170">
-            <div>
-                <div>
-                    <h2>ㅁㅁㅁ의 여행 경로입니다.</h2>
-                </div>
-                <div>
-                    <button type='button' id="nextpage" class='btn btn-primary'>다음페이지로</button>
-                </div>
-            </div>
+            <h2 style="color: white; z-index: 3;">ㅁㅁㅁ의 여행 경로입니다.</h2>
             <hr>
             <div class="d-none d-sm-block mb-5 pb-2">
                 <!--카카오 지도 뷰-->
-                <div id="map" style="width:100%;height:600px;"></div>
+                <div id="map" style="width:100%; height:600px; border-radius: 10px;"></div>
             </div>
         </div>
-        <!-- <div id="parralxScreen">
            
-        </div> -->
-        <div class="parralxScreen">
+        <!--페럴렉스 구조 입니다.-->
+        <!-- <div class="parralxScreen">
             <img src="/emoji/t3.png" id="compass1" class ="left_emoji" data-depth="0.4">
             <img src="/emoji/t6.png" id="compass2" class ="left_emoji" data-depth="0.3">
             <img src="/emoji/t8.png" id="compass3" class ="left_emoji" data-depth="0.6">
             <img src="/emoji/t12.png" id="compass1" class ="right_emoji" data-depth="0.4">
             <img src="/emoji/t18.png" id="compass2" class ="right_emoji" data-depth="0.3">
             <img src="/emoji/t17.png" id="compass3" class ="right_emoji" data-depth="0.6">
-        </div>
+        </div> -->
     </section>
     <!-- Swiper container -->
     <div class="swiper-container">
@@ -187,6 +194,11 @@
     <div class="container">
 
     </div>
+
+    <div class="container nextpage">
+        <button class ="genric-btn success-border radius" style="width: 100%;">다음페이지로</button>
+    </div>
+
     <form id='form' hidden>
 
     </form>
@@ -236,11 +248,14 @@
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
             mapOption = {
                 center: new kakao.maps.LatLng(37.525352, 126.986312), // 지도의 중심좌표
-                level: 12 // 지도의 확대 레벨
+                mapTypeId : kakao.maps.MapTypeId.SKYVIEW,
+                level: 3 // 지도의 확대 레벨
             };
 
         // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
         var map = new kakao.maps.Map(mapContainer, mapOption);
+        //맵 타입 변경
+        // map.addOverlayMapTypeId(kakao.maps.MapTypeId.SKYVIEW)
 
         //클러스터러
         var clusterer = new kakao.maps.MarkerClusterer({
@@ -328,6 +343,7 @@
         }
         );
 
+        var bounds = new kakao.maps.LatLngBounds();  //모든 마커를 표시하기 위한 바운더리 객체
         var linedMarkers = [];
         pictureList.forEach(picture => {
             console.log(picture);
@@ -341,10 +357,13 @@
             marker.setMap(map);//지도에 마커추가
 
             clusterer.addMarker(marker);//클러스터 처리할 마커 추가
+            bounds.extend(latlng);
 
             // 선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
             linedMarkers.push(latlng);
         })
+
+        map.setBounds(bounds);
 
         //클러스터 클릭 이벤트
         kakao.maps.event.addListener(clusterer, 'clusterclick', function (cluster) {

@@ -56,7 +56,7 @@ public class MapController {
     // private final String ROOT_PATH = "\\\\192.168.0.70\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
     private final String ROOT_PATH = "C:\\cp\\donga\\src\\main\\resources\\static\\pictures\\";
 
-    @GetMapping("/set")
+    @GetMapping("/set2")
     public void set(){
     }
 
@@ -66,7 +66,7 @@ public class MapController {
     // }
 
     // @RequestMapping(value = "/set2", method = RequestMethod.POST)
-    @PostMapping("/set")
+    @PostMapping("/set2")
     public String setPost(DongaDTO dongaDTO, MultipartFile[] upload, RedirectAttributes rttr){
 
         log.info(dongaDTO);
