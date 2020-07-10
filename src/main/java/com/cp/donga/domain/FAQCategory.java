@@ -22,10 +22,10 @@ public class FAQCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_no")
+    @Column(name = "faq_category_no")
     private Long categoryno;
 
-    @Column(name = "category_name")
+    @Column(name = "faq_category_name")
     private String categoryname;
 
 }

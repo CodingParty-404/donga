@@ -9,18 +9,45 @@
         text-shadow: 1px 1px 2px rgb(158, 156, 156);
         margin-bottom: 10vh;
     }
+   .sumnail{
+       position: relative;
+   }
+   .rLink{
+        right: 0;
+   }
+   .rLink:hover{
+        background-color: rgba(74, 22, 214, 0.3);
+        opacity: 1;
+   }
+   .sumnail>a{
+        position: absolute;
+        width: 50%;
+        height: 100%;
+        text-align: center;
+        opacity: 0;
+        color: crimson;
+   }
+   .lLink:hover{
+        background-color: rgb(243, 182, 103, 0.3);
+        opacity: 1;
+   }
+   .mybox{
+       height: 100%;
+   }
    .mybox>div{
        float: left;
-       max-width: 75%;
-       width: 18vw;
-       margin: 1.5em 1.5em 1.5em 1.5em;
+       max-width: 25%;
+       min-height: 20%;
+       margin: 4.16% 4.16% 4.16% 4.16%;
+       border-radius: 10px;
+       box-shadow: 5px 5px 5px 5px;
    }
-   .mybox>div>li{
+   .mybox li{
       text-align: center;
       text-shadow: 1px 1px 2px rgb(158, 156, 156);
       margin: 1vh;
    }
-   .mybox>div>img{
+   .mybox>div>div>img{
        border-radius: 10px;
        border:1px solid #888888;
        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -29,9 +56,7 @@
        border-radius: 10px;
        border:1px solid #888888;
        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-       padding: 4em;
-       padding-top: 5.5em;
-       padding-bottom: 5.5em;
+       padding: 30%;
    }
 </style>
 
@@ -46,7 +71,7 @@
                         <a href="/map/set2"><img src ="/pngwing.com.png"></a>
                     </div>    
                     <div th:each="list, i: ${dongaList}">
-                        <img src ="/campingcar.jpg" >
+                        <div class="sumnail"><a class="lLink" href="#">Album</a><a class="rLink" href="#">Map</a><img src ="/campingcar.jpg" ></div>
                         <li th:text="${list.title}"></li>
                         <li th:text="${list.stdate}"></li>
                         <li th:text="${list.eddate}"></li>
@@ -55,8 +80,20 @@
 			</div>
 		</div>
 	</div>
+<!-- 
+    <script>
+        var count = 0;
 
+        window.onscroll = function(e){
+            if((window.innerHeight + window.scrollY) >= document.body.offsetHeight){
+                count++;
+                var addContent = '<div th:each=\"list, count: ${dongaList}\"><div class=\"sumnail\"><a class=\"lLink\" href=\"#\">Album</a><a class=\"rLink\" href=\"#\">Scene</a><img src =\"/campingcar.jpg\" ></div><li th:text=\"${list.title}\"></li><li th:text=\"${list.stdate}\"></li><li th:text=\"${list.eddate}\"></li></div>';
+                //article에 추가되는 콘텐츠를 append
+                $('.mybox').append(addContent);
+            }
+        }
 
+    </script> -->
 
 </body>
 

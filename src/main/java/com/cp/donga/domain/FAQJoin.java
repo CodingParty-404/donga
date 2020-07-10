@@ -28,11 +28,11 @@ public class FAQJoin {
     private Long jno;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_faq_board_join", referencedColumnName = "faq_bno")
+    @JoinColumn(name = "faq_board", referencedColumnName = "faq_bno")
     private FAQBoard faqboard;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_faq_category_join", referencedColumnName = "category_no")
+    @JoinColumn(name = "faq_category", referencedColumnName = "faq_category_no")
     private FAQCategory faqcategory;
 
 }
