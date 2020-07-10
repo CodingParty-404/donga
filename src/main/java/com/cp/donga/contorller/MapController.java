@@ -53,8 +53,8 @@ public class MapController {
     private MapService mapService;
 
 
-    // private final String ROOT_PATH = "\\\\192.168.0.70\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
-    private final String ROOT_PATH = "C:\\cp\\donga\\src\\main\\resources\\static\\pictures\\";
+    private final String ROOT_PATH = "\\\\192.168.0.83\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
+    // private final String ROOT_PATH = "C:\\cp\\donga\\src\\main\\resources\\static\\pictures\\";
 
     @GetMapping("/set2")
     public void set(){

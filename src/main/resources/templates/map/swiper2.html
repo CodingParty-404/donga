@@ -25,6 +25,8 @@
             font-size: 18px;
             background: #111111;
             box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.4);
+            border: 5px solid whitesmoke;
+            border-bottom: 20px solid whitesmoke;
 
             /* Center slide text vertically */
             display: -webkit-box;
@@ -44,6 +46,7 @@
         .swiper-slide img {
             width: 100%;
             height: 100%;
+            /* margin-top: 10px; */
         }
 
         .append-buttons {
@@ -90,6 +93,7 @@
             width: 60%;
             height: 100%;
         }
+        
 
         .d-none.d-sm-block.mb-5.pb-2 {
             /* box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.3);
@@ -173,7 +177,7 @@
     <div class="swiper-container">
         <div class="swiper-wrapper"></div>
         <!-- Add Pagination -->
-        <div class="swiper-pagination"></div>
+        <!-- <div class="swiper-pagination"></div> -->
         <!-- Add Arrows -->
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
@@ -196,7 +200,9 @@
     </div>
 
     <div class="container nextpage">
-        <button class ="genric-btn success-border radius" style="width: 100%;">다음페이지로</button>
+        <div style="width: 50%; margin :auto;">
+            <button id = "nextpage" class ="genric-btn success radius large" style="width: 100%; margin-top: 5vh; font-size: larger;">다음페이지로</button>
+        </div>
     </div>
 
     <form id='form' hidden>
@@ -220,23 +226,16 @@
     <!-- parralx.js 스크립트-->
     <script>
         //1.페럴렉스로 설정할 구역의 dom객체를 가져온다.
-        var screen = $(".parralxScreen").get(0);
-        console.log(screen);
+        // var screen = $(".parralxScreen").get(0);
+        // console.log(screen);
         //2.페럴렉스 객체를 dom객체와 함께 생성한다.
-        var parallax = new Parallax(screen,{
-            relativeInput: true
-        });
+        // var parallax = new Parallax(screen,{
+        //     relativeInput: true
+        // });
     </script>
 
-
+    <!--지도api 및 swiper 외 이벤트 js 스크립트-->
     <script>
-
-        // for(var i = 0 ; i < pictureList.length ; i++){
-        //    console.log(pictureList[i].fileName);
-        //    console.log("lat : "+pictureList[i].lat);
-        //    console.log("lng : " +pictureList[i].lng);
-        // //    console.log(pictureList[i].wt===null) //picture의 날씨정보는 null일 수 있음
-        // }
 
         var dongaId = [[${ dongaId }]];
         //1.정규식 설정으로 업로드 파일 저항
@@ -281,7 +280,7 @@
                     var slides = [];
 
                     pictureList.forEach(picture => {
-                        slides.push("<img src= /pictures/" + dongaId + "/s_" + picture.filename + ">");
+                        slides.push("<img src= http://192.168.0.83:8080/pictures/" + dongaId + "/s_" + picture.filename + ">");
                     })
                     console.log(slides);
 
@@ -322,7 +321,7 @@
                         var srcImg = $(".srcImg")
                         console.log(srcImg);
                         srcImg.attr("hidden", false);
-                        $(".srcImg").attr("src", "/pictures/" + dongaId + "/" + src);
+                        $(".srcImg").attr("src", "http://192.168.0.83:8080/pictures/" + dongaId + "/" + src);
                     }
 
                 }
@@ -376,7 +375,7 @@
 
             //클러스터에 속해있는 마커 갯수만큼 이미지태그 생성
             cluster.getMarkers().forEach(item => {
-                slides.push("<img src ='/pictures/" + dongaId + "/" + "s_" + item.getTitle() + "'>");
+                slides.push("<img src ='http://192.168.0.83:8080/pictures/" + dongaId + "/" + "s_" + item.getTitle() + "'>");
             });
 
             //swiper의 슬라이드 제거후 virtual slide 생성

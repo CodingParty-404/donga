@@ -1,22 +1,8 @@
-<!-- <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <script src="/js/jszip.min.js"></script>
-    <script src="/js/FileSaver.js"></script>
-    <script src="/js/fabric.js"></script>
-    <script src="/js/sprite.js"></script>
-    <link rel="stylesheet" type="text/css" href="/css/bookblock.css" />
-    <link rel="stylesheet" type="text/css" href="/css/default.css" />
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="/js/modernizr.custom.js"></script>
-
-    <title>Document</title>
-</head> -->
-<link rel="stylesheet" type="text/css" href="/css/bookblock.css" />
 <div th:replace="includes/header"></div>
+<link rel="stylesheet" type="text/css" href="/css/bookblock.css" />
+<link rel="stylesheet" type="text/css" href="/css/default.css" />
 <style>
+
     .body{
         background-color: white;
     }
@@ -35,31 +21,8 @@
         margin-left: 5%;
     }
 </style>
+
 <body>
-    <!-- <div class="container">
-
-        <div class="main clearfix">
-            <div class="bb-custom-wrapper">
-                <div id="bb-bookblock" class="bb-bookblock">
-
-                </div> -->
-                <!-- <nav>
-                    <a id="bb-nav-first" href="#" class="bb-custom-icon bb-custom-icon-first">First page</a>
-                    <a id="bb-nav-prev" href="#" class="bb-custom-icon bb-custom-icon-arrow-left">Previous</a>
-                    <a id="bb-nav-next" href="#" class="bb-custom-icon bb-custom-icon-arrow-right">Next</a>
-                    <a id="bb-nav-last" href="#" class="bb-custom-icon bb-custom-icon-last">Last page</a>
-                    <button id="initbb">init</button>
-                </nav> -->
-            <!-- </div>
-        </div>
-
-        <div class = "btnNav">
-            <a href="#" id = "bb-nav-first" class="genric-btn  info-border radius">첫째 페이지</a>
-            <a href="#" id ="export" class="genric-btn primary-border radius">다운로드</a>
-            <a href="#" id = "bb-nav-last" class="genric-btn info-border radius">마지막 페이지</a>
-        </div>
-    </div> -->
-
     <div class="container filpbook">
 
         <div id="bb-nav-prev" class="swiper-button-prev"></div>
@@ -71,23 +34,28 @@
         <div id="bb-nav-next" class="swiper-button-next"></div>
 
         <div class = "btnNav">
-            <a href="#" id = "bb-nav-first" class="genric-btn large info radius">첫째 페이지</a>
-            <a href="#" id ="export" class="genric-btn primary radius">다운로드</a>
-            <a href="#" id = "bb-nav-last" class="genric-btn info radius">마지막 페이지</a>
+            <a href="#" id = "bb-nav-first" class="genric-btn  info-border radius">첫째 페이지</a>
+            <a href="#" id ="export" class="genric-btn primary-border radius">다운로드</a>
+            <a href="#" id = "bb-nav-last" class="genric-btn info-border radius">마지막 페이지</a>
         </div>
     </div>
-    
 
-    <div th:each=" vo : ${list}" style="display: none;" >
+    </div>
+
+    <div th:each=" vo : ${list}" style="display: none;">
         <span class="canvasData" th:text="${vo.getScenepath()}"> </span>
     </div>
+
+    <!-- <div id="btnDIV">
+        <button id="export">Export</button>
+    </div> -->
 
     <div style="display: none;">
         <canvas th:each=" vo : ${list}" class="prepared"></canvas>
     </div>
 
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"
-        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script src="/js/jquerypp.custom.js"></script>
     <script src="/js/jquery.bookblock.js"></script>
 
@@ -98,40 +66,40 @@
         var canvasArr = document.getElementsByClassName("canvasData");
         var preCanvas = document.getElementsByClassName("prepared");
         var flipDiv = document.getElementById("bb-bookblock");
-        // var initbb = document.getElementById("initbb");
+        var initbb = document.getElementById("initbb");
         var index = 1;
 
         window.onload = () => {
 
 
             var imgTag = "";
-            var j=0;
+            var j = 0;
             for (let i = 0; i < preCanvas.length; i++) {
                 var str = 'preCan' + (i + 1);
                 preFCanvas.push(new fabric.StaticCanvas(str, { width: 1024, height: 720 }))
                 preFCanvas[i].loadFromJSON(canvasArr[i].innerText, function () {
-                    
+
                     let imgSrc = preFCanvas[i].getElement().toDataURL();
-                    console.log("=================================="+ i)
-                    imgTag = '<div data-index='+i+' class="bb-item"><img width="1024" height="720" src="' + imgSrc + '" alt="image01"/></div>';
+                    console.log("==================================" + i)
+                    imgTag = '<div data-index=' + i + ' class="bb-item"><img width="1024" height="720" src="' + imgSrc + '" alt="image01"/></div>';
                     flipDiv.innerHTML += imgTag;
 
                     j++;
-                    if(j>[[${list.size()}]]-1){
+                    if (j > [[${ list.size() }]] - 1) {
                         let flips = document.getElementsByClassName("bb-item");
-                        let flipsSort = 
-                            [...flips].sort((a,b)=>{
+                        let flipsSort =
+                            [...flips].sort((a, b) => {
                                 let intA = parseInt(a.getAttribute("data-index"));
                                 let intB = parseInt(b.getAttribute("data-index"));
                                 // console.log(a.getAttribute("data-index") + "  "  + b.getAttribute("data-index"));
-                                console.log(intA + "    "  +  intB)
-                                return (intA < intB)? -1 : (intA>intB)? 1 : 0 ;
+                                console.log(intA + "    " + intB)
+                                return (intA < intB) ? -1 : (intA > intB) ? 1 : 0;
                             });
                         console.log(flipsSort);
-                    flipsSort.forEach((flip)=>{
-                        flipDiv.appendChild(flip);
-                    })
-                        
+                        flipsSort.forEach((flip) => {
+                            flipDiv.appendChild(flip);
+                        })
+
 
                         Page.init();
                     }
@@ -144,6 +112,7 @@
         // })
 
         document.getElementById('export').addEventListener("click", async function (e) {
+            window.alert("export");
             var zip = new JSZip();
             let i = 0;
             let pfLeng = preFCanvas.length;
@@ -251,4 +220,5 @@
             // canvas.loadFromJSON($json.val());
         })
     </script>
+
 <div th:replace="includes/footer"></div>

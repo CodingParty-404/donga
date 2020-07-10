@@ -23,7 +23,6 @@ public class ShareController {
     @Autowired
     private SceneService sceneService;
     
-
     @GetMapping("/read")
     public void readGet(@RequestParam Long dongaId, Model model){
         log.info("read page Get...........................");
