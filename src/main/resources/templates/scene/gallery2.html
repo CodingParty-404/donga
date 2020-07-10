@@ -169,11 +169,11 @@
                 var weatherFrame = new Map();
                 var imgList = $("#selectAlbum img");
                 
-                weatherFrame.set("눈", 'snowAll.png');
-                weatherFrame.set("비", 'rainAll3.png');
-                weatherFrame.set("구름", 'cloudAll2.png');
-                weatherFrame.set("맑음", 'sunAll4.png');
-                weatherFrame.set("없음", 'sunAll4.png');
+                weatherFrame.set("눈", '/rain_0710.png');
+                weatherFrame.set("비", '/rain_0710.png');
+                weatherFrame.set("구름", '/rain_0710.png');
+                weatherFrame.set("맑음", '/rain_0710.png');
+                weatherFrame.set("없음", '/rain_0710.png');
                 
                 console.log(imgList);
 
@@ -199,7 +199,7 @@
                         // snowAll.png
                         
                         //날씨 이미지 적용하기
-                        var weather = '/img/' + weatherFrame.get(photoImg.data("status"));
+                        var weather = '/weather' + weatherFrame.get(photoImg.data("status"));
                         fabric.Image.fromURL(weather, function (img) {
                             img.scaleToWidth(900);
                             img.scaleToHeight(660);
