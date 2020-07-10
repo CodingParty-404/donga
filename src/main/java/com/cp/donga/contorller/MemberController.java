@@ -35,9 +35,9 @@ public class MemberController {
     }
 
     // 메인 페이지
-    @GetMapping("/userIndex")
+    @GetMapping("/userindex")
     public String index() {
-        return "/userIndex";
+        return "/userindex";
     }
 
     // 회원가입 페이지
@@ -64,6 +64,7 @@ public class MemberController {
     @GetMapping("/user/login/result")
     public String dispLoginResult() {
         return "/loginSuccess";
+        // return "/user/myinfo";
     }
 
     // 로그아웃 결과 페이지

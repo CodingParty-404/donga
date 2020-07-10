@@ -26,6 +26,7 @@
   }
 
 </style>
+<form id='form' action ='/map/gallery2' method="POST" hidden></form>
 <div id="gallerybox" class="container">
 
   <div class="container">
@@ -101,24 +102,23 @@
         img = "<div class='col-lg-3 col-md-4 col-6'>" +
           "<div class='d-block mb-4 h-100'>" +                   //이미지 블록
           "<img class='img-fluid img-thumbnail' data-name ='" + dto.filename +
-          "'src='/pictures/" + dto.projectName + "/" + dto.filename + "'>" + //dto로 전달된 사진 태그
+          "'src='http://192.168.0.83:8080/pictures/" + dto.projectName + "/" + dto.filename + "'>" + //dto로 전달된 사진 태그
           "<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
           "</div>" +
           "</div>";
         document.getElementById(dto.capDate).innerHTML += img;
       });
 
+
+        //다음페이지로 이동 버튼 클릭시
       var confirmBtn = $(".btn-primary");
       confirmBtn.on("click", function () {
 
         window.alert("다음페이지로");
         var nameArr = [];
         var deleteImg = $("#trashbin img");
-        var formObj = $("form");
-        //다음페이지로 이동 버튼 클릭시
-        //1.trashbin에 들어가 있는 img의 src의 파일이름을 form데이터의 같은 name으로 저장한다.
-
-
+        var formObj = $("#form");
+  
 
         deleteImg.each(function (index) {
           if (index != 0) {
@@ -207,8 +207,6 @@
 
         toDiv.append(imgDiv);
       })
-
-      //페이지 이동 버튼
 
 
     })//end of onload
