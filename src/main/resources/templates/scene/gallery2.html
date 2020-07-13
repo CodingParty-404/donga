@@ -149,15 +149,14 @@
                 window.alert("!");
                 // 사진+날짜 JS객체 만들기
                 // 일단 사진 리스트 만들기
-                // var weatherFrame = new Array('snowAll.png', 'rainAll3.png', 'cloudAll2.png', 'sunAll4.png');
                 var weatherFrame = new Map();
                 var imgList = $("#selectAlbum img");
                 
-                weatherFrame.set("눈", '/cloudy.png');
-                weatherFrame.set("비", '/cloudy.png');
-                weatherFrame.set("구름", '/cloudy.png');
-                weatherFrame.set("맑음", '/cloudy.png');
-                weatherFrame.set("없음", '/cloudy.png');
+                weatherFrame.set("눈", '/allFlake.png');
+                weatherFrame.set("비", '/rainyeah.png');
+                weatherFrame.set("구름", '/cloudcloud.png');
+                weatherFrame.set("맑음", '/sun.png');
+                weatherFrame.set("없음", '/sun.png');
                 
                 console.log(imgList);
 
@@ -177,16 +176,12 @@
                         can.height = 650;
                         // 4. 캔버스 배경에 날씨 적용하기
                         // 날씨프레임을 캔버스2의 배경이미지로 적용
-                        // cloudAll2.png
-                        // rainAll3.png
-                        // sunAll4.png
-                        // snowAll.png
-                        
+                       
                         //날씨 이미지 적용하기
                         var weather = '/weather' + weatherFrame.get(photoImg.data("status"));
                         fabric.Image.fromURL(weather, function (img) {
-                            img.scaleToWidth(900);
-                            img.scaleToHeight(660);
+                            img.scaleToWidth(300);
+                            img.scaleToHeight(260);
                             can.setBackgroundImage(img);
                             can.renderAll();
                         });
