@@ -1,63 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
-    <!-- Bootstrap core CSS -->
-    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-     <!-- fabric js-->
-     <script src="/js/fabric.js"></script>
+<div th:replace="includes/header"></div>
+<style>
 
-    <style>
-        body {
-            background: #eee;
-            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-            font-size: 14px;
-            color: #000;
-            margin: 0;
-            padding: 0;
-        }
+  .section-top-border {
+    padding-top: 100px;
+    border: 0px;
+  }
 
-        button.close {
-            position: absolute;
-            right: 5px;
-            top: -10px;
-            background: white;
-            opacity: 0.8;
-            border-radius: 20px;
-            width: 30px;
-        }
+  #gallerybox{
+    margin-top: 150px;
+  }
 
-        span[aria-hidden=true] {
-            font-size: 2rem;
-            color: grey;
-        }
+  .col-lg-3.col-md-4.col-6 img{
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2); 
+  }
 
-        .close:not(:disabled):not(.disabled):focus,
-        .close:not(:disabled):not(.disabled):hover {
-            opacity: 1;
-        }
+  .btnlist{
+    display:flex;
+    justify-content: center;
+    margin-top: 10vh;
+  }
+  #makeAlbum{
+      margin-left: 4vw;
+  }
 
-        span[aria-hidden=true]:not(:disabled):not(.disabled):hover {
-            color: red;
-        }
-    </style>
-</head>
-
+</style>
 <body>
 
-    <button id='confirmPicture'>앨범에 사용할 사진 선택 완료</button>
-    <button id='makeAlbum'>앨범 만들러 가기</button>
+    <div id="gallerybox" class="container">
+        <div class="container">
 
-    <div class="container">
-
-        <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">앨범에 포함될 사진 선택</h1>
-        <img src="">
-        <hr class="mt-2 mb-5">
-        <!-- <img src = "/pictures/project1/IMG_0096.jpg"> -->
+            <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">앨범에 포함될 사진 선택</h1>
+            <img src="">
+            <hr class="mt-2 mb-5">
+            <!-- <img src = "/pictures/project1/IMG_0096.jpg"> -->
+        </div>
     </div>
 
     <!-- 파라미터를 폼에 감싸서 보내기 -->
@@ -103,8 +80,6 @@
     <!-- jquery cdn -->
     <script src="https://code.jquery.com/jquery-3.5.0.min.js"
         integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
-    <!-- slider swiper api cdn -->
-    <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
     <!-- 부트스트랩 js -->
     <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -144,11 +119,17 @@
                 "<h1 class='font-weight-light text-center text-lg-left mt-4 mb-0'>앨범에 들어갈 사진들" +
                 "<hr class='mt-2 mb-5'>" +
                 "<div class='row text-center text-lg-left' id ='selectAlbum'>" +
-                "</div>" +
-                "<button type='button' class='btn btn-primary'>다음페이지로</button></div>";
-            // "";
+                "</div></div>" +
+                "<div class='btnlist'>"+
+                "<button id='confirmPicture' class='btn genric-btn  info-border radius'>앨범에 사용할 사진 선택 완료</button>"+
+                "<button id='makeAlbum' class='btn genric-btn  info-border radius'>앨범 만들러 가기</button></div>";
 
-            document.body.innerHTML += container;
+            // "";
+            var gallerybox = document.getElementById("gallerybox");
+            gallerybox.innerHTML += container;
+
+
+            // document.body.innerHTML += container;
             //
             pictureList.forEach(dto => {
                 console.log(dto.filename);
@@ -156,7 +137,8 @@
                     "<div class='d-block mb-4 h-100'>" +                   //이미지 블록
                     "<img crossorigin='Anonymous' class='img-fluid img-thumbnail' data-name ='" + dto.filename + "'" +
                     "data-status='" + dto.weatherstatus +
-                    "'src='http://192.168.0.70:8080/pictures/" + dongaId + "/" + dto.filename + "'>" + //dto로 전달된 사진 태그
+                    "'src='http://192.168.0.81:8080/pictures/" + dongaId + "/" + dto.filename + "'>" + //dto로 전달된 사진 태그
+                    // "'src='/pictures/" + dongaId + "/" + dto.filename + "'>" + //dto로 전달된 사진 태그
                     "<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
                     "</div>" +
                     "</div>";
@@ -171,11 +153,11 @@
                 var weatherFrame = new Map();
                 var imgList = $("#selectAlbum img");
                 
-                weatherFrame.set("눈", 'snowAll.png');
-                weatherFrame.set("비", 'rainAll3.png');
-                weatherFrame.set("구름", 'cloudAll2.png');
-                weatherFrame.set("맑음", 'sunAll4.png');
-                weatherFrame.set("없음", 'sunAll4.png');
+                weatherFrame.set("눈", '/cloudy.png');
+                weatherFrame.set("비", '/cloudy.png');
+                weatherFrame.set("구름", '/cloudy.png');
+                weatherFrame.set("맑음", '/cloudy.png');
+                weatherFrame.set("없음", '/cloudy.png');
                 
                 console.log(imgList);
 
@@ -201,7 +183,7 @@
                         // snowAll.png
                         
                         //날씨 이미지 적용하기
-                        var weather = '/img/' + weatherFrame.get(photoImg.data("status"));
+                        var weather = '/weather' + weatherFrame.get(photoImg.data("status"));
                         fabric.Image.fromURL(weather, function (img) {
                             img.scaleToWidth(900);
                             img.scaleToHeight(660);
@@ -451,6 +433,4 @@
 
         })//end of onload
     </script>
-</body>
-
-</html>
+<div th:replace="includes/footer"></div>

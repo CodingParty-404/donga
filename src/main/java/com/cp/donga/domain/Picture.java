@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -38,6 +40,8 @@ public class Picture {
     @ManyToOne(fetch = FetchType.LAZY)
     private Weather weather;
 
+
+    @JsonIgnore //템플렛에서 이 객체를 참조할때 lazy로딩으로 인한 오류가 안나게, json으로 변환을 무시한다
     @ManyToOne(fetch = FetchType.LAZY)
     private Donga dongafk;
 

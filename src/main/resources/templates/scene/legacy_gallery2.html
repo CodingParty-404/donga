@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+     <!-- fabric js-->
+     <script src="/js/fabric.js"></script>
+
+    <style>
+        body {
+            background: #eee;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color: #000;
+            margin: 0;
+            padding: 0;
+        }
+
+        button.close {
+            position: absolute;
+            right: 5px;
+            top: -10px;
+            background: white;
+            opacity: 0.8;
+            border-radius: 20px;
+            width: 30px;
+        }
+
+        span[aria-hidden=true] {
+            font-size: 2rem;
+            color: grey;
+        }
+
+        .close:not(:disabled):not(.disabled):focus,
+        .close:not(:disabled):not(.disabled):hover {
+            opacity: 1;
+        }
+
+        span[aria-hidden=true]:not(:disabled):not(.disabled):hover {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button id='confirmPicture'>앨범에 사용할 사진 선택 완료</button>
+    <button id='makeAlbum'>앨범 만들러 가기</button>
+
+    <div class="container">
+
+        <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">앨범에 포함될 사진 선택</h1>
+        <img src="">
+        <hr class="mt-2 mb-5">
+        <!-- <img src = "/pictures/project1/IMG_0096.jpg"> -->
+    </div>
+
+    <!-- 파라미터를 폼에 감싸서 보내기 -->
+    <form id="form" method="post" action="/scene/gallery2" hidden>
+        <!-- JSON 넣는 곳
+    <input type="hidden" id="json" name="json">-->
+    </form>
+
+    <!-- 1. 캔버스 30개를 미리 준비해둔다 -->
+    <div style="display: none;">
+        <canvas id="can0" class="preCan"></canvas>
+        <canvas id="can1" class="preCan"></canvas>
+        <canvas id="can2" class="preCan"></canvas>
+        <canvas id="can3" class="preCan"></canvas>
+        <canvas id="can4" class="preCan"></canvas>
+        <canvas id="can5" class="preCan"></canvas>
+        <canvas id="can6" class="preCan"></canvas>
+        <canvas id="can7" class="preCan"></canvas>
+        <canvas id="can8" class="preCan"></canvas>
+        <canvas id="can9" class="preCan"></canvas>
+        <canvas id="can10" class="preCan"></canvas>
+        <canvas id="can11" class="preCan"></canvas>
+        <canvas id="can12" class="preCan"></canvas>
+        <canvas id="can13" class="preCan"></canvas>
+        <canvas id="can14" class="preCan"></canvas>
+        <canvas id="can15" class="preCan"></canvas>
+        <canvas id="can16" class="preCan"></canvas>
+        <canvas id="can17" class="preCan"></canvas>
+        <canvas id="can18" class="preCan"></canvas>
+        <canvas id="can19" class="preCan"></canvas>
+        <canvas id="can20" class="preCan"></canvas>
+        <canvas id="can21" class="preCan"></canvas>
+        <canvas id="can22" class="preCan"></canvas>
+        <canvas id="can23" class="preCan"></canvas>
+        <canvas id="can24" class="preCan"></canvas>
+        <canvas id="can25" class="preCan"></canvas>
+        <canvas id="can26" class="preCan"></canvas>
+        <canvas id="can27" class="preCan"></canvas>
+        <canvas id="can28" class="preCan"></canvas>
+        <canvas id="can29" class="preCan"></canvas>
+    </div>
+   
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"
+        integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+    <!-- 부트스트랩 js -->
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- fabric js-->
+    <script></script>
+    <!-- 자바스크립트에서 타임리프 인라인해서 쓰기 -->
+    <script th:inline="javascript">//!!중요 1
+        $("document").ready(function () {
+
+            var canvasList = [];
+            var dateSet = new Set();
+            var pictureList = [[${ pictureList }]]; //!! 중요2 return = pictureList 객체 리스트(빨간줄 에러아님)
+            var dongaId = [[${ dongaId }]];
+            var container = "";
+            var img = "";
+
+            console.log(pictureList);
+            pictureList.forEach(dto => {
+                var date = dto.capDate;
+                dateSet.add(date); //중복된 날짜 제거를 위한 set
+            });
+            console.log(dateSet);
+
+            //1.model에 전달된 사진들의 일자별로 container를 만든다.
+            //2.각 컨테이너의 날짜와 같은 객체들을 차례로 img태그를 만들어 추가한다.
+            //3.각 이미지별로 버튼을 붙인다.
+
+            dateSet.forEach(set => { //모델로 전달된 사진들의 날짜별 컨테이너
+                container += "<div class='container'>" +
+                    "<h1 class='font-weight-light text-center text-lg-left mt-4 mb-0'>" + set + "</h1>" +
+                    "<hr class='mt-2 mb-5'>" +
+                    "<div class='row text-center text-lg-left' id ='" + set + "'>" +
+                    "</div>" +
+                    "</div>";
+            })
+            container += "<div class='container'>" +
+                "<h1 class='font-weight-light text-center text-lg-left mt-4 mb-0'>앨범에 들어갈 사진들" +
+                "<hr class='mt-2 mb-5'>" +
+                "<div class='row text-center text-lg-left' id ='selectAlbum'>" +
+                "</div>" +
+                "<button type='button' class='btn btn-primary'>다음페이지로</button></div>";
+            // "";
+
+            document.body.innerHTML += container;
+            //
+            pictureList.forEach(dto => {
+                console.log(dto.filename);
+                img = "<div class='col-lg-3 col-md-4 col-6'>" +
+                    "<div class='d-block mb-4 h-100'>" +                   //이미지 블록
+                    "<img crossorigin='Anonymous' class='img-fluid img-thumbnail' data-name ='" + dto.filename + "'" +
+                    "data-status='" + dto.weatherstatus +
+                    "'src='http://192.168.0.81:8080/pictures/" + dongaId + "/" + dto.filename + "'>" + //dto로 전달된 사진 태그
+                    // "'src='/pictures/" + dongaId + "/" + dto.filename + "'>" + //dto로 전달된 사진 태그
+                    "<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
+                    "</div>" +
+                    "</div>";
+                document.getElementById(dto.capDate).innerHTML += img;
+            });
+
+            $("#confirmPicture").click(function () {
+                window.alert("!");
+                // 사진+날짜 JS객체 만들기
+                // 일단 사진 리스트 만들기
+                // var weatherFrame = new Array('snowAll.png', 'rainAll3.png', 'cloudAll2.png', 'sunAll4.png');
+                var weatherFrame = new Map();
+                var imgList = $("#selectAlbum img");
+                
+                weatherFrame.set("눈", '/cloudy.png');
+                weatherFrame.set("비", '/cloudy.png');
+                weatherFrame.set("구름", '/cloudy.png');
+                weatherFrame.set("맑음", '/cloudy.png');
+                weatherFrame.set("없음", '/cloudy.png');
+                
+                console.log(imgList);
+
+                imgList.each(function(index){
+                    var photoImg = $(this);
+                    var imgSrc = photoImg.attr("src");
+                    console.log(photoImg.data("status"));
+
+                    // (function () {
+                        // 캔버스 만들고
+                        var can = new fabric.Canvas('can' + index);
+                        console.log(can);
+                        // 2. 캔버스 배경색 정하고
+                        can.setBackgroundColor('rgba(255, 242, 204, 0.25)');
+                        // 3. 캔버스 크기 정하고
+                        can.width = 900;
+                        can.height = 650;
+                        // 4. 캔버스 배경에 날씨 적용하기
+                        // 날씨프레임을 캔버스2의 배경이미지로 적용
+                        // cloudAll2.png
+                        // rainAll3.png
+                        // sunAll4.png
+                        // snowAll.png
+                        
+                        //날씨 이미지 적용하기
+                        var weather = '/weather' + weatherFrame.get(photoImg.data("status"));
+                        fabric.Image.fromURL(weather, function (img) {
+                            img.scaleToWidth(900);
+                            img.scaleToHeight(660);
+                            can.setBackgroundImage(img);
+                            can.renderAll();
+                        });
+                        // 5. 캔버스에 이미지 붙이기
+                        
+                        // console.log(imgSrc);
+                        var img = new Image();
+                        // img.src = imgSrc + '.jpg'; // 업로드 파일은 jpg로 통일
+                        img.src = imgSrc;
+                        var inputImg = img.src;
+                        // 전역변수 percentage
+                        var percentage = 0;
+                        // 이미지가 화면에 로딩되기 전에 사이즈 계산이 이뤄짐
+                        img.onload = function () {
+                            if (img.width <= 1000 && img.height >= 900) {
+                                // alert("0");
+                                percentage = 0.4;
+                                fabric.Image.fromURL(inputImg, function (img) {
+                                    img.scaleToWidth(img.width * percentage);
+                                    img.scaleToHeight(img.height * percentage);
+
+                                    can.add(img.set({
+                                        left: 290,
+                                        top: 140
+                                    }));
+                                },{ crossOrigin: 'anonymous'})
+                            }
+                            else if (img.width <= 1000) {
+                                // alert("1");
+                                console.log(this.width);
+                                console.log(this.height);
+                                percentage = 0.45;
+                                fabric.Image.fromURL(inputImg, function (img) {
+                                    img.scaleToWidth(img.width * percentage);
+                                    img.scaleToHeight(img.height * percentage);
+
+                                    can.add(img.set({
+                                        left: 250,
+                                        top: 170
+                                    }));
+                                },{ crossOrigin: 'anonymous'})
+                            }
+                            else if (img.height >= 3800) {
+                                // alert("2");
+                                percentage = 0.09;
+                                fabric.Image.fromURL(inputImg, function (img) {
+                                    img.scaleToWidth(img.width * percentage);
+                                    img.scaleToHeight(img.height * percentage);
+
+                                    can.add(img.set({
+                                        left: 310,
+                                        top: 150
+                                    }));
+                                },{ crossOrigin: 'anonymous'})
+                            }
+                            else {
+                                // alert("3");
+                                percentage = 0.1;
+                                fabric.Image.fromURL(inputImg, function (img) {
+                                    img.scaleToWidth(img.width * percentage);
+                                    img.scaleToHeight(img.height * percentage);
+
+                                    can.add(img.set({
+                                        left: 250,
+                                        top: 180
+                                    }));
+                                },{ crossOrigin: 'anonymous'})
+                            }
+                        } // end of img.onload
+                        // 리스트에 캔버스 저장하기
+                        canvasList.push(can);
+                        console.log(index + "번째" + canvasList);
+                        // return canvasList;
+                    // }());
+                })
+            });// confirmPicture
+
+                // 2. 갤러리 페이지 하단의 [선택 완료] 버튼이 클릭되면
+                // 사진 개수만큼 반복문으로
+                // 2-1. canvas를 생성하고
+                // 2-2. 이미지 사이즈를 체크하고
+                // 2-3. 이미지를 canvas에 add 한다
+                // input에 json을 넣고 form으로 넘긴다
+                // form으로 넘긴다
+                // 2-4. canvas 자체를 DB의 scene 테이블에 저장한다 (post메서드)
+
+
+                // photoList 길이만큼 반복해서
+            //     for (var i = 0; i < photoList.length; i++) {
+            //         // 즉시실행함수
+            //         (function () {
+            //             // 캔버스 만들고
+            //             var can = new fabric.Canvas('can' + i);
+            //             console.log(can);
+            //             // 2. 캔버스 배경색 정하고
+            //             can.setBackgroundColor('rgba(255, 242, 204, 0.25)');
+            //             // 3. 캔버스 크기 정하고
+            //             can.width = 900;
+            //             can.height = 650;
+            //             // 4. 캔버스 배경에 날씨 적용하기
+            //             // 날씨프레임을 캔버스2의 배경이미지로 적용
+            //             // cloudAll2.png
+            //             // rainAll3.png
+            //             // sunAll4.png
+            //             // snowAll.png
+            //             var weatherFrame = new Array('snowAll.png', 'rainAll3.png', 'cloudAll2.png', '/img/sunAll4.png');
+            //             var weather = 'img/' + weatherFrame[1];
+            //             // equals('눈') 이면  weatherFrame[0]
+            //             // equals('비') 이면  weatherFrame[1]
+            //             // equals('구름') 이면  weatherFrame[2]
+            //             // equals('맑음') 이면  weatherFrame[3]
+            //             // console.log(weather);
+            //             fabric.Image.fromURL(weather, function (img) {
+            //                 img.scaleToWidth(900);
+            //                 img.scaleToHeight(660);
+            //                 can.setBackgroundImage(img);
+            //                 can.renderAll();
+            //             });
+            //             // 5. 캔버스에 이미지 붙이기
+            //             var imgSrc = photoList[i];
+            //             // console.log(imgSrc);
+            //             var img = new Image();
+            //             img.src = imgSrc + '.jpg'; // 업로드 파일은 jpg로 통일
+            //             var inputImg = img.src;
+            //             // 전역변수 percentage
+            //             var percentage = 0;
+            //             // 이미지가 화면에 로딩되기 전에 사이즈 계산이 이뤄짐
+            //             img.onload = function () {
+            //                 if (img.width <= 1000 && img.height >= 900) {
+            //                     // alert("0");
+            //                     percentage = 0.4;
+            //                     fabric.Image.fromURL(inputImg, function (img) {
+            //                         img.scaleToWidth(img.width * percentage);
+            //                         img.scaleToHeight(img.height * percentage);
+
+            //                         can.add(img.set({
+            //                             left: 290,
+            //                             top: 140
+            //                         }));
+            //                     })
+            //                 }
+            //                 else if (img.width <= 1000) {
+            //                     // alert("1");
+            //                     console.log(this.width);
+            //                     console.log(this.height);
+            //                     percentage = 0.45;
+            //                     fabric.Image.fromURL(inputImg, function (img) {
+            //                         img.scaleToWidth(img.width * percentage);
+            //                         img.scaleToHeight(img.height * percentage);
+
+            //                         can.add(img.set({
+            //                             left: 250,
+            //                             top: 170
+            //                         }));
+            //                     })
+            //                 }
+            //                 else if (img.height >= 3800) {
+            //                     // alert("2");
+            //                     percentage = 0.09;
+            //                     fabric.Image.fromURL(inputImg, function (img) {
+            //                         img.scaleToWidth(img.width * percentage);
+            //                         img.scaleToHeight(img.height * percentage);
+
+            //                         can.add(img.set({
+            //                             left: 310,
+            //                             top: 150
+            //                         }));
+            //                     })
+            //                 }
+            //                 else {
+            //                     // alert("3");
+            //                     percentage = 0.1;
+            //                     fabric.Image.fromURL(inputImg, function (img) {
+            //                         img.scaleToWidth(img.width * percentage);
+            //                         img.scaleToHeight(img.height * percentage);
+
+            //                         can.add(img.set({
+            //                             left: 250,
+            //                             top: 180
+            //                         }));
+            //                     })
+            //                 }
+            //             } // end of img.onload
+            //             // 리스트에 캔버스 저장하기
+            //             canvasList.push(can);
+            //             console.log(i + "번째" + canvasList);
+            //             return canvasList;
+            //         }());
+            //     }
+            //     console.log(canvasList === null); // false
+            //     console.log(typeof (canvasList)); // object
+            
+
+
+            // POST 메서드로 전송되는 [완료] 버튼 클릭 시 일어나는 동작
+            $("#makeAlbum").click(function () {
+                var form = $("#form");
+                console.log(dongaId);
+                var strInput = "";
+                for (var i = 0; i < canvasList.length; i++) {
+                    console.log(canvasList[i]);
+
+                    canvasList[i] = function (i) {
+                        var obJSON = canvasList[i].toJSON();
+                        var strJson = JSON.stringify(obJSON);
+                        strInput += "<input type='hidden' name='jList' value='" + strJson + "'>";
+                    }(i)
+                }
+                strInput += "<input type='hidden' name='dongaId' value='" + dongaId + "'>"
+                form.append(strInput);
+                form.submit();
+            });
+
+            //각 사진의 x버튼 클릭시 이벤트
+            $("button.close").on("click", function () {
+                // window.alert("버튼 클릭!!!")
+                var button = $(this);
+                var imgDiv = button.closest("div.col-lg-3");
+                var container = button.closest("div.text-lg-left");
+                var containerId = container.attr("id");
+
+                // 1.img가 담겨져 있는 container의 id를 검사한다.
+                // 2.id가 trashbin 이라면 전에 있던 날짜 container에 div를 옴기고
+                // 3.trashbin이 아니라면, trashbin으로 옮긴다.
+                console.log(typeof (containerId));
+                var toDiv = containerId == "selectAlbum" ? $("#" + button.data("container")) : $("#selectAlbum");
+                console.log(toDiv);
+                button.data("container", containerId);
+
+                toDiv.append(imgDiv);
+            })
+
+        });//end of onload
+    </script>
+    <script>
+
+        $("document").ready(function () {
+
+
+            
+
+            //페이지 이동 버튼
+
+
+        })//end of onload
+    </script>
+</body>
+
+</html>
