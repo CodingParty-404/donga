@@ -1,40 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<div th:replace="includes/header"></div>
-<style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+     <!-- fabric js-->
+     <script src="/js/fabric.js"></script>
 
-  .section-top-border {
-    padding-top: 100px;
-    border: 0px;
-  }
+    <style>
+        body {
+            background: #eee;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color: #000;
+            margin: 0;
+            padding: 0;
+        }
 
-  #gallerybox{
-    margin-top: 150px;
-  }
+        button.close {
+            position: absolute;
+            right: 5px;
+            top: -10px;
+            background: white;
+            opacity: 0.8;
+            border-radius: 20px;
+            width: 30px;
+        }
 
-  .col-lg-3.col-md-4.col-6 img{
-    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2); 
-  }
+        span[aria-hidden=true] {
+            font-size: 2rem;
+            color: grey;
+        }
 
-  .btnlist{
-    display:flex;
-    justify-content: center;
-    margin-top: 10vh;
-  }
-  #makeAlbum{
-      margin-left: 4vw;
-  }
+        .close:not(:disabled):not(.disabled):focus,
+        .close:not(:disabled):not(.disabled):hover {
+            opacity: 1;
+        }
 
-</style>
+        span[aria-hidden=true]:not(:disabled):not(.disabled):hover {
+            color: red;
+        }
+    </style>
+</head>
+
 <body>
 
-    <div id="gallerybox" class="container">
-        <div class="container">
+    <button id='confirmPicture'>앨범에 사용할 사진 선택 완료</button>
+    <button id='makeAlbum'>앨범 만들러 가기</button>
 
-            <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">앨범에 포함될 사진 선택</h1>
-            <img src="">
-            <hr class="mt-2 mb-5">
-            <!-- <img src = "/pictures/project1/IMG_0096.jpg"> -->
-        </div>
+    <div class="container">
+
+        <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">앨범에 포함될 사진 선택</h1>
+        <img src="">
+        <hr class="mt-2 mb-5">
+        <!-- <img src = "/pictures/project1/IMG_0096.jpg"> -->
     </div>
 
     <!-- 파라미터를 폼에 감싸서 보내기 -->
@@ -119,17 +141,11 @@
                 "<h1 class='font-weight-light text-center text-lg-left mt-4 mb-0'>앨범에 들어갈 사진들" +
                 "<hr class='mt-2 mb-5'>" +
                 "<div class='row text-center text-lg-left' id ='selectAlbum'>" +
-                "</div></div>" +
-                "<div class='btnlist'>"+
-                "<button id='confirmPicture' class='btn genric-btn  info-border radius'>앨범에 사용할 사진 선택 완료</button>"+
-                "<button id='makeAlbum' class='btn genric-btn  info-border radius'>앨범 만들러 가기</button></div>";
-
+                "</div>" +
+                "<button type='button' class='btn btn-primary'>다음페이지로</button></div>";
             // "";
-            var gallerybox = document.getElementById("gallerybox");
-            gallerybox.innerHTML += container;
 
-
-            // document.body.innerHTML += container;
+            document.body.innerHTML += container;
             //
             pictureList.forEach(dto => {
                 console.log(dto.filename);
@@ -433,4 +449,6 @@
 
         })//end of onload
     </script>
-<div th:replace="includes/footer"></div>
+</body>
+
+</html>
