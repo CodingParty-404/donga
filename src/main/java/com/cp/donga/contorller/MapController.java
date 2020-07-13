@@ -60,12 +60,6 @@ public class MapController {
     public void set(){
     }
 
-    // @PostMapping("/set2")
-    // public String set2Post(){
-    //     return "redirect:/map/gallary2";
-    // }
-
-    // @RequestMapping(value = "/set2", method = RequestMethod.POST)
     @PostMapping("/set2")
     public String setPost(DongaDTO dongaDTO, MultipartFile[] upload, RedirectAttributes rttr){
 
@@ -91,14 +85,11 @@ public class MapController {
         log.info(uploadPath+dongaId);
 
         File upDirectory = new File(uploadPath, Long.toString(dongaId)); //dongaid로 만든 directory 
-        // upDirectory.setWritable(true);
-        // upDirectory.setExecutable(true)
 
         upDirectory.mkdirs();
 
         for (MultipartFile upfile : upload) {
             File pictureFile = new File(upDirectory, upfile.getOriginalFilename());
-           
 
             try{
                 upfile.transferTo(pictureFile); // upload한 데이터를 file객체에 저장
