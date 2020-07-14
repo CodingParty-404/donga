@@ -38,7 +38,7 @@
   <!-- 자바스크립트에서 타임리프 인라인해서 쓰기 -->
   <script th:inline="javascript">//!!중요 1
     $("document").ready(function () {
-
+ 
       var dateSet = new Set();
       var pictureDTO = [[${ pictureDTO }]]; //!! 중요2 return = pictureDTO 객체 리스트(빨간줄 에러아님)
       var dongaId = [[${ dongaId }]];
@@ -57,13 +57,16 @@
       //3.각 이미지별로 버튼을 붙인다.
 
       dateSet.forEach(set => { //모델로 전달된 사진들의 날짜별 컨테이너
-        container += "<div class='container'>" +
-          "<h1 class='font-weight-light text-center text-lg-left mt-4 mb-0'>" + set + "</h1>" +
-          "<hr class='mt-2 mb-5'>" +
-          "<div class='row text-center text-lg-left' id ='" + set + "'>" +
-          "</div>" +
-          "</div>";
+        if(set !== "2100-12-31"){
+          container += "<div class='container'>" +
+            "<h1 class='font-weight-light text-center text-lg-left mt-4 mb-0'>" + set + "</h1>" +
+            "<hr class='mt-2 mb-5'>" +
+            "<div class='row text-center text-lg-left' id ='" + set + "'>" +
+            "</div>" +
+            "</div>";
+        }
       })
+
       container += "<div class='container'>" +
         "<h1 class='font-weight-light text-center text-lg-left mt-4 mb-0'>삭제될 사진들" +
         "<h5 class='font-weight-light text-center text-lg-left mb-0'>정보가 없는 사진들도 포함되요</h5></h1>" +
@@ -82,25 +85,40 @@
       var gallerybox = document.getElementById("gallerybox");
       gallerybox.innerHTML += container;
 
-      //
+      //각 사진의 정보들을 확인후 각 날짜별 컨테이너 또는 휴지통 컨테이너에 포함
+      //날짜정보가 없는 사진의 날짜 == 2100-12-31
+      var date = new Date("2100-12-31"); 
       pictureDTO.forEach(dto => {
-        console.log(dto.filename);
+
+        var dtoDate = new Date(dto.capDate); //현재 사진의 날짜정보
+        var container;                       //사진 dom객체를 담을 컨테이너 div
+        var btnTag;                         //버튼 태그 String
+        if(date === dtoDate || dto.lng === 0 || dto.lat === 0){
+          container = "trashbin" ;
+          btnTag = "";
+        }
+        else{
+          container = dto.capDate;
+          btnTag = "<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>";
+        }
+
         img = "<div class='col-lg-3 col-md-4 col-6'>" +
           "<div class='d-block mb-4 h-100'>" +                   //이미지 블록
           "<img class='img-fluid img-thumbnail' data-name ='" + dto.filename +
-          "'src='http://192.168.0.81:8080/pictures/" + dto.projectName + "/" + dto.filename + "'>" + //dto로 전달된 사진 태그
-          "<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
+          "'src='http://192.168.0.74:8080/pictures/" + dto.projectName + "/" + dto.filename + "'>" + //dto로 전달된 사진 태그
+          btnTag +
           "</div>" +
           "</div>";
-        document.getElementById(dto.capDate).innerHTML += img;
+        // var container = (date === dtoDate || dto.lng === 0 || dto.lat === 0)? 'trashbin' : dto.capDate;
+        document.getElementById(container).innerHTML += img;
       });
 
 
-        //다음페이지로 이동 버튼 클릭시
+      //다음페이지로 이동 버튼 클릭시
       var confirmBtn = $(".btn-primary");
       confirmBtn.on("click", function () {
 
-        window.alert("다음페이지로");
+        // window.alert("다음페이지로");
         var nameArr = [];
         var deleteImg = $("#trashbin img");
         var formObj = $("#form");
@@ -121,58 +139,6 @@
 
     $("document").ready(function () {
 
-      //file input에 파일 입력시
-      $("#uploadInput").change(function (e) {
-
-        var formData = new FormData();
-
-        var input = $("#uploadInput"); //input 객체
-        var files = input[0].files; //담겨진 파일데이터들
-
-        var progressbar = $(".progress-bar");
-        var progress = $(".progress");
-
-        var fileLegnth = files.length; //전송될 파일 수
-        var doneCount = 0; //전송 성공 횟수
-
-        //프로그레스바 구현 로직
-        //1. 인풋에 들어온 파일의 수만큼 ajax를 수행한다.
-        //2. 반복문으로 파일들을 차례로 날린다.
-        //3. success에서 doneCount를 증가시키고 , 파일수로 나누어 프로그레스 바의 넓이값을 계산해 적용시킨다. 
-
-        progress.css("opacity", "1");
-        progressbar.css("width", "0%");
-        console.log(fileLegnth);
-        for (var i = 0; i < fileLegnth; i++) {
-
-          //각 파일들을 새로운 FormData 객체를 생성해 담는다.
-          var formData = new FormData();
-          formData.append("uploadFiles", files[i]);
-          console.log(formData);
-
-          $.ajax({
-            url: '/map/upload',
-            type: 'POST',
-            data: formData, // formData.append("uploadFiles", files[i]);
-            contentType: false,
-            processData: false,
-            success: function (result) {
-              doneCount++;
-              console.log(typeof (result[0].capDate));
-              var width = (doneCount / fileLegnth) * 100 + "%";
-              progressbar.css("width", width);
-
-              //모든 ajax 통신 완료시 투명 애니메이션 수행
-              if (doneCount == fileLegnth) {
-                progress.animate({
-                  opacity: 0.0
-                }, 5000, function () { })
-              }
-
-            }//end of (success function)
-          })
-        }//end of loop;
-      })
 
       var closeBtn = $("button.close");
       //각 사진의 x버튼 클릭시 이벤트

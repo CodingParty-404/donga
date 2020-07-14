@@ -40,7 +40,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
 
-        
     //     http.authorizeRequests()
     //             // 페이지 권한 설정
     //             .antMatchers("/admin/**").hasRole("ADMIN")

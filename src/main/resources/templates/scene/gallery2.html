@@ -29,7 +29,6 @@
 
     <div id="gallerybox" class="container">
         <div class="container">
-
             <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">앨범에 포함될 사진 선택</h1>
             <img src="">
             <hr class="mt-2 mb-5">
@@ -122,7 +121,7 @@
                 "</div></div>" +
                 "<div class='btnlist'>"+
                 "<button id='confirmPicture' class='btn genric-btn  info-border radius'>앨범에 사용할 사진 선택 완료</button>"+
-                "<button id='makeAlbum' class='btn genric-btn  info-border radius'>앨범 만들러 가기</button></div>";
+                "<button id='makeAlbum' class='btn genric-btn info-border radius'>앨범 만들러 가기</button></div>";
 
             // "";
             var gallerybox = document.getElementById("gallerybox");
@@ -137,7 +136,7 @@
                     "<div class='d-block mb-4 h-100'>" +                   //이미지 블록
                     "<img crossorigin='Anonymous' class='img-fluid img-thumbnail' data-name ='" + dto.filename + "'" +
                     "data-status='" + dto.weatherstatus +
-                    "'src='http://192.168.0.81:8080/pictures/" + dongaId + "/" + dto.filename + "'>" + //dto로 전달된 사진 태그
+                    "'src='http://192.168.0.74:8080/pictures/" + dongaId + "/" + dto.filename + "'>" + //dto로 전달된 사진 태그
                     // "'src='/pictures/" + dongaId + "/" + dto.filename + "'>" + //dto로 전달된 사진 태그
                     "<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
                     "</div>" +
@@ -420,8 +419,6 @@
 
         $("document").ready(function () {
 
-
-            
 
             //페이지 이동 버튼
 
