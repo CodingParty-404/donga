@@ -38,7 +38,7 @@
   <!-- 자바스크립트에서 타임리프 인라인해서 쓰기 -->
   <script th:inline="javascript">//!!중요 1
     $("document").ready(function () {
-
+ 
       var dateSet = new Set();
       var pictureDTO = [[${ pictureDTO }]]; //!! 중요2 return = pictureDTO 객체 리스트(빨간줄 에러아님)
       var dongaId = [[${ dongaId }]];
@@ -57,13 +57,16 @@
       //3.각 이미지별로 버튼을 붙인다.
 
       dateSet.forEach(set => { //모델로 전달된 사진들의 날짜별 컨테이너
-        container += "<div class='container'>" +
-          "<h1 class='font-weight-light text-center text-lg-left mt-4 mb-0'>" + set + "</h1>" +
-          "<hr class='mt-2 mb-5'>" +
-          "<div class='row text-center text-lg-left' id ='" + set + "'>" +
-          "</div>" +
-          "</div>";
+        if(set !== "2100-12-31"){
+          container += "<div class='container'>" +
+            "<h1 class='font-weight-light text-center text-lg-left mt-4 mb-0'>" + set + "</h1>" +
+            "<hr class='mt-2 mb-5'>" +
+            "<div class='row text-center text-lg-left' id ='" + set + "'>" +
+            "</div>" +
+            "</div>";
+        }
       })
+
       container += "<div class='container'>" +
         "<h1 class='font-weight-light text-center text-lg-left mt-4 mb-0'>삭제될 사진들" +
         "<h5 class='font-weight-light text-center text-lg-left mb-0'>정보가 없는 사진들도 포함되요</h5></h1>" +
@@ -83,26 +86,31 @@
       gallerybox.innerHTML += container;
 
       //각 사진의 정보들을 확인후 각 날짜별 컨테이너 또는 휴지통 컨테이너에 포함
-      var date = new Date(); 
-      console.log(date.toLocaleDateString());
-
+      //날짜정보가 없는 사진의 날짜 == 2100-12-31
+      var date = new Date("2100-12-31"); 
       pictureDTO.forEach(dto => {
 
-        var dtoDate = new Date(dto.capDate);
+        var dtoDate = new Date(dto.capDate); //현재 사진의 날짜정보
+        var container;                       //사진 dom객체를 담을 컨테이너 div
+        var btnTag;                         //버튼 태그 String
+        if(date === dtoDate || dto.lng === 0 || dto.lat === 0){
+          container = "trashbin" ;
+          btnTag = "";
+        }
+        else{
+          container = dto.capDate;
+          btnTag = "<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>";
+        }
 
-        console.log(date === dtoDate);
-        console.log("dto.lng : " +dto.lng);
-        console.log(dto.lng === 0);
         img = "<div class='col-lg-3 col-md-4 col-6'>" +
           "<div class='d-block mb-4 h-100'>" +                   //이미지 블록
           "<img class='img-fluid img-thumbnail' data-name ='" + dto.filename +
-          "'src='http://192.168.0.81:8080/pictures/" + dto.projectName + "/" + dto.filename + "'>" + //dto로 전달된 사진 태그
-          "<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
+          "'src='http://192.168.0.74:8080/pictures/" + dto.projectName + "/" + dto.filename + "'>" + //dto로 전달된 사진 태그
+          btnTag +
           "</div>" +
           "</div>";
-        var container = dto.capDate === null ? 'trashbin' : dto.capDate;
-        console.log(container)
-        document.getElementById(dto.capDate).innerHTML += img;
+        // var container = (date === dtoDate || dto.lng === 0 || dto.lat === 0)? 'trashbin' : dto.capDate;
+        document.getElementById(container).innerHTML += img;
       });
 
 

@@ -53,7 +53,7 @@ public class MapController {
     private MapService mapService;
 
 
-    private final String ROOT_PATH = "\\\\192.168.0.81\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
+    private final String ROOT_PATH = "\\\\192.168.0.74\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
     // private final String ROOT_PATH = "C:\\cp\\donga\\src\\main\\resources\\static\\pictures\\";
 
     @GetMapping("/set2")
@@ -130,7 +130,7 @@ public class MapController {
             String fileName = picturefile.getName();
             double lat = 0;
             double lng = 0;
-            LocalDate captureDate = LocalDate.now();
+            LocalDate captureDate = LocalDate.of(2100, 12, 31);
 
             // 메타데이터 추출(위치 및 찍은 시간)
             try {
