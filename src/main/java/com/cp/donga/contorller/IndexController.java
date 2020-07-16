@@ -2,6 +2,7 @@ package com.cp.donga.contorller;
 
 import java.io.Console;
 import java.io.File;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -22,7 +23,11 @@ import com.drew.metadata.Metadata;
 import com.drew.metadata.exif.ExifSubIFDDirectory;
 import com.drew.metadata.exif.GpsDirectory;
 
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,11 +61,20 @@ public class IndexController {
     }
 
     @GetMapping("/storage")
-    public void storage(Long id, Model model){
+    public void storage(Model model, Principal principal){
         // log.info("!!!!!!!!!!id : " + id);
-        List<Donga> list = storageService.getDongaList(id);
+        log.info(principal.getName()+"................");
+        // Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
+        // User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        // String user_id = user.getUsername();
+        // // log.info(user);
+        // log.info(user.getUserDatabase());
+
+        // List<Donga> list = storageService.getDongaList(id);
+        List<Donga> list = storageService.getDaongaList2(principal.getName());
         // log.info("----------------!!!!!!!!!!!");
-        // log.info(list.toString());
+        log.info(list.toString()+"sssssh");
         model.addAttribute("dongaList",list);
     }
 
