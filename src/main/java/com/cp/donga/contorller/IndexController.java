@@ -2,6 +2,7 @@ package com.cp.donga.contorller;
 
 import java.io.Console;
 import java.io.File;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ public class IndexController {
 
     @GetMapping("/index")
     public void index(){
-       
+        System.out.println("yeon ug");
     }
 
     @GetMapping("/about")
@@ -56,10 +57,13 @@ public class IndexController {
     }
 
     @GetMapping("/storage")
-    public void storage(Long id, Model model){
+    public void storage(Model model,Principal principal){
         // log.info("!!!!!!!!!!id : " + id);
-        List<Donga> list = storageService.getDongaList(id);
-        // log.info("----------------!!!!!!!!!!!");
+        // List<Donga> list = storageService.getDongaList(id);
+        List<Donga> list = storageService.getDongaList(principal.getName());
+        // System.out.println("yeon ug");
+        log.info(principal.getName()+"-------------------------------------------------------------------------------------!!!!!!!!!!!");
+        // System.out.println(principal.getName()+"----------------!!!!!!!!!!!");
         // log.info(list.toString());
         model.addAttribute("dongaList",list);
     }

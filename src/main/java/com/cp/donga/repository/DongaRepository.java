@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DongaRepository extends JpaRepository<Donga, Long> {
-    @Query("select a from Donga a where dongamember = :id")
-    List<Donga> getDongaList(@Param("id")DongaMember id);
+    @Query("SELECT d FROM Donga d LEFT OUTER JOIN DongaMember m ON d.dongamember = m WHERE m.email = :email")
+    List<Donga> getDongaList(@Param("email")String email);
 }

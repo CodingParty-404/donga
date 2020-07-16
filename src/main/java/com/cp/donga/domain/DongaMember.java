@@ -49,7 +49,7 @@ public class DongaMember {
 
     // 한번에 회원과 회원권한까지 로딩하는 스타일로 할거라서 EAGER를 걸었다
     // 회원을 저장할때 권한까지 저장할거야
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "dongamember")
     private Set<MemberRole> roleSets;
 

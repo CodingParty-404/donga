@@ -5,5 +5,5 @@ import java.util.List;
 import com.cp.donga.domain.Donga;
 
 public interface StorageService {
-    public List<Donga> getDongaList(Long id);
+    public List<Donga> getDongaList(String email);
 }
