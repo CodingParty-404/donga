@@ -19,12 +19,10 @@ public class StorageServiceImpl implements StorageService {
     private DongaRepository dongaRepository;
 
     @Override
-    public List<Donga> getDongaList(Long id) {
-        log.info(id);
+    public List<Donga> getDongaList(String email) {
+        log.info(email);
 
-        return dongaRepository.getDongaList(DongaMember.builder()
-                                            .id(id)
-                                            .build()
+        return dongaRepository.getDongaList(email
         );
     }
 }
