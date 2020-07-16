@@ -269,6 +269,9 @@ public class MapController {
         //Donga의 id는 파라미터로 수집 되야함
         List<Picture> list = mapService.getPictures(dongaId);
 
+        //날짜순대로 정렬
+        Collections.sort(list);
+
         model.addAttribute("dongaId", dongaId);
         model.addAttribute("picturelist", list);
     }

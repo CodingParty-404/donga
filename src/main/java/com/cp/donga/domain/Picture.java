@@ -23,7 +23,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @ToString
-public class Picture {
+public class Picture implements Comparable<Picture>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,4 +45,8 @@ public class Picture {
     @ManyToOne(fetch = FetchType.LAZY)
     private Donga dongafk;
 
+    @Override
+    public int compareTo(Picture picture) {
+        return this.capdate.compareTo(picture.capdate);
+    }
 }
