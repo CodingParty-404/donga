@@ -1,0 +1,138 @@
+<!--<!DOCTYPE html>
+<html>
+<head>
+	<title>login</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+	<link rel="stylesheet" href="fontawesome/css/all.min.css">
+	
+</head>
+<body> -->
+<div th:replace = "includes/header"></div>
+<style>
+body {
+	font-family: sans-serif;	
+	background-image: url(../img/bg.jpg);
+	background-repeat: no-repeat;
+	overflow: hidden;
+	background-size: cover;
+}
+
+.loginContainer {
+	margin-top: 150px;
+	width: 380px;
+	margin:7% auto;
+	border-radius: 25px;
+	background-color: rgba(0,0,0,0.1);
+	box-shadow: 0 0 17px #333;	
+}
+
+.loginHeader {
+	text-align: center;
+	padding-top: 75px;
+}
+
+.loginHeader h1 {
+	color: #333;
+	font-size: 45px;
+	margin-bottom: 80px;
+}
+
+.loginMain {
+	text-align: center;
+}
+
+.loginMain input, button {
+	width: 300px;
+	height: 40px;
+	border:none;
+	outline: none;
+	padding-left: 40px;
+	box-sizing: border-box;
+	font-size: 15px;
+	color: #333;
+	margin-bottom: 40px;
+}
+
+.loginMain button {
+	padding-left: 0;
+	background-color: #83acf1;
+	letter-spacing: 1px;
+	font-weight: bold;
+	margin-bottom: 70px;
+}
+
+.loginMain button:hover {
+	box-shadow: 2px 2px 5px #555;
+	background-color: #7799d4;
+}
+.loginMain input:hover {
+	box-shadow: 2px 2px 5px #555;
+	background-color: #ddd;
+}
+
+.loginMain span {
+	position: relative;
+}
+
+.loginMain i {
+	position: absolute;
+	left: 15px;
+	color: #333;
+	font-size: 16px;
+	top: 2px;
+}
+
+.login_social_media {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.login_social_media .item{
+  margin: 0 5px;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  border: 2px solid #eeeeee;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #eeeeee;
+  transition: all 0.5s ease;
+}
+
+
+</style>
+
+ <div class="loginContainer">
+ 	<div class="loginHeader">
+ 		<h1>로그인</h1>
+	 </div>
+	 <div class="login_social_media">
+		<div class="item">
+		  <i class="fab fa-facebook-f"></i>
+		</div>
+		<div class="item">
+		  <i class="fab fa-twitter"></i>
+		</div>
+		<div class="item">
+		  <i class="fab fa-google-plus-g"></i>
+		</div>
+	  </div>
+ 	<div class="loginMain">
+        <form action="/user/login" method="post">
+            <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
+ 			<span>
+ 				<i class="fa fa-user"></i>
+ 				<input type="text" name="username" placeholder="이메일">
+ 			</span><br>
+ 			<span>
+ 				<i class="fa fa-lock"></i>
+ 				<input type="password" name="password" placeholder="비밀번호">
+ 			</span><br>
+             <button type="submit">로그인</button>
+         </form>
+ 	</div>
+ </div>
+</body>
+</html>

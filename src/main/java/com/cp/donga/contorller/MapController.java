@@ -53,19 +53,13 @@ public class MapController {
     private MapService mapService;
 
 
-    private final String ROOT_PATH = "\\\\192.168.0.81\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
+    private final String ROOT_PATH = "\\\\192.168.0.76\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
     // private final String ROOT_PATH = "C:\\cp\\donga\\src\\main\\resources\\static\\pictures\\";
 
     @GetMapping("/set2")
     public void set(){
     }
 
-    // @PostMapping("/set2")
-    // public String set2Post(){
-    //     return "redirect:/map/gallary2";
-    // }
-
-    // @RequestMapping(value = "/set2", method = RequestMethod.POST)
     @PostMapping("/set2")
     public String setPost(DongaDTO dongaDTO, MultipartFile[] upload, RedirectAttributes rttr){
 
@@ -91,14 +85,11 @@ public class MapController {
         log.info(uploadPath+dongaId);
 
         File upDirectory = new File(uploadPath, Long.toString(dongaId)); //dongaid로 만든 directory 
-        // upDirectory.setWritable(true);
-        // upDirectory.setExecutable(true)
 
         upDirectory.mkdirs();
 
         for (MultipartFile upfile : upload) {
             File pictureFile = new File(upDirectory, upfile.getOriginalFilename());
-           
 
             try{
                 upfile.transferTo(pictureFile); // upload한 데이터를 file객체에 저장
@@ -139,7 +130,7 @@ public class MapController {
             String fileName = picturefile.getName();
             double lat = 0;
             double lng = 0;
-            LocalDate captureDate = LocalDate.now();
+            LocalDate captureDate = LocalDate.of(2100, 12, 31);
 
             // 메타데이터 추출(위치 및 찍은 시간)
             try {
@@ -277,6 +268,9 @@ public class MapController {
         
         //Donga의 id는 파라미터로 수집 되야함
         List<Picture> list = mapService.getPictures(dongaId);
+
+        //날짜순대로 정렬
+        Collections.sort(list);
 
         model.addAttribute("dongaId", dongaId);
         model.addAttribute("picturelist", list);

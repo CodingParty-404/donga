@@ -56,8 +56,8 @@ public class MemberController {
 
     // 로그인 페이지
     @GetMapping("/user/login")
-    public String dispLogin() {
-        return "/login";
+    public void dispLogin() {
+        // return "/login";
     }
 
     // 로그인 결과 페이지
