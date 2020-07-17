@@ -61,21 +61,14 @@ public class IndexController {
     }
 
     @GetMapping("/storage")
-    public void storage(Model model, Principal principal){
+    public void storage(Model model,Principal principal){
         // log.info("!!!!!!!!!!id : " + id);
-        log.info(principal.getName()+"................");
-        // Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
-        // User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        // String user_id = user.getUsername();
-        // // log.info(user);
-        // log.info(user.getUserDatabase());
-
         // List<Donga> list = storageService.getDongaList(id);
-        List<Donga> list = storageService.getDaongaList2(principal.getName());
-        // log.info("----------------!!!!!!!!!!!");
-        log.info(list.toString()+"sssssh");
-
+        List<Donga> list = storageService.getDongaList(principal.getName());
+        // System.out.println("yeon ug");
+        log.info(principal.getName()+"-------------------------------------------------------------------------------------!!!!!!!!!!!");
+        // System.out.println(principal.getName()+"----------------!!!!!!!!!!!");
+        // log.info(list.toString());
         model.addAttribute("dongaList",list);
     }
 
