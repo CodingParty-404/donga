@@ -71,7 +71,7 @@
                         <a href="/map/set2"><img src ="/pngwing.com.png"></a>
                     </div>    
                     <div th:each="list, i: ${dongaList}">
-                        <div class="sumnail"><a class="lLink" href="#">Album</a><a class="rLink" href="#">Map</a><img src ="/campingcar.jpg" ></div>
+                        <div class="sumnail"><a class="lLink" th:href="@{/map/read(id=${list.dongaid})}"> Album</a><a class="rLink" th:href="@{/map/swiper2(id=${list.dongaid})}">Map</a><img src ="/campingcar.jpg" ></div>
                         <li th:text="${list.title}"></li>
                         <li th:text="${list.stdate}"></li>
                         <li th:text="${list.eddate}"></li>
@@ -79,7 +79,11 @@
                 </div>  
 			</div>
 		</div>
-	</div>
+    </div>
+    
+    <script>
+
+    </script>
 <!-- 
     <script>
         var count = 0;
