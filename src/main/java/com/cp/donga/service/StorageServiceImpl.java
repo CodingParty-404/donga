@@ -26,7 +26,6 @@ public class StorageServiceImpl implements StorageService {
     public List<Donga> getDongaList(String email) {
         log.info(email);
 
-        return dongaRepository.getDongaList(email
-        );
+        return dongaRepository.getDongaList(email);
     }
 }

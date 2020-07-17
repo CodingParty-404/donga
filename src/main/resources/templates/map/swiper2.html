@@ -155,7 +155,7 @@
     <!-- 템플릿 컨테이너 -->
     <section class="contact-section padding_top map_container ">
         <div class="container box_1170">
-            <h2 style="color: white; z-index: 3;">ㅁㅁㅁ의 여행 경로입니다.</h2>
+            <h2 style="color: white; z-index: 3;" th:text ="|${dongaTitle} 의 여행경로입니다|"></h2>
             <hr>
             <div class="d-none d-sm-block mb-5 pb-2">
                 <!--카카오 지도 뷰-->
@@ -216,7 +216,7 @@
     <!--타임리프 모델 데이터 로드-->
     <script th:inline="javascript">
         var pictureList = [[${ picturelist }]]
-
+        // var title = [[${dongaTitle}]]
         pictureList.forEach(picture => {
             console.log(picture.weather.status);
         })
@@ -240,7 +240,7 @@
         var weatherSrcMap = new Map();
         weatherSrcMap.set("비","/rain_1.mp4")
         weatherSrcMap.set("맑음","/sea.mp4")
-        weatherSrcMap.set("구름","/cloud_3.mp4")
+        weatherSrcMap.set("구름","/cloud_2.mp4")
 
         var dongaId = [[${ dongaId }]];
         //1.정규식 설정으로 업로드 파일 저항

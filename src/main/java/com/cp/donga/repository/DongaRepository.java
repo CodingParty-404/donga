@@ -1,6 +1,7 @@
 package com.cp.donga.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.cp.donga.domain.Donga;
 import com.cp.donga.domain.DongaMember;
@@ -16,4 +17,5 @@ public interface DongaRepository extends JpaRepository<Donga, Long> {
 
     @Query("SELECT d FROM Donga d LEFT OUTER JOIN DongaMember m ON d.dongamember = m WHERE m.email = :email")
     List<Donga> getDongaList(@Param("email")String email);
+
 }
