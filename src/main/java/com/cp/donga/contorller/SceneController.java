@@ -68,7 +68,7 @@ public class SceneController {
         try {
             // InetAddress ip = InetAddress.getLocalHost();
             // String source_id = ip.getHostAddress();
-            String source_id = "http://http://192.168.0.76:8080/";
+            String source_id = "http://http://192.168.0.77:8080/";
 
 
             // jList 길이만큼 반복하며
