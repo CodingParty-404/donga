@@ -25,6 +25,7 @@ public class SceneServiceImpl implements SceneService {
 
     @Override
     public List<Scene> getSceneList(Long dongaId) {
+        log.info(dongaId+"------------------------------------------------------");
         return sceneRepository.findByDonga(Donga.builder()
                                 .dongaid(dongaId)
                                 .build());

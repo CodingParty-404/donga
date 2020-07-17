@@ -31,8 +31,12 @@ public class ShareController {
 
         List<Scene> list  =  sceneService.getSceneList(dongaId);
 
+        log.info(list.toString()+"-------------------------------------------------------!!!!!!!!-");
+
         list.forEach(vo -> log.info(vo));
         model.addAttribute("list", list);
+
+        log.info(list.toString()+"--------------------------------------------------------");
 
     }
 }
