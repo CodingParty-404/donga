@@ -75,6 +75,7 @@ public class IndexController {
         List<Donga> list = storageService.getDaongaList2(principal.getName());
         // log.info("----------------!!!!!!!!!!!");
         log.info(list.toString()+"sssssh");
+
         model.addAttribute("dongaList",list);
     }
 

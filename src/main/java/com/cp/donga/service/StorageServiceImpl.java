@@ -20,7 +20,6 @@ public class StorageServiceImpl implements StorageService {
 
     @Autowired
     private DongaRepository dongaRepository;
-
     // @Override
     // public List<Donga> getDongaList(Long id) {
     //     log.info(id);
