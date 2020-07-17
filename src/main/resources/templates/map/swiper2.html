@@ -183,9 +183,9 @@
         <div class="swiper-button-prev"></div>
     </div>
     
-    <div class="container img_view">
-        <video autoplay loop muted preload="auto">
-            <source src="/sea.mp4" type="video/mp4">
+    <div class="container img_view" >
+        <video  autoplay loop muted preload="auto" id = "weatherVideo">
+            <source src="/rain_1.mp4" type="video/mp4">
         </video>
         <div>
             <div class='srcImgShow'>
@@ -218,7 +218,7 @@
         var pictureList = [[${ picturelist }]]
 
         pictureList.forEach(picture => {
-            console.log(picture.weather);
+            console.log(picture.weather.status);
         })
 
     </script>
@@ -236,13 +236,17 @@
 
     <!--지도api 및 swiper 외 이벤트 js 스크립트-->
     <script>
+        //날씨에 따른 동영상 파일 이름 map 객체
+        var weatherSrcMap = new Map();
+        weatherSrcMap.set("비","/rain_1.mp4")
+        weatherSrcMap.set("맑음","/sea.mp4")
+        weatherSrcMap.set("구름","/cloud_3.mp4")
 
         var dongaId = [[${ dongaId }]];
         //1.정규식 설정으로 업로드 파일 저항
         var regex = new RegExp("(.*?)\.(jpg|JPG)$");
         //2.제한 데이터 크기 값 선언- 5M
         var maxSize = 5242880;
-
         //kakao map ini...................
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
             mapOption = {
@@ -280,7 +284,8 @@
                     var slides = [];
 
                     pictureList.forEach(picture => {
-                        slides.push("<img src= http://192.168.0.77:8080/pictures/" + dongaId + "/s_" + picture.filename + ">");
+                        slides.push("<img src= /pictures/" + dongaId + "/s_" + picture.filename + ">");
+                        // slides.push("<img src= http://192.168.0.77:8080/pictures/" + dongaId + "/s_" + picture.filename + ">");
                     })
                     console.log(slides);
 
@@ -301,7 +306,7 @@
                     //3.원본이미지 디브를 생성해 맵 밑에 추가한다.
 
                     //++ 동영상 배경 추가 코드 필요
-                    //
+                    //클릭한 
                     console.log(e);
                     var clickedObj = e.target;
                     console.log(clickedObj);
@@ -315,13 +320,33 @@
 
                         var thumbSrc = clickedObj.getAttribute("src");
                         var cutNum = thumbSrc.indexOf("s_")
-                        // console.log(src.slice(cutNum-src.length));
-                        var src = thumbSrc.substring(cutNum + 2, thumbSrc.length);
-                        // var img = "<img class = 'srcImg' src='/pictures/"+dongaId+"/"+src+"'>"
+                        var src = thumbSrc.substring(cutNum + 2, thumbSrc.length); //원본 파일 이름
+
+                        //클릭된 img태그의 파일이름과 같은 dto의 객체를 찾아
+                        //객체의 날씨 status를 가져온다.
+                        console.log(src);
+
+                        
+                        
+                        var videoFile ;
+                        pictureList.forEach(picture=>{
+                            if(picture.filename == src){ //파일이름이 같은 dto를 찾아 weather.status를 찾아
+
+                                videoFile = weatherSrcMap.get(picture.weather.status); //맵객체의 비디오 파일 이름을 얻어온후 
+                                var videoObj = document.getElementById("weatherVideo");
+                                videoObj.pause();
+                                $("#weatherVideo source").attr("src",videoFile);
+                                videoObj.load();
+                                videoObj.play();
+                                
+                            }
+                        })
+                        console.log(videoFile);
+
                         var srcImg = $(".srcImg")
-                        console.log(srcImg);
                         srcImg.attr("hidden", false);
-                        $(".srcImg").attr("src", "http://192.168.0.77:8080/pictures/" + dongaId + "/" + src);
+                        // $(".srcImg").attr("src", "http://192.168.0.77:8080/pictures/" + dongaId + "/" + src);
+                        $(".srcImg").attr("src", "/pictures/" + dongaId + "/" + src);
                     }
 
                 }
@@ -375,7 +400,8 @@
 
             //클러스터에 속해있는 마커 갯수만큼 이미지태그 생성
             cluster.getMarkers().forEach(item => {
-                slides.push("<img src ='http://192.168.0.77:8080/pictures/" + dongaId + "/" + "s_" + item.getTitle() + "'>");
+                // slides.push("<img src ='http://192.168.0.77:8080/pictures/" + dongaId + "/" + "s_" + item.getTitle() + "'>");
+                slides.push("<img src ='/pictures/" + dongaId + "/" + "s_" + item.getTitle() + "'>");
             });
 
             //swiper의 슬라이드 제거후 virtual slide 생성

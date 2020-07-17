@@ -3,6 +3,7 @@ package com.cp.donga.contorller;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import com.cp.donga.domain.Donga;
@@ -43,6 +44,7 @@ public class SceneController {
         List<Picture> pictures =  mapService.getPictures(dongaId);
         List<PictureDTO> pictureDTOs = new ArrayList<>();
 
+        Collections.sort(pictures);
         //가져온 pictures 길이만큼 dto를 생성해서 모델에 전달한다.
         pictures.stream().forEach(picture->{
 
@@ -66,9 +68,9 @@ public class SceneController {
         
         // 서버 주소 알아내는 코드
         try {
-            // InetAddress ip = InetAddress.getLocalHost();
-            // String source_id = ip.getHostAddress();
-            String source_id = "http://http://192.168.0.77:8080/";
+            InetAddress ip = InetAddress.getLocalHost();
+            String source_id = ip.getHostAddress();
+            // String source_id = "http://http://192.168.0.77:8080/";
 
 
             // jList 길이만큼 반복하며

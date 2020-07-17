@@ -53,8 +53,8 @@ public class MapController {
     private MapService mapService;
 
 
-    private final String ROOT_PATH = "\\\\192.168.0.77\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
-    // private final String ROOT_PATH = "C:\\cp\\donga\\src\\main\\resources\\static\\pictures\\";
+    // private final String ROOT_PATH = "\\\\192.168.0.77\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
+    private final String ROOT_PATH = "C:\\cp\\donga\\src\\main\\resources\\static\\pictures\\";
 
     @GetMapping("/set2")
     public void set(){
@@ -108,7 +108,7 @@ public class MapController {
 
 
     @GetMapping("/gallery2")
-    public void gallery(Long dongaId, Model model) {
+    public String gallery(Long dongaId, Model model) {
         log.info("get gallery call...............");
         log.info("dongaID : "+dongaId);
         // 1.파일이 들어있는 폴더의 경로이름을 받는다.
@@ -119,7 +119,13 @@ public class MapController {
         String uploadPath = ROOT_PATH + dongaId;
         List<PictureDTO> list = new ArrayList<>();
         File dongaDirectory = new File(uploadPath);
-        File[] pictureFiles = dongaDirectory.listFiles();
+        File[] pictureFiles =null;
+
+        try {
+            pictureFiles = dongaDirectory.listFiles();
+        } catch (Exception e) {
+            return "Redirect:/index";
+        }
         log.info("++++++++++++++++++++++++++++++++++++++++");
         log.info(uploadPath);
         log.info(pictureFiles);
@@ -169,6 +175,7 @@ public class MapController {
 
         model.addAttribute("pictureDTO", list);
         model.addAttribute("dongaId", dongaId);
+        return "/map/gallery2";
     }
 
     @PostMapping("/gallery2")
@@ -190,7 +197,16 @@ public class MapController {
             log.info(file.delete()); // 삭제 성공시 true;
         }
 
-        File[] pictureFiles = dongaDirectory.listFiles(); // 삭제하고 남은 사진객체를 가져온다.
+        File[] pictureFiles =null; // 삭제하고 남은 사진객체를 가져온다.
+
+        try {
+            pictureFiles = dongaDirectory.listFiles();
+            log.info(",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,");
+            log.info(pictureFiles);
+            log.info(",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,");
+        } catch (Exception e) {
+            return new RedirectView("/index");  
+        }
 
         //남은 파일만큼 반복해서 썸네일을 생성하고, 메타데이터를 추출한다.
         for (File picturefile : pictureFiles) {
@@ -254,6 +270,8 @@ public class MapController {
 
         mapService.registerPictures(list);
         rttr.addAttribute("dongaId",dongaId);
+        //Attr에 동가 이름 추가 필요-0717
+        // rttr.addAttribute("dongaName",dongaId);
         
         return new RedirectView("/map/swiper2");
     }
