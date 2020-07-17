@@ -52,7 +52,7 @@ public class IndexController {
 
     @GetMapping("/index")
     public void index(){
-       
+     log.info("message");  
     }
 
     @GetMapping("/about")
