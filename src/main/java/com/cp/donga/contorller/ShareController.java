@@ -24,7 +24,7 @@ public class ShareController {
     private SceneService sceneService;
     
     @GetMapping("/read")
-    public void readGet(@RequestParam Long dongaId, Model model){
+    public String readGet(@RequestParam Long dongaId, Model model){
         log.info("read page Get...........................");
 
         log.info(dongaId);
@@ -37,6 +37,7 @@ public class ShareController {
         model.addAttribute("list", list);
 
         log.info(list.toString()+"--------------------------------------------------------");
+        return "/share/read2";
 
     }
 }

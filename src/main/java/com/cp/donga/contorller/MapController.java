@@ -57,11 +57,12 @@ public class MapController {
     private DongaService dongaService;
 
 
-    // private final String ROOT_PATH = "\\\\192.168.0.77\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
-    private final String ROOT_PATH = "C:\\cp\\donga\\src\\main\\resources\\static\\pictures\\";
+    private final String ROOT_PATH = "\\\\192.168.0.73\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
+    // private final String ROOT_PATH = "C:\\cp\\donga\\src\\main\\resources\\static\\pictures\\";
 
     @GetMapping("/set2")
-    public void set(){
+    public String set(){
+        return "/map/set2";
     }
 
     @PostMapping("/set2")
@@ -280,7 +281,7 @@ public class MapController {
     }
 
     @GetMapping("/swiper2")
-    public void swiper(Long dongaId, Model model) { // 파라미터로 dongaId를 받는다.
+    public String swiper(Long dongaId, Model model) { // 파라미터로 dongaId를 받는다.
 
         log.info("swiper called....");
         log.info(dongaId);
@@ -298,6 +299,7 @@ public class MapController {
         model.addAttribute("picturelist", list);
     
         model.addAttribute("dongaTitle",dongaService.getDongaTitle(dongaId));
+        return "/map/swiper2";
     }
 
     // 오늘자 폴더구조 문자열 반환
