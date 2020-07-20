@@ -50,6 +50,11 @@ public class IndexController {
     
     private final String ROOT_PATH = "C:\\cp\\donga\\src\\main\\resources\\static\\pictures\\";
 
+    @GetMapping("/")
+    public String root(){
+        return "/index";
+    }
+
     @GetMapping("/index")
     public void index(){
      log.info("message");  
