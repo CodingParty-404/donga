@@ -1,8 +1,6 @@
 package com.cp.donga.contorller;
 
-import java.io.Console;
 import java.io.File;
-import java.security.Principal;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -10,24 +8,18 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import com.cp.donga.domain.Donga;
 import com.cp.donga.domain.Picture;
 import com.cp.donga.domain.Scene;
 import com.cp.donga.dto.PictureDTO;
 import com.cp.donga.service.MapService;
 import com.cp.donga.service.SceneService;
-import com.cp.donga.service.StorageService;
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.lang.GeoLocation;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.exif.ExifSubIFDDirectory;
 import com.drew.metadata.exif.GpsDirectory;
 
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
