@@ -54,7 +54,8 @@ public class MemberController {
 
     // 회원가입 페이지
     @GetMapping("/user/signup")
-    public String dispSignup() {
+    public String dispSignup(String email, Model model) {
+        model.addAttribute("email", email);
         return "/signup";
     }
 

@@ -1,7 +1,10 @@
 package com.cp.donga.config;
 
+import com.cp.donga.handler.CustomOAuthSuccessHandler;
+import com.cp.donga.security.CustomOAuthSecurityService;
 import com.cp.donga.service.MemberService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,19 +14,30 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import lombok.AllArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
-@AllArgsConstructor
+// @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    
+    @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private CustomOAuthSecurityService customSecurityService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler(){
+        return new CustomOAuthSuccessHandler();
     }
 
     @Override
@@ -57,6 +71,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 403 예외처리 핸들링
                 .exceptionHandling().accessDeniedPage("/user/denied");
                 http.csrf().disable();
+           
+            //oath2Login config - 소셜 로그인
+            http.oauth2Login()
+                .successHandler(authenticationSuccessHandler())
+                .userInfoEndpoint()
+                .userService(customSecurityService);
+            
     }
 
     @Override
