@@ -16,6 +16,7 @@ import com.cp.donga.domain.Donga;
 import com.cp.donga.domain.Picture;
 import com.cp.donga.dto.DongaDTO;
 import com.cp.donga.dto.PictureDTO;
+import com.cp.donga.service.DongaService;
 import com.cp.donga.service.MapService;
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.lang.GeoLocation;
@@ -51,6 +52,9 @@ public class MapController {
 
     @Autowired
     private MapService mapService;
+
+    @Autowired
+    private DongaService dongaService;
 
 
     // private final String ROOT_PATH = "\\\\192.168.0.77\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
@@ -269,15 +273,15 @@ public class MapController {
         } // end of for loop
 
         mapService.registerPictures(list);
+
         rttr.addAttribute("dongaId",dongaId);
-        //Attr에 동가 이름 추가 필요-0717
-        // rttr.addAttribute("dongaName",dongaId);
-        
+        // rttr.addAttribute("isMake","true");
         return new RedirectView("/map/swiper2");
     }
 
     @GetMapping("/swiper2")
     public void swiper(Long dongaId, Model model) { // 파라미터로 dongaId를 받는다.
+
         log.info("swiper called....");
         log.info(dongaId);
         // 1.전달받은 donga 정보를 가지고 donga객체를 생성한다.
@@ -292,6 +296,8 @@ public class MapController {
 
         model.addAttribute("dongaId", dongaId);
         model.addAttribute("picturelist", list);
+    
+        model.addAttribute("dongaTitle",dongaService.getDongaTitle(dongaId));
     }
 
     // 오늘자 폴더구조 문자열 반환
