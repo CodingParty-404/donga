@@ -44,9 +44,6 @@ public class IndexController {
 
     @Autowired
     private SceneService sceneService;
-
-    @Autowired
-    private StorageService storageService;
     
     private final String ROOT_PATH = "C:\\cp\\donga\\src\\main\\resources\\static\\pictures\\";
 
@@ -60,17 +57,7 @@ public class IndexController {
         
     }
 
-    @GetMapping("/storage")
-    public void storage(Model model,Principal principal){
-        // log.info("!!!!!!!!!!id : " + id);
-        // List<Donga> list = storageService.getDongaList(id);
-        List<Donga> list = storageService.getDongaList(principal.getName());
-        // System.out.println("yeon ug");
-        log.info(principal.getName()+"-------------------------------------------------------------------------------------!!!!!!!!!!!");
-        // System.out.println(principal.getName()+"----------------!!!!!!!!!!!");
-        // log.info(list.toString());
-        model.addAttribute("dongaList",list);
-    }
+    
 
     @GetMapping("/includestest")
     public void include(){

@@ -1,18 +1,30 @@
 package com.cp.donga.contorller;
 
+import java.security.Principal;
+import java.util.List;
+
+import com.cp.donga.domain.Donga;
 import com.cp.donga.dto.MemberDTO;
 import com.cp.donga.service.MemberService;
+import com.cp.donga.service.StorageService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
 @Controller
-@AllArgsConstructor
+@Log4j2
 public class MemberController {
+
+    @Autowired
     private MemberService memberService;
+    @Autowired
+    private StorageService storageService;
 
     @GetMapping("/road")
     public String road(){
@@ -90,4 +102,18 @@ public class MemberController {
     public String dispAdmin() {
         return "/admin";
     }
+
+    @GetMapping("/user/storage")
+    public void storage(Model model,Principal principal){
+        // log.info("!!!!!!!!!!id : " + id);
+        // List<Donga> list = storageService.getDongaList(id);
+        List<Donga> list = storageService.getDongaList(principal.getName());
+        // System.out.println("yeon ug");
+        log.info(principal.getName()+"-------------------------------------------------------------------------------------!!!!!!!!!!!");
+        // System.out.println(principal.getName()+"----------------!!!!!!!!!!!");
+        // log.info(list.toString());
+        model.addAttribute("dongaList",list);
+    }
+
+    
 }
