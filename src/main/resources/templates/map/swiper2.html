@@ -1,4 +1,4 @@
-<div th:replace="includes/header"></div>
+<div th:replace="/includes/header"></div>
 
 <body>
 
@@ -431,7 +431,6 @@
         //다음페이지 버튼 클릭시
         $("#nextpage").click(function () {
             //각 사진파일의 정보를 form에 저장해 전달한다.
-
             var formObj = $("#form");
             formObj.attr("action", "/scene/gallery2");
             formObj.attr("method", "get");
@@ -441,4 +440,4 @@
         })
 
     </script>
-    <div th:replace="includes/footer"></div>
+    <div th:replace="/includes/footer"></div>

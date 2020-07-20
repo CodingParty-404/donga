@@ -36,7 +36,7 @@ public class SceneController {
     private SceneService sceneService;
 
     @GetMapping("/gallery2")
-    public void gallery2get(Model model, Long dongaId){
+    public String gallery2Get(Model model, Long dongaId){
         log.info("gallery2 get called.....................");
         log.info("DongaId : " +dongaId);
 
@@ -58,6 +58,7 @@ public class SceneController {
         log.info(pictureDTOs.size());
         model.addAttribute("pictureList", pictureDTOs);
         model.addAttribute("dongaId", dongaId);
+        return "/scene/gallery2";
     }
 
     @PostMapping("/gallery2")
@@ -100,13 +101,14 @@ public class SceneController {
     }
 
     @GetMapping("/makedraw")
-    public void makeDrawGet(Long dongaId, Model model){
+    public String makeDrawGet(Long dongaId, Model model){
         log.info("makeDraw called...........................");
         
         List<Scene> list = sceneService.getSceneList(dongaId);
 
         model.addAttribute("list", list);
         model.addAttribute("dongaId", dongaId);
+        return "/scene/makeDraw";
     }
     @PostMapping("/makedraw")
     public RedirectView makeDrawPost(@RequestParam String[] jList, @RequestParam Long dongaId, RedirectAttributes rttr)
