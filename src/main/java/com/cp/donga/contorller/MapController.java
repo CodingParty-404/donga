@@ -57,7 +57,7 @@ public class MapController {
     private DongaService dongaService;
 
 
-    private final String ROOT_PATH = "\\\\192.168.0.73\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
+    private final String ROOT_PATH = "\\\\192.168.0.71\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
     // private final String ROOT_PATH = "C:\\cp\\donga\\src\\main\\resources\\static\\pictures\\";
 
     @GetMapping("/set2")

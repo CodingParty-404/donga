@@ -13,9 +13,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface PictureRepository extends JpaRepository<Picture,Long>{
     
-    @Query("select p from Picture p where p.dongafk = :did")
-    List<Picture> getPictures(@Param("did")Donga did);
-
     @EntityGraph(attributePaths = {"weather","dongafk"})
     @Query("select p from Picture p where p.dongafk = :did")
     List<Picture> getPicturesAndWeather(@Param("did")Donga did);

@@ -106,7 +106,7 @@ public class MemberController {
     }
 
     @GetMapping("/user/storage")
-    public void storage(Model model,Principal principal){
+    public String storage(Model model,Principal principal){
         // log.info("!!!!!!!!!!id : " + id);
         // List<Donga> list = storageService.getDongaList(id);
         List<Donga> list = storageService.getDongaList(principal.getName());
@@ -115,6 +115,8 @@ public class MemberController {
         // System.out.println(principal.getName()+"----------------!!!!!!!!!!!");
         // log.info(list.toString());
         model.addAttribute("dongaList",list);
+
+        return "/user/storage";
     }
 
     

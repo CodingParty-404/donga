@@ -285,7 +285,7 @@
 
                     pictureList.forEach(picture => {
                         // slides.push("<img src= /pictures/" + dongaId + "/s_" + picture.filename + ">");
-                        slides.push("<img src= http://192.168.0.73:8080/pictures/" + dongaId + "/s_" + picture.filename + ">");
+                        slides.push("<img src= http://192.168.0.71:8080/pictures/" + dongaId + "/s_" + picture.filename + ">");
                     })
                     console.log(slides);
 
@@ -345,7 +345,7 @@
 
                         var srcImg = $(".srcImg")
                         srcImg.attr("hidden", false);
-                        $(".srcImg").attr("src", "http://192.168.0.73:8080/pictures/" + dongaId + "/" + src);
+                        $(".srcImg").attr("src", "http://192.168.0.71:8080/pictures/" + dongaId + "/" + src);
                         // $(".srcImg").attr("src", "/pictures/" + dongaId + "/" + src);
                     }
 
@@ -400,7 +400,7 @@
 
             //클러스터에 속해있는 마커 갯수만큼 이미지태그 생성
             cluster.getMarkers().forEach(item => {
-                slides.push("<img src ='http://192.168.0.73:8080/pictures/" + dongaId + "/" + "s_" + item.getTitle() + "'>");
+                slides.push("<img src ='http://192.168.0.71:8080/pictures/" + dongaId + "/" + "s_" + item.getTitle() + "'>");
                 // slides.push("<img src ='/pictures/" + dongaId + "/" + "s_" + item.getTitle() + "'>");
             });
 
