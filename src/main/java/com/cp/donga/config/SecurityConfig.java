@@ -66,6 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
                 .logoutSuccessUrl("/user/logout/result")
+                .clearAuthentication(true) //추가해줘야 로그아웃시 (인가)세션 정상적으로 삭제됨
                 .invalidateHttpSession(true)
             .and()
                 // 403 예외처리 핸들링
@@ -77,7 +78,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(authenticationSuccessHandler())
                 .userInfoEndpoint()
                 .userService(customSecurityService);
-            
     }
 
     @Override

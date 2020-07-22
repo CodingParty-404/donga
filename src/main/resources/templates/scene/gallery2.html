@@ -136,7 +136,7 @@
                     "<div class='d-block mb-4 h-100'>" +                   //이미지 블록
                     "<img crossorigin='Anonymous' class='img-fluid img-thumbnail' data-name ='" + dto.filename + "'" +
                     "data-status='" + dto.weatherstatus +
-                    "'src='http://192.168.0.73:8080/pictures/" + dongaId + "/" + dto.filename + "'>" + //dto로 전달된 사진 태그
+                    "'src='http://192.168.0.71:8080/pictures/" + dongaId + "/" + dto.filename + "'>" + //dto로 전달된 사진 태그
                     // "'src='/pictures/" + dongaId + "/" + dto.filename + "'>" + //dto로 전달된 사진 태그
                     "<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
                     "</div>" +
@@ -145,7 +145,6 @@
             });
 
             $("#confirmPicture").click(function () {
-                window.alert("!");
                 // 사진+날짜 JS객체 만들기
                 // 일단 사진 리스트 만들기
                 var weatherFrame = new Map();
@@ -153,7 +152,7 @@
                 
                 weatherFrame.set("눈", '/allFlake.png');
                 weatherFrame.set("비", '/rainyeah.png');
-                weatherFrame.set("구름", '/cloudcloud.png');
+                weatherFrame.set("구름", '/cloudy.png');
                 weatherFrame.set("맑음", '/sun.png');
                 weatherFrame.set("없음", '/sun.png');
                 
@@ -256,124 +255,7 @@
                         // return canvasList;
                     // }());
                 })
-            });// confirmPicture
-
-                // 2. 갤러리 페이지 하단의 [선택 완료] 버튼이 클릭되면
-                // 사진 개수만큼 반복문으로
-                // 2-1. canvas를 생성하고
-                // 2-2. 이미지 사이즈를 체크하고
-                // 2-3. 이미지를 canvas에 add 한다
-                // input에 json을 넣고 form으로 넘긴다
-                // form으로 넘긴다
-                // 2-4. canvas 자체를 DB의 scene 테이블에 저장한다 (post메서드)
-
-
-                // photoList 길이만큼 반복해서
-            //     for (var i = 0; i < photoList.length; i++) {
-            //         // 즉시실행함수
-            //         (function () {
-            //             // 캔버스 만들고
-            //             var can = new fabric.Canvas('can' + i);
-            //             console.log(can);
-            //             // 2. 캔버스 배경색 정하고
-            //             can.setBackgroundColor('rgba(255, 242, 204, 0.25)');
-            //             // 3. 캔버스 크기 정하고
-            //             can.width = 900;
-            //             can.height = 650;
-            //             // 4. 캔버스 배경에 날씨 적용하기
-            //             // 날씨프레임을 캔버스2의 배경이미지로 적용
-            //             // cloudAll2.png
-            //             // rainAll3.png
-            //             // sunAll4.png
-            //             // snowAll.png
-            //             var weatherFrame = new Array('snowAll.png', 'rainAll3.png', 'cloudAll2.png', '/img/sunAll4.png');
-            //             var weather = 'img/' + weatherFrame[1];
-            //             // equals('눈') 이면  weatherFrame[0]
-            //             // equals('비') 이면  weatherFrame[1]
-            //             // equals('구름') 이면  weatherFrame[2]
-            //             // equals('맑음') 이면  weatherFrame[3]
-            //             // console.log(weather);
-            //             fabric.Image.fromURL(weather, function (img) {
-            //                 img.scaleToWidth(900);
-            //                 img.scaleToHeight(660);
-            //                 can.setBackgroundImage(img);
-            //                 can.renderAll();
-            //             });
-            //             // 5. 캔버스에 이미지 붙이기
-            //             var imgSrc = photoList[i];
-            //             // console.log(imgSrc);
-            //             var img = new Image();
-            //             img.src = imgSrc + '.jpg'; // 업로드 파일은 jpg로 통일
-            //             var inputImg = img.src;
-            //             // 전역변수 percentage
-            //             var percentage = 0;
-            //             // 이미지가 화면에 로딩되기 전에 사이즈 계산이 이뤄짐
-            //             img.onload = function () {
-            //                 if (img.width <= 1000 && img.height >= 900) {
-            //                     // alert("0");
-            //                     percentage = 0.4;
-            //                     fabric.Image.fromURL(inputImg, function (img) {
-            //                         img.scaleToWidth(img.width * percentage);
-            //                         img.scaleToHeight(img.height * percentage);
-
-            //                         can.add(img.set({
-            //                             left: 290,
-            //                             top: 140
-            //                         }));
-            //                     })
-            //                 }
-            //                 else if (img.width <= 1000) {
-            //                     // alert("1");
-            //                     console.log(this.width);
-            //                     console.log(this.height);
-            //                     percentage = 0.45;
-            //                     fabric.Image.fromURL(inputImg, function (img) {
-            //                         img.scaleToWidth(img.width * percentage);
-            //                         img.scaleToHeight(img.height * percentage);
-
-            //                         can.add(img.set({
-            //                             left: 250,
-            //                             top: 170
-            //                         }));
-            //                     })
-            //                 }
-            //                 else if (img.height >= 3800) {
-            //                     // alert("2");
-            //                     percentage = 0.09;
-            //                     fabric.Image.fromURL(inputImg, function (img) {
-            //                         img.scaleToWidth(img.width * percentage);
-            //                         img.scaleToHeight(img.height * percentage);
-
-            //                         can.add(img.set({
-            //                             left: 310,
-            //                             top: 150
-            //                         }));
-            //                     })
-            //                 }
-            //                 else {
-            //                     // alert("3");
-            //                     percentage = 0.1;
-            //                     fabric.Image.fromURL(inputImg, function (img) {
-            //                         img.scaleToWidth(img.width * percentage);
-            //                         img.scaleToHeight(img.height * percentage);
-
-            //                         can.add(img.set({
-            //                             left: 250,
-            //                             top: 180
-            //                         }));
-            //                     })
-            //                 }
-            //             } // end of img.onload
-            //             // 리스트에 캔버스 저장하기
-            //             canvasList.push(can);
-            //             console.log(i + "번째" + canvasList);
-            //             return canvasList;
-            //         }());
-            //     }
-            //     console.log(canvasList === null); // false
-            //     console.log(typeof (canvasList)); // object
-            
-
+            }); 
 
             // POST 메서드로 전송되는 [완료] 버튼 클릭 시 일어나는 동작
             $("#makeAlbum").click(function () {

@@ -43,7 +43,8 @@ public class SceneController {
         // List<Picture> pictures = pictureRepository.getPicturesAndWeather(Donga.builder().dongaid(dongaId).build());
         List<Picture> pictures =  mapService.getPictures(dongaId);
         List<PictureDTO> pictureDTOs = new ArrayList<>();
-
+        
+        log.info(pictures);
         Collections.sort(pictures);
         //가져온 pictures 길이만큼 dto를 생성해서 모델에 전달한다.
         pictures.stream().forEach(picture->{
@@ -71,7 +72,7 @@ public class SceneController {
         try {
             // InetAddress ip = InetAddress.getLocalHost();
             // String source_id = ip.getHostAddress();
-            String source_id = "http://http://192.168.0.73:8080/";
+            String source_id = "http://http://192.168.0.71:8080/";
 
 
             // jList 길이만큼 반복하며

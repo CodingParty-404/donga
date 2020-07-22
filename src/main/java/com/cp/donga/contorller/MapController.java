@@ -57,15 +57,15 @@ public class MapController {
     private DongaService dongaService;
 
 
-    private final String ROOT_PATH = "\\\\192.168.0.73\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
+    private final String ROOT_PATH = "\\\\192.168.0.71\\cpst\\was\\tomcat9\\webapps\\ROOT\\pictures\\";
     // private final String ROOT_PATH = "C:\\cp\\donga\\src\\main\\resources\\static\\pictures\\";
 
-    @GetMapping("/set2")
+    @GetMapping("/set")
     public String set(){
-        return "/map/set2";
+        return "/map/set";
     }
 
-    @PostMapping("/set2")
+    @PostMapping("/set")
     public String setPost(DongaDTO dongaDTO, MultipartFile[] upload, RedirectAttributes rttr){
 
         log.info(dongaDTO);
@@ -108,11 +108,11 @@ public class MapController {
         }
         
         rttr.addAttribute("dongaId", dongaId);
-        return "redirect:/map/gallery2";
+        return "redirect:/map/gallery";
     }
 
 
-    @GetMapping("/gallery2")
+    @GetMapping("/gallery")
     public String gallery(Long dongaId, Model model) {
         log.info("get gallery call...............");
         log.info("dongaID : "+dongaId);
@@ -180,10 +180,10 @@ public class MapController {
 
         model.addAttribute("pictureDTO", list);
         model.addAttribute("dongaId", dongaId);
-        return "/map/gallery2";
+        return "/map/gallery";
     }
 
-    @PostMapping("/gallery2")
+    @PostMapping("/gallery")
     public RedirectView postGallery(String[] filenames, Long dongaId, RedirectAttributes rttr) {
         log.info("post gallery called..................");
         log.info(dongaId);
@@ -277,10 +277,10 @@ public class MapController {
 
         rttr.addAttribute("dongaId",dongaId);
         // rttr.addAttribute("isMake","true");
-        return new RedirectView("/map/swiper2");
+        return new RedirectView("/map/swiper");
     }
 
-    @GetMapping("/swiper2")
+    @GetMapping("/swiper")
     public String swiper(Long dongaId, Model model) { // 파라미터로 dongaId를 받는다.
 
         log.info("swiper called....");
@@ -299,7 +299,7 @@ public class MapController {
         model.addAttribute("picturelist", list);
     
         model.addAttribute("dongaTitle",dongaService.getDongaTitle(dongaId));
-        return "/map/swiper2";
+        return "/map/swiper";
     }
 
     // 오늘자 폴더구조 문자열 반환

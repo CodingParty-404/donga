@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zxx">
+<html lang="zxx" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <!-- Required meta tags -->
@@ -207,19 +207,22 @@
                                     <a class="nav-link" href="/index">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/map/set2">내동가 만들기</a>
+                                    <a class="nav-link" href="/map/set">내동가 만들기</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/user/myinfo">내정보</a>
+                                    <a class="nav-link" href="/user/storage">내정보</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/faq/list">FAQ</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/user/signup">회원가입</a>
+                                    <a class="nav-link" href="/user/signup" sec:authorize="!hasRole('MEMBER')">회원가입</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" sec:authorize="!hasRole('MEMBER')">
                                     <a class="nav-link" href="/user/login">로그인</a>
+                                </li>
+                                <li class="nav-item" sec:authorize="hasRole('MEMBER')">
+                                    <a class="nav-link" href="/user/logout">로그아웃</a>
                                 </li>
                             </ul>
                         </div>

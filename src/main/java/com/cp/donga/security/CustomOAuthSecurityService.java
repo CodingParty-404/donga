@@ -14,14 +14,12 @@ import java.util.Optional;
 
 import com.cp.donga.domain.DongaMember;
 import com.cp.donga.repository.DongaMemberRepository;
-import com.cp.donga.repository.MemberRepository;
 
 @Service
 @Log4j2
 @RequiredArgsConstructor
 public class CustomOAuthSecurityService extends DefaultOAuth2UserService {
 
-    // private final SecurityMemberRepository memberRepository;
     private final DongaMemberRepository memberRepository;
 
     @Override

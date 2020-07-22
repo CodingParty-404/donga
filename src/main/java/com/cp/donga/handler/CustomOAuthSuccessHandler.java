@@ -29,8 +29,13 @@ public class CustomOAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 
             //이부분 왜 필요?
             CustomOAuth2User userInfo = (CustomOAuth2User)authentication.getPrincipal();
-            //?
+            log.info("userInfo................" + userInfo);
+            log.info("Credential:............. " + authentication.getCredentials());
+            log.info("Authorities:............. " + authentication.getAuthorities());
+            log.info("isAuthenticated:............. " + authentication.isAuthenticated());
+            
             if(userInfo.isCheckExist()){
+                
                 super.onAuthenticationSuccess(request,response,authentication);
                 return;
             }
@@ -38,7 +43,7 @@ public class CustomOAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHan
             response.sendRedirect("/user/signup?email="+userInfo.getEmail());
 
         }catch(Exception e){
-
+            log.info(e.getMessage());
         }
 
         super.onAuthenticationSuccess(request, response, authentication);
